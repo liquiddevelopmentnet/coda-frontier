@@ -6,20 +6,27 @@
 const child = require('child_process')
 const path = require('path')
 
+const scripts = [
+  ['generate_api_typings.py', 'Generate API typings', 'API typings generated'],
+  [
+    'generate_background_export.py',
+    'Generate background image references',
+    'Background image references generated',
+  ],
+]
+
 function activate(_context) {
-  picker('Generate API Typings', () => {
-    println(env.appRoot)
-    child.execSync(
-      'py ' +
-        path.join(
-          workspace.workspaceFolders[0].uri.fsPath,
-          'generate_api_typings.py'
-        ),
-      {
-        cwd: workspace.workspaceFolders[0].uri.fsPath,
-      }
-    )
-    window.showInformationMessage('API typings generated')
+  scripts.forEach(a => {
+    picker(a[1], () => {
+      println(env.appRoot)
+      child.execSync(
+        'py ' + path.join(workspace.workspaceFolders[0].uri.fsPath, a[0]),
+        {
+          cwd: workspace.workspaceFolders[0].uri.fsPath,
+        }
+      )
+      window.showInformationMessage(a[2])
+    })
   })
 }
 

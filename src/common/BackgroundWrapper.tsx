@@ -6,14 +6,12 @@
 import { useEffect, useState } from 'react'
 
 import CrossfadeImage from './CrossfadeImage'
-import a from '../assets/includedBackgrounds/a.png'
-import b from '../assets/includedBackgrounds/b.png'
-import c from '../assets/includedBackgrounds/c.png'
-
-const includedBackgrounds = [a, b, c]
+import includedBackgrounds from '../function/BackgroundImages'
 
 function BackgroundWrapper() {
-  const [imageIndex, setImageIndex] = useState(0)
+  const [imageIndex, setImageIndex] = useState(
+    Math.floor(Math.random() * includedBackgrounds.length)
+  )
 
   useEffect(() => {
     const itv = setInterval(() => {
