@@ -2,13 +2,13 @@ import React from 'react';
 
 import LogIn from './LogIn';
 
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import Taskbar from '../components/Taskbar';
 import { electronState } from '../recoil/atoms';
 import DesktopHeader from '../components/DesktopHeader';
 
 const Root = () => {
-  const [electron, setElectron] = useRecoilState(electronState);
+  const setElectron = useSetRecoilState(electronState);
 
   React.useEffect(() => {
     const isElectron = window.require !== undefined;

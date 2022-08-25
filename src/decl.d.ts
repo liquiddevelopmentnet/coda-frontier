@@ -11,8 +11,8 @@ declare module '*.svg';
 declare module 'react-crossfade-image';
 
 type ProvidedHostState = {
-    secure: boolean;
-    host: string;
-    suffix: string;
-    port: number | null;
-}
+  secure: boolean;
+  host: string;
+  suffix: string;
+  port: number | null;
+};
