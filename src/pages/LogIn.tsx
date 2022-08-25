@@ -51,14 +51,14 @@ function LogIn() {
               username: username.current?.value,
               password: password.current?.value,
             })
-              .then((res: any) => {
+              .then((res) => {
                 console.log(res);
               })
-              .catch((err: any) => {
-                console.log(err);
+              .catch((err) => {
+                setError(err.message);
               })
               .finally(() => {
-                console.log('finally');
+                // TODO: Finish login process
               });
           }}
         />
