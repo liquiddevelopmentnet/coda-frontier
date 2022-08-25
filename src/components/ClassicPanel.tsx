@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
 function ClassicPanel({
   error,
   children,
 }: {
-  error: any;
-  children: React.ReactNode;
+  error: any
+  children: React.ReactNode
 }) {
   return (
-    <div className="bg-white m-auto p-7 rounded-[4px] flex flex-col gap-4 items-center z-20 shadow-2xl">
+    <div className='bg-white m-auto p-7 rounded-[4px] flex flex-col gap-4 items-center z-20 shadow-2xl'>
       {children}
-      <p className="text-xs text-red-500">{error}</p>
+      <p className='text-xs text-red-500'>{error}</p>
     </div>
-  );
+  )
 }
 
-export default ClassicPanel;
+export default ClassicPanel

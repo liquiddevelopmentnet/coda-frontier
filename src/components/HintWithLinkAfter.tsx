@@ -3,18 +3,18 @@ function HintWithLinkAfter({
   linkText,
   link,
 }: {
-  hint: string;
-  linkText: string;
-  link: string;
+  hint: string
+  linkText: string
+  link: string
 }) {
   return (
-    <p className="text-sm">
+    <p className='text-sm'>
       {hint}{' '}
-      <span className="text-blue-500 cursor-pointer hover:text-blue-600">
+      <span className='text-blue-500 cursor-pointer hover:text-blue-600'>
         {linkText}
       </span>
     </p>
-  );
+  )
 }
 
-export default HintWithLinkAfter;
+export default HintWithLinkAfter

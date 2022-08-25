@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+var webpack = require('webpack')
 
 module.exports = {
   resolve: {
@@ -18,4 +18,4 @@ module.exports = {
       process: 'process/browser',
     }),
   ],
-};
+}

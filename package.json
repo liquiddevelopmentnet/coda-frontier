@@ -50,8 +50,10 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",
     "@types/axios": "^0.14.0",
+    "@types/rc-slider": "^9.3.1",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-howler": "^5.2.0",
+    "@types/react-icons": "^3.0.0",
     "@types/recoil": "^0.0.9",
     "autoprefixer": "^10.4.8",
     "postcss": "^8.4.14",

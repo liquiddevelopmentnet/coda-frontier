@@ -20,7 +20,7 @@ for entry in mappings:
 
 with open("./src/api.d.ts", "w") as f:
     f.write(f"// Automatically generated from {path}.\n\n")
-    f.write("type ApiNamespace = \"" + '\" | \"'.join(namespaces) + "\";\n")
-    f.write("type ApiKey = \"" + '\" | \"'.join(keys) + "\";\n")
+    f.write("type ApiNamespace = \'" + '\' | \''.join(namespaces) + "\'\n")
+    f.write("type ApiKey = \'" + '\' | \''.join(keys) + "\'\n")
 
 print(f"Generated typings for {path}")

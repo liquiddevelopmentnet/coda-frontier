@@ -1,5 +1,5 @@
-import axios from 'axios';
-import api from '../assets/api.json';
+import api from '../assets/api.json'
+import axios from 'axios'
 
 const ApiCall = (
   host: string,
@@ -9,10 +9,10 @@ const ApiCall = (
   urlParams: {} = {},
   headers: {} = {}
 ) => {
-  const [namespace, key] = endpoint;
+  const [namespace, key] = endpoint
 
-  const pathKey: string = namespace + '.' + key;
-  const url: string = host + (api as any)[pathKey];
+  const pathKey: string = namespace + '.' + key
+  const url: string = host + (api as any)[pathKey]
 
   const config = {
     method,
@@ -25,9 +25,9 @@ const ApiCall = (
     },
     data: body,
     params: urlParams,
-  };
+  }
 
-  return axios(config);
-};
+  return axios(config)
+}
 
-export default { ApiCall };
+export default { ApiCall }

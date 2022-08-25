@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
 export const electronState = atom<{ is: boolean; ipc: any }>({
   key: 'electronState',
@@ -6,7 +6,7 @@ export const electronState = atom<{ is: boolean; ipc: any }>({
     is: false,
     ipc: null,
   },
-});
+})
 
 export const hostState = atom<ProvidedHostState>({
   key: 'hostState',
@@ -16,4 +16,4 @@ export const hostState = atom<ProvidedHostState>({
     suffix: '',
     port: 8080,
   },
-});
+})

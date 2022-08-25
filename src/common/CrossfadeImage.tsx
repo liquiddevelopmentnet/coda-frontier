@@ -1,64 +1,64 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
 
 function CrossfadeImage({
   duration = 1000,
   src,
 }: {
-  duration: number;
-  src: string;
+  duration: number
+  src: string
 }) {
-  const [topSrc, setTopSrc] = React.useState<string>(src);
-  const [bottomSrc, setBottomSrc] = React.useState<string>(src);
+  const [topSrc, setTopSrc] = React.useState<string>(src)
+  const [bottomSrc, setBottomSrc] = React.useState<string>(src)
 
-  const top = useRef<HTMLImageElement>(null);
-  const bottom = useRef<HTMLImageElement>(null);
+  const top = useRef<HTMLImageElement>(null)
+  const bottom = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
-    let tosrc = src;
-    setBottomSrc(tosrc);
+    let tosrc = src
+    setBottomSrc(tosrc)
     const fadeOut = setInterval(() => {
       if (top.current) {
         top.current.style.opacity = (
           parseFloat(top.current.style.opacity) - 0.01
-        ).toString();
+        ).toString()
       }
       if (top.current && parseFloat(top.current.style.opacity) <= 0) {
-        clearInterval(fadeOut);
+        clearInterval(fadeOut)
         setTimeout(() => {
-          setTopSrc(tosrc);
+          setTopSrc(tosrc)
           if (top.current) {
-            top.current.style.opacity = '1';
+            top.current.style.opacity = '1'
           }
-          setBottomSrc(tosrc);
-        }, 50);
+          setBottomSrc(tosrc)
+        }, 50)
       }
-    }, duration / 50);
-  }, [src]);
+    }, duration / 50)
+  }, [src])
 
   return (
     <div
-      className="w-full h-full flex"
+      className='w-full h-full flex'
       style={{
         filter: 'blur(5px)',
         transform: 'scale(1.1)',
       }}
     >
       <img
-        className="w-full h-full absolute z-0"
+        className='w-full h-full absolute z-0'
         style={{ opacity: '1' }}
         src={bottomSrc}
         ref={bottom}
-        alt=""
+        alt=''
       />
       <img
-        className="w-full h-full absolute z-10"
+        className='w-full h-full absolute z-10'
         style={{ opacity: '1' }}
         src={topSrc}
         ref={top}
-        alt=""
+        alt=''
       />
     </div>
-  );
+  )
 }
 
-export default CrossfadeImage;
+export default CrossfadeImage

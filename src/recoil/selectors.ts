@@ -1,18 +1,17 @@
-import { selector } from 'recoil';
-
-import { hostState } from './atoms';
+import { hostState } from './atoms'
+import { selector } from 'recoil'
 
 export const hostUrlState = selector({
   key: 'hostUrlState',
   get: ({ get }) => {
-    const host: ProvidedHostState = get(hostState);
-    var hostString = '';
-    hostString += host.secure ? 'https' : 'http';
-    hostString += '://';
-    hostString += host.host;
-    hostString += host.port != null ? ':' + host.port : '';
-    hostString += '/';
-    hostString += host.suffix;
-    return hostString;
+    const host: ProvidedHostState = get(hostState)
+    var hostString = ''
+    hostString += host.secure ? 'https' : 'http'
+    hostString += '://'
+    hostString += host.host
+    hostString += host.port != null ? ':' + host.port : ''
+    hostString += '/'
+    hostString += host.suffix
+    return hostString
   },
-});
+})

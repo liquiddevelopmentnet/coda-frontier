@@ -1,42 +1,43 @@
-import { useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import logo from '../assets/images/logo.png';
-import BackgroundWrapper from '../common/BackgroundWrapper';
-import ClassicPanel from '../components/ClassicPanel';
-import CommonButton from '../components/CommonButton';
-import HintWithLinkAfter from '../components/HintWithLinkAfter';
-import ApiWrapper from '../function/ApiWrapper';
-import { hostUrlState } from '../recoil/selectors';
+import { useRef, useState } from 'react'
+
+import ApiWrapper from '../function/ApiWrapper'
+import BackgroundWrapper from '../common/BackgroundWrapper'
+import ClassicPanel from '../components/ClassicPanel'
+import CommonButton from '../components/CommonButton'
+import HintWithLinkAfter from '../components/HintWithLinkAfter'
+import { hostUrlState } from '../recoil/selectors'
+import logo from '../assets/images/logo.png'
+import { useRecoilValue } from 'recoil'
 
 function LogIn() {
-  const username = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
+  const username = useRef<HTMLInputElement>(null)
+  const password = useRef<HTMLInputElement>(null)
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
 
-  const host = useRecoilValue(hostUrlState);
+  const host = useRecoilValue(hostUrlState)
 
   return (
-    <div className="w-full h-full flex select-none font-mono">
+    <div className='w-full h-full flex select-none font-mono'>
       <BackgroundWrapper />
       <ClassicPanel error={error}>
-        <img src={logo} className="w-12 mb-4 my-auto" alt="logo" />
-        <div className="text-center">
-          <p className="text-black text-3xl font-bold mb-1">Log in</p>
-          <p className="text-gray-800 text-base mb-10">
+        <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />
+        <div className='text-center'>
+          <p className='text-black text-3xl font-bold mb-1'>Log in</p>
+          <p className='text-gray-800 text-base mb-10'>
             We're so glad to see you again!
           </p>
         </div>
         <input
-          className="w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500"
-          type="text"
-          placeholder="Username"
+          className='w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500'
+          type='text'
+          placeholder='Username'
           ref={username}
         />
         <input
-          className="w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500 mb-12"
-          type="password"
-          placeholder="Password"
+          className='w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500 mb-12'
+          type='password'
+          placeholder='Password'
           ref={password}
         />
         {/*<ReCAPTCHA
@@ -44,32 +45,32 @@ function LogIn() {
               onChange={onChange}
             />*/}
         <CommonButton
-          type="primary"
-          label="Log in"
+          type='primary'
+          label='Log in'
           onClick={() => {
             ApiWrapper.ApiCall(host, ['Gateway', 'LogIn'], 'POST', {
               username: username.current?.value,
               password: password.current?.value,
             })
-              .then((res) => {
-                console.log(res);
+              .then(res => {
+                console.log(res)
               })
-              .catch((err) => {
-                setError(err.message);
+              .catch(err => {
+                setError(err.message)
               })
               .finally(() => {
                 // TODO: Finish login process
-              });
+              })
           }}
         />
         <HintWithLinkAfter
-          hint="No account?"
-          linkText="Sign up"
-          link="/signup"
+          hint='No account?'
+          linkText='Sign up'
+          link='/signup'
         />
       </ClassicPanel>
     </div>
-  );
+  )
 }
 
-export default LogIn;
+export default LogIn
