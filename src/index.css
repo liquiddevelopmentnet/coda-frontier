@@ -1,13 +1,29 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  overflow: hidden;
+  @apply jetbrains-regular;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'JetBrains Mono Regular';
+  src: url('./assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+.jetbrains-regular {
+  font-family: 'JetBrains Mono Regular';
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.drag-region-reserve {
+  -webkit-app-region: no-drag;
+}
+
+.mb-full {
+  margin-bottom: 100%;
 }

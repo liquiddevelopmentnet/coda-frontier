@@ -1,0 +1,6 @@
+{
+    "Gateway.SignUp": "gateway/signup",
+    "Gateway.LogIn": "gateway/login",
+    "Gateway.Validate": "gateway/valid",
+    "Gateway.User": "gateway/user/{0}"
+}
