@@ -5,14 +5,12 @@
 
 import { useRef, useState } from 'react'
 
-import ApiWrapper from '../function/ApiWrapper'
 import BackgroundWrapper from '../common/BackgroundWrapper'
 import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
-import { hostUrlState } from '../recoil/selectors'
 import logo from '../assets/images/logo.png'
-import { useRecoilValue } from 'recoil'
+import { useApi } from '../function/ApiWrapper'
 import { useTranslations } from '../i18n/i18n'
 
 function LogIn() {
@@ -23,7 +21,7 @@ function LogIn() {
 
   const [error, setError] = useState('')
 
-  const host = useRecoilValue(hostUrlState)
+  const api = useApi()
 
   return (
     <div className='w-full h-full flex select-none font-mono'>
@@ -56,10 +54,11 @@ function LogIn() {
           type='primary'
           label={t('LogIn.SubmitButton')}
           onClick={() => {
-            ApiWrapper.ApiCall(host, ['Gateway', 'LogIn'], 'POST', {
-              username: username.current?.value,
-              password: password.current?.value,
-            })
+            api
+              .make(['Gateway', 'LogIn'], 'POST', {
+                username: username.current?.value,
+                password: password.current?.value,
+              })
               .then(res => {
                 console.log(res)
               })

@@ -3,8 +3,12 @@
  * All rights reserved.
  */
 
+import axios, { AxiosPromise } from 'axios'
+
 import api from '../assets/api.json'
-import axios from 'axios'
+import { hostUrlState } from '../recoil/selectors'
+import { useRecoilValue } from 'recoil'
+import { useState } from 'react'
 
 const ApiCall = (
   host: string,
@@ -35,4 +39,28 @@ const ApiCall = (
   return axios(config)
 }
 
-export default { ApiCall }
+export function useApi() {
+  const host = useRecoilValue(hostUrlState)
+
+  const [functionProvider, setFunctionProvider] = useState<{
+    make: (
+      endpoint: [ApiNamespace, ApiKey],
+      method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
+      body: {},
+      urlParams?: {},
+      headers?: {}
+    ) => AxiosPromise<any>
+  }>({
+    make: (
+      endpoint: [ApiNamespace, ApiKey],
+      method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
+      body: {},
+      urlParams: {} = {},
+      headers: {} = {}
+    ): AxiosPromise<any> => {
+      return ApiCall(host, endpoint, method, body, urlParams, headers)
+    },
+  })
+
+  return functionProvider
+}
