@@ -13,8 +13,11 @@ import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import { hostUrlState } from '../recoil/selectors'
 import logo from '../assets/images/logo.png'
 import { useRecoilValue } from 'recoil'
+import { useTranslations } from '../i18n/i18n'
 
 function LogIn() {
+  const t = useTranslations().t
+
   const username = useRef<HTMLInputElement>(null)
   const password = useRef<HTMLInputElement>(null)
 
@@ -28,21 +31,21 @@ function LogIn() {
       <ClassicPanel error={error}>
         <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />
         <div className='text-center'>
-          <p className='text-black text-3xl font-bold mb-1'>Log in</p>
-          <p className='text-gray-800 text-base mb-10'>
-            We're so glad to see you again!
+          <p className='text-black text-3xl font-bold mb-1'>
+            {t('LogIn.Title')}
           </p>
+          <p className='text-gray-800 text-base mb-10'>{t('LogIn.Subtitle')}</p>
         </div>
         <input
           className='w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500'
           type='text'
-          placeholder='Username'
+          placeholder={t('LogIn.Username')}
           ref={username}
         />
         <input
           className='w-[400px] transition-colors duration-200 p-2 border-b-2 border-gray-300 focus:outline-none focus:border-pink-500 mb-12'
           type='password'
-          placeholder='Password'
+          placeholder={t('LogIn.Password')}
           ref={password}
         />
         {/*<ReCAPTCHA
@@ -51,7 +54,7 @@ function LogIn() {
             />*/}
         <CommonButton
           type='primary'
-          label='Log in'
+          label={t('LogIn.SubmitButton')}
           onClick={() => {
             ApiWrapper.ApiCall(host, ['Gateway', 'LogIn'], 'POST', {
               username: username.current?.value,
@@ -69,8 +72,8 @@ function LogIn() {
           }}
         />
         <HintWithLinkAfter
-          hint='No account?'
-          linkText='Sign up'
+          hint={t('LogIn.Hint')}
+          linkText={t('LogIn.HintLink')}
           link='/signup'
         />
       </ClassicPanel>

@@ -25,6 +25,7 @@ import downtownNewYork from '../assets/soundtrack/downtown-newyork.mp3'
 import justAnotherBeautiful from '../assets/soundtrack/just-another-beautiful.mp3'
 import ostCoconutBeach from '../assets/soundtrack/coconut-beach.mp3'
 import ostSx from '../assets/soundtrack/sx.mp3'
+import { useTranslations } from '../i18n/i18n'
 
 const soundtracks = [
   {
@@ -50,6 +51,8 @@ const soundtracks = [
 ]
 
 function Taskbar() {
+  const t = useTranslations().t
+
   const [currentSoundtrack, setCurrentSoundtrack] = React.useState<{
     name: string
     src: string | string[]
@@ -143,8 +146,11 @@ function Taskbar() {
             </div>
           </div>
           <p className='text-white my-auto text-sm'>
-            {isPlaying ? 'Now Playing' : 'Paused'}:{' '}
-            <span className='font-bold'>{currentSoundtrack.name}</span> by{' '}
+            {isPlaying
+              ? t('Taskbar.Music.NowPlaying')
+              : t('Taskbar.Music.Paused')}
+            : <span className='font-bold'>{currentSoundtrack.name}</span>
+            {` ${t('Taskbar.Music.By')} `}
             <span className='font-bold'>{currentSoundtrack.artist}</span>
           </p>
         </div>

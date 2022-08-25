@@ -5,15 +5,20 @@
 
 import { electronState } from '../recoil/atoms'
 import { useRecoilValue } from 'recoil'
+import { useTranslations } from '../i18n/i18n'
 
 function DesktopHeader() {
+  const t = useTranslations().t
+
   const electron = useRecoilValue(electronState)
 
   return (
     <>
       {electron.is && (
         <div className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between'>
-          <p className='text-white font-mono text-xs ml-2 my-auto'>coda</p>
+          <p className='text-white font-mono text-xs ml-2 my-auto'>
+            {t('Header.AppName')}
+          </p>
           <div className='flex h-full drag-region-reserve'>
             <div
               onClick={() => {

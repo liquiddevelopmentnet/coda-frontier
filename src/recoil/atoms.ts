@@ -22,3 +22,8 @@ export const hostState = atom<ProvidedHostState>({
     port: 8080,
   },
 })
+
+export const languageState = atom<string>({
+  key: 'languageState',
+  default: 'en',
+})

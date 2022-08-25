@@ -1,0 +1,15 @@
+{
+  "Header.AppName": "coda",
+
+  "Taskbar.Music.NowPlaying": "Now Playing",
+  "Taskbar.Music.Paused": "Paused",
+  "Taskbar.Music.By": "by",
+
+  "LogIn.Title": "Log In",
+  "LogIn.Subtitle": "We're so glad to see you again!",
+  "LogIn.Username": "Username",
+  "LogIn.Password": "Password",
+  "LogIn.SubmitButton": "Log In",
+  "LogIn.Hint": "No account?",
+  "LogIn.HintLink": "Sign Up"
+}
