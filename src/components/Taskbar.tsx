@@ -25,6 +25,7 @@ import downtownNewYork from '../assets/soundtrack/downtown-newyork.mp3'
 import justAnotherBeautiful from '../assets/soundtrack/just-another-beautiful.mp3'
 import ostCoconutBeach from '../assets/soundtrack/coconut-beach.mp3'
 import ostSx from '../assets/soundtrack/sx.mp3'
+import { useLinkOpener } from '../function/LinkOpener'
 import { useTranslations } from '../i18n/i18n'
 
 const soundtracks = [
@@ -52,6 +53,7 @@ const soundtracks = [
 
 function Taskbar() {
   const t = useTranslations().t
+  const linkOpener = useLinkOpener()
 
   const [currentSoundtrack, setCurrentSoundtrack] = React.useState<{
     name: string
@@ -166,6 +168,10 @@ function Taskbar() {
             height='11'
             viewBox='0 0 71 55'
             fill='none'
+            className='my-auto cursor-pointer hover:opacity-80'
+            onClick={() => {
+              linkOpener.open('https://discord.gg/KvVJ2PJsjj')
+            }}
           >
             <g clipPath='url(#clip0)'>
               <path
