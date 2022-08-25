@@ -16,5 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/decl.d.ts", "src/api.d.ts"]
+  "include": ["src", "src/decl.d.ts", "src/api.d.ts"],
+  "typeRoots": ["node_modules/@types"]
 }

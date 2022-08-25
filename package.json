@@ -50,6 +50,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",
     "@types/axios": "^0.14.0",
+    "@types/babel__core": "^7.1.19",
     "@types/rc-slider": "^9.3.1",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-howler": "^5.2.0",
