@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import { hostState } from './atoms'
 import { selector } from 'recoil'
 

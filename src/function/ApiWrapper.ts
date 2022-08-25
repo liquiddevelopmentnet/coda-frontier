@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import api from '../assets/api.json'
 import axios from 'axios'
 

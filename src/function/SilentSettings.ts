@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import base64url from 'base64url'
 
 const init = () => {

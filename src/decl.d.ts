@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 declare module '*.png'
 declare module '*.jpg'
 declare module '*.jpeg'

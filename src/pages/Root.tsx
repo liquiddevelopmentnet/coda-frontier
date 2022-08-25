@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import DesktopHeader from '../components/DesktopHeader'
 import LogIn from './LogIn'
 import React from 'react'

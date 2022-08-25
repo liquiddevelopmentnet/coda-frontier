@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import React, { useEffect, useRef } from 'react'
 
 function CrossfadeImage({

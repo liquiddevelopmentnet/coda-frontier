@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 // EXPERIMENTAL: This is a new feature that is not yet available in a stable release.
 function Banned() {
   return (

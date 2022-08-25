@@ -1,0 +1,18 @@
+{
+  "fileHeaderComment.parameter": {
+    "*": {
+      "commentbegin": "/*",
+      "commentprefix": " *",
+      "commentend": " */",
+      "company": "Project Coda, LLC"
+    }
+  },
+  "fileHeaderComment.template": {
+    "*": [
+      "${commentbegin}",
+      "${commentprefix} Copyright ${company}, ${year}.",
+      "${commentprefix} All rights reserved.",
+      "${commentend}"
+    ]
+  }
+}
