@@ -6,9 +6,9 @@
 import { useEffect, useState } from 'react'
 
 import CrossfadeImage from './CrossfadeImage'
-import a from '../../assets/includedBackgrounds/a.png'
-import b from '../../assets/includedBackgrounds/b.png'
-import c from '../../assets/includedBackgrounds/c.png'
+import a from '../assets/includedBackgrounds/a.png'
+import b from '../assets/includedBackgrounds/b.png'
+import c from '../assets/includedBackgrounds/c.png'
 
 const includedBackgrounds = [a, b, c]
 

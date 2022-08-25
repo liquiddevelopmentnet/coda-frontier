@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-import api from '../data/api.json'
+import api from '../assets/api.json'
 import axios from 'axios'
 
 const ApiCall = (

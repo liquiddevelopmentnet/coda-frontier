@@ -14,7 +14,7 @@
 
 @font-face {
   font-family: 'JetBrains Mono Regular';
-  src: url('../assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  src: url('./assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
 }
 
 .jetbrains-regular {

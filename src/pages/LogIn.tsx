@@ -11,7 +11,7 @@ import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import { hostUrlState } from '../recoil/selectors'
-import logo from '../../assets/images/logo.png'
+import logo from '../assets/images/logo.png'
 import { useRecoilValue } from 'recoil'
 
 function LogIn() {

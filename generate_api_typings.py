@@ -1,6 +1,6 @@
 import json
 
-path = "src/data/api.json"
+path = "src/assets/api.json"
 
 mappings: dict[str, str] = json.load(open(path))
 
@@ -18,7 +18,7 @@ for entry in mappings:
 
     keys.append(key)
 
-with open("src/api.d.ts", "w") as f:
+with open("./src/api.d.ts", "w") as f:
     f.write("/*\n* Copyright Project Coda, LLC, 2022.\n* All rights reserved.\n*/\n\n")
     f.write(f"// Automatically generated from {path}.\n\n")
     f.write("type ApiNamespace = \'" + '\' | \''.join(namespaces) + "\'\n")

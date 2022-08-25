@@ -4,7 +4,7 @@
  */
 
 import './index.css'
-import '../assets/thirdParty/devtools'
+import './assets/thirdParty/devtools'
 
 import ReactDOM from 'react-dom/client'
 import { RecoilRoot } from 'recoil'
