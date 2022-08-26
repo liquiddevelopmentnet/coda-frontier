@@ -15,17 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: install
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
           
-      - name: build react
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: build-react
-      
-      - name: build electron
+
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: build
