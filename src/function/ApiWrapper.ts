@@ -3,9 +3,8 @@
  * All rights reserved.
  */
 
-import axios, { AxiosPromise } from 'axios'
-
-import api from '../assets/api.json'
+import api from '../data/api.json'
+import axios from 'axios'
 import { hostUrlState } from '../recoil/selectors'
 import { useRecoilValue } from 'recoil'
 import { useState } from 'react'
