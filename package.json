@@ -1,7 +1,11 @@
 {
-  "name": "frontend-react",
+  "name": "coda",
+  "main": "src/electron.js",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
+  "author": "liquiddevelopmentnet",
+  "description": "A speed programming game where you have to solve problems to try and eliminate other people.",
   "dependencies": {
     "@animxyz/react": "^0.6.7",
     "@testing-library/jest-dom": "^5.16.5",
@@ -10,6 +14,8 @@
     "axios": "^0.27.2",
     "base64url": "^3.0.1",
     "buffer": "^6.0.3",
+    "electron-compile": "^6.4.4",
+    "electron-is-dev": "^2.0.0",
     "process": "^0.11.10",
     "rc-slider": "^10.0.1",
     "react": "^18.2.0",
@@ -24,7 +30,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "dev": "nf start",
+    "devwps": "react-app-rewired start",
+    "devdes": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
@@ -49,6 +57,8 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.65",
     "@types/axios": "^0.14.0",
     "@types/babel__core": "^7.1.19",
     "@types/rc-slider": "^9.3.1",
@@ -57,6 +67,11 @@
     "@types/react-icons": "^3.0.0",
     "@types/recoil": "^0.0.9",
     "autoprefixer": "^10.4.8",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-prebuilt-compile": "8.2.0",
+    "foreman": "^3.0.1",
     "postcss": "^8.4.14",
     "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.1.7",
