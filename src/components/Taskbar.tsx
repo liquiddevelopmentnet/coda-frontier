@@ -146,7 +146,7 @@ function Taskbar() {
               />
             </div>
           </div>
-          <p className='text-white my-auto text-sm'>
+          <p className='text-white my-auto text-xs'>
             {isPlaying
               ? t('Taskbar.Music.NowPlaying')
               : t('Taskbar.Music.Paused')}
