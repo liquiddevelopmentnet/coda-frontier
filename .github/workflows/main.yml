@@ -22,7 +22,3 @@ jobs:
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: build-react
-
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: build
