@@ -11,6 +11,12 @@
 /build
 /out
 
+# app
+/app/node_modules
+/app/yarn.lock
+/app/build
+/app/out
+
 # misc
 .DS_Store
 .env.local
