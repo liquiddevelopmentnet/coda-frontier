@@ -2,5 +2,8 @@
   "rules": {
     "@typescript-eslint/ban-ts-comment": "off"
   },
-  "parser": "@babel/eslint-parser"
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  }
 }
