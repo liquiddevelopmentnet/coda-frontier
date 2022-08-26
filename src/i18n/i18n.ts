@@ -21,6 +21,9 @@ export function useTranslations() {
         translation = require(`./language/${settings['defaultLanguage']}.json`)[
           key
         ]
+        if (translation === undefined) {
+          translation = key
+        }
       }
       return translation
     },

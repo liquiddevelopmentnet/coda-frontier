@@ -5,6 +5,17 @@
 
 import { atom } from 'recoil'
 
+export const tokenState = atom<{
+  refresh: string | null
+  access: string | null
+}>({
+  key: 'tokenState',
+  default: {
+    refresh: null,
+    access: null,
+  },
+})
+
 export const electronState = atom<{ is: boolean; ipc: any }>({
   key: 'electronState',
   default: {

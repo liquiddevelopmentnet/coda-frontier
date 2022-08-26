@@ -5,6 +5,8 @@
   "Taskbar.Music.Paused": "Paused",
   "Taskbar.Music.By": "by",
 
+  "General.FormFieldEmptyError": "Field is required",
+
   "LogIn.Title": "Log In",
   "LogIn.Subtitle": "We're so glad to see you again!",
   "LogIn.Username": "Username",

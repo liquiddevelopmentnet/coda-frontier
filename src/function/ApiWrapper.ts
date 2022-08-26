@@ -15,28 +15,68 @@ const ApiCall = (
   endpoint: [ApiNamespace, ApiKey],
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
   body: {},
+  errCallback: (err: any) => void,
   urlParams: {} = {},
   headers: {} = {}
 ) => {
-  const [namespace, key] = endpoint
+  return new Promise<ApiResponse>((resolve, reject) => {
+    const [namespace, key] = endpoint
 
-  const pathKey: string = namespace + '.' + key
-  const url: string = host + (api as any)[pathKey]
+    const pathKey: string = namespace + '.' + key
+    const url: string = host + (api as any)[pathKey]
 
-  const config = {
-    method,
-    url,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      ...headers,
-    },
-    data: body,
-    params: urlParams,
-  }
+    const config = {
+      method,
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        ...headers,
+      },
+      data: body,
+      params: urlParams,
+    }
 
-  return axios(config)
+    axios(config)
+      .then(res => {
+        resolve({
+          error: false,
+          errorMessage: null,
+          statusCode: res.status,
+          data: res.data,
+        })
+      })
+      .catch(function (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message &&
+          error.response.status
+        ) {
+          resolve({
+            error: true,
+            errorMessage: error.response.data.message,
+            statusCode: error.response.status,
+            data: error.response.data,
+          })
+        } else if (error.request) {
+          resolve({
+            error: true,
+            errorMessage: 'No response from sever. Try again later.',
+            statusCode: 0,
+            data: null,
+          })
+        } else {
+          resolve({
+            error: true,
+            errorMessage: error.message,
+            statusCode: 0,
+            data: null,
+          })
+        }
+      })
+  })
 }
 
 export function useApi() {
@@ -47,20 +87,37 @@ export function useApi() {
       endpoint: [ApiNamespace, ApiKey],
       method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
       body: {},
+      errCallback: (err: any) => void,
       urlParams?: {},
       headers?: {}
-    ) => AxiosPromise<any>
+    ) => Promise<ApiResponse>
   }>({
     make: (
-      endpoint: [ApiNamespace, ApiKey],
-      method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
-      body: {},
-      urlParams: {} = {},
-      headers: {} = {}
-    ): AxiosPromise<any> => {
-      return ApiCall(host, endpoint, method, body, urlParams, headers)
+      endpoint,
+      method,
+      body,
+      errCallback,
+      urlParams = {},
+      headers = {}
+    ): Promise<ApiResponse> => {
+      return ApiCall(
+        host,
+        endpoint,
+        method,
+        body,
+        errCallback,
+        urlParams,
+        headers
+      )
     },
   })
 
   return functionProvider
+}
+
+type ApiResponse = {
+  error: boolean
+  errorMessage: string | null
+  statusCode: number
+  data: any | null
 }

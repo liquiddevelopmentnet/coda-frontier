@@ -9,5 +9,6 @@
   "LogIn.Password": "Passwort",
   "LogIn.SubmitButton": "Einloggen",
   "LogIn.Hint": "Noch kein Account?",
-  "LogIn.HintLink": "Registrierung"
+  "LogIn.HintLink": "Registrierung",
+  "General.FormFieldEmptyError": "Feld ist erforderlich"
 }
