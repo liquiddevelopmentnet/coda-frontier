@@ -23,6 +23,11 @@ function CrossfadeImage({
     setBottomSrc(tosrc)
     const fadeOut = setInterval(() => {
       if (top.current) {
+        if (
+          bottom.current &&
+          (!bottom.current.complete || bottom.current.naturalHeight === 0)
+        )
+          return
         top.current.style.opacity = (
           parseFloat(top.current.style.opacity) - 0.01
         ).toString()
