@@ -49,7 +49,7 @@ function CrossfadeImage({
     <div
       className='w-full h-full flex'
       style={{
-        filter: 'blur(4px)',
+        filter: 'blur(3px)',
         transform: 'scale(1.05)',
       }}
     >
