@@ -3,6 +3,7 @@ const path = require('path')
 const url = require('url')
 const isDev = require('electron-is-dev')
 let ipc = ipcMain
+var mainWindow
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
@@ -14,6 +15,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      webSecurity: false,
     },
     frame: false,
     show: false,
@@ -45,7 +47,7 @@ const createWindow = () => {
   const startUrl =
     process.env.ELECTRON_START_URL ||
     url.format({
-      pathname: path.join(__dirname, '/../build/index.html'),
+      pathname: path.join(__dirname, '/build/index.html'),
       protocol: 'file:',
       slashes: true,
     })
@@ -62,21 +64,6 @@ const createWindow = () => {
 }
 
 app.on('ready', () => {
-  if (!isDev) {
-    protocol.interceptFileProtocol(
-      'file',
-      (request, callback) => {
-        console.log(request.url)
-        const url = request.url.replace('file:///', '').replace('file://', '')
-        console.log(url)
-        console.log(path.normalize(`${url}`))
-        callback({ path: path.normalize(`${__dirname}/${url}`) })
-      },
-      err => {
-        if (err) console.error('Failed to register protocol')
-      }
-    )
-  }
   createWindow()
 })
 

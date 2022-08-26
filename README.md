@@ -12,17 +12,13 @@ Do **NOT** push any code in here, unless specified otherwise by [liquiddevelopme
 
 `yarn dev` starts both, the webpack development server and electron
 
-`yarn devwps` starts only the webpack development server
-
-`yarn devdes` starts only electron
-
-`yarn make(-[linux, mac])` builds the application
+`yarn build` builds the application
 
 `translate` start the i18n wizard
 
 <br>
 
-## Scripts
+## Manual Scripts
 
 `generate_api_typings.py` generates the corresponding typings for the [api.json](src/assets/api.json) file
 

@@ -14,7 +14,7 @@ const tryConnection = () =>
       startedElectron = true
       const exec = require('child_process').exec
       exec(
-        `set ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && electron .`
+        `cd app && set ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && electron .`
       )
     }
   })
