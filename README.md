@@ -20,6 +20,6 @@ Do **NOT** push any code in here, unless specified otherwise by [liquiddevelopme
 
 ## Manual Scripts
 
-`generate_api_typings.py` generates the corresponding typings for the [api.json](src/assets/api.json) file
+`generate_api_typings.py` generates the corresponding typings for the [api.json](src/data/api.json) file
 
 `generate_background_export.py` generates a file where the backgrounds can be imported from
