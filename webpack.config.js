@@ -9,8 +9,7 @@ module.exports = {
     },
   },
   plugins: [
-    // Work around for Buffer is undefined:
-    // https://github.com/webpack/changelog-v5/issues/10
+    // Work around for Buffer is undefined (see https://github.com/webpack/changelog-v5/issues/10)
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
