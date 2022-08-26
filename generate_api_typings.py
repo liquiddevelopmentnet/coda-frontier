@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-path = "src/assets/api.json"
+path = "src/data/api.json"
 
 mappings: dict[str, str] = json.load(open(path))
 
