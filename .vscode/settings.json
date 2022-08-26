@@ -14,19 +14,5 @@
       "${commentprefix} All rights reserved.",
       "${commentend}"
     ]
-  },
-  "favorites.resources": [
-    {
-      "filePath": ".idea",
-      "group": "Default"
-    },
-    {
-      "filePath": ".vscode",
-      "group": "Default"
-    },
-    {
-      "filePath": "node_modules",
-      "group": "Default"
-    }
-  ]
+  }
 }

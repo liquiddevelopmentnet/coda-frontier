@@ -19,7 +19,7 @@ const createWindow = () => {
     },
     frame: false,
     show: false,
-    resizable: false,
+    resizable: true,
   })
 
   ipc.on('window_close', (event, arg) => {

@@ -100,7 +100,6 @@ function Taskbar() {
       />
       <div className='h-[30px] fixed bottom-0 w-screen bg-slate-800 flex justify-between px-3 gap-2 z-20'>
         <div className='h-full flex items-center gap-1'>
-          <Divider />
           <BsMusicNoteBeamed color='white' className='my-auto mr-1' />
           <div className='flex mr-3 ml-2'>
             {isPlaying ? (
@@ -194,7 +193,7 @@ function Taskbar() {
 }
 
 const Divider = () => {
-  return <div className='w-[1px] h-[15px] my-auto ml-1 mr-2 bg-slate-700' />
+  return <div className='w-[1px] h-[15px] my-auto ml-4 mr-4 bg-slate-700' />
 }
 
 export default Taskbar

@@ -41,7 +41,7 @@ function LogIn() {
           <p className='text-black text-3xl font-bold mb-1'>
             {t('LogIn.Title')}
           </p>
-          <p className='text-gray-800 text-base mb-10'>{t('LogIn.Subtitle')}</p>
+          <p className='text-gray-800 text-base mb-12'>{t('LogIn.Subtitle')}</p>
         </div>
         <CommonInput
           type='text'
@@ -52,6 +52,7 @@ function LogIn() {
             setUsernameError('')
           }}
         />
+        <div className='mb-5' />
         <CommonInput
           type='password'
           placeholder={t('LogIn.Password')}
@@ -61,7 +62,7 @@ function LogIn() {
             setPasswordError('')
           }}
         />
-        <div className='mb-12' />
+        <div className='mb-16' />
         {/*<ReCAPTCHA
               sitekey="6LeJm2ghAAAAABTf-6uB-MAv7CDoX6v2KIZSFH4Z"
               onChange={onChange}
@@ -111,6 +112,7 @@ function LogIn() {
               })
           }}
         />
+        <div className='mb-6' />
         <HintWithLinkAfter
           hint={t('LogIn.Hint')}
           linkText={t('LogIn.HintLink')}
