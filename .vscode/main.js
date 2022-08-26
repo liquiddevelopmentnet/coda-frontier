@@ -20,7 +20,8 @@ function activate(_context) {
     picker(a[1], () => {
       println(env.appRoot)
       child.execSync(
-        'py ' + path.join(workspace.workspaceFolders[0].uri.fsPath, a[0]),
+        'py ' +
+          path.join(workspace.workspaceFolders[0].uri.fsPath, 'scripts', a[0]),
         {
           cwd: workspace.workspaceFolders[0].uri.fsPath,
         }
