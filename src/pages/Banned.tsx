@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-// EXPERIMENTAL: This is a new feature that is not yet available in a stable release.
+// DEPRECATED: This may be replaced by a more robust solution soon(tm).
 function Banned() {
   return (
     <div className='w-full h-full bg-gradient-to-br from-red-500 to-pink-500 flex select-none font-mono'>
