@@ -3,14 +3,8 @@ const fs = require('fs')
 const process = require('process')
 
 const providedStage = process.argv[2]
-if (!providedStage == 'devtest') {
-  const validStages = [
-    'coda-indev',
-    'coda-infdev',
-    'coda-alpha',
-    'coda-beta',
-    'coda-release',
-  ]
+if (!providedStage == 'dev') {
+  const validStages = ['indev', 'infdev', 'alpha', 'beta', 'production']
 
   console.log('')
 
@@ -45,7 +39,7 @@ if (!providedStage == 'devtest') {
     stage: providedStage,
   }
 
-  const verString = `${versionData.stage} ${versionData.id} (${versionData.rev})`
+  const verString = `coda: (${versionData.stage}) ${versionData.id} (${versionData.rev})`
 
   console.log(`i | Building version ${verString})`)
 
@@ -83,14 +77,14 @@ fs.renameSync('./app/out', './build')
 fs.renameSync('./app/build', './build/browser')
 console.log('i | cleaning up')
 
-if (!providedStage == 'devtest') {
+if (!providedStage == 'dev') {
   fs.writeFileSync(
     './src/data/version.json',
     JSON.stringify(
       {
         id: 'xxxxxx.0',
         rev: 'xxxxxxx',
-        stage: 'indev',
+        stage: 'development',
       },
       null,
       2

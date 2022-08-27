@@ -12,7 +12,7 @@ import Root from './pages/Root'
 import SilentSettings from './function/SilentSettings'
 import version from './data/version.json'
 
-console.log(`${version.stage} ${version.id} (${version.rev})`)
+console.log(`coda: (${version.stage}) ${version.id} (${version.rev})`)
 
 window.addEventListener('devtoolschange', (event: any) => {
   const open: boolean = event.detail.isOpen
