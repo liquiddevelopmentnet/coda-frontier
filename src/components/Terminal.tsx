@@ -1,6 +1,23 @@
 import { useEffect, useState } from 'react'
 
-function Terminal() {
+type ObjStep = {
+  type: 'prompt' | 'eprompt' | 'type' | 'password' | 'clear'
+  payload?: string
+  collectionId?: string
+  cb?: (value: string, print: (msg: string) => void) => boolean
+}
+
+type Step = string | number | ObjStep
+
+function Terminal({
+  cycle,
+  callback,
+  promptText,
+}: {
+  cycle: Step[]
+  callback: (data: any) => void
+  promptText: string
+}) {
   const [nodes, setNodes] = useState<any>([])
   const [input, setInput] = useState<string>('')
   const [inputVisible, setInputVisible] = useState(false)
@@ -8,64 +25,7 @@ function Terminal() {
 
   var finalData: { [key: string]: string } = {}
 
-  const prmt = (
-    question: string,
-    id: string
-  ): { type: 'prompt'; payload: string; collectionId: string } => {
-    return { type: 'prompt', payload: question, collectionId: id }
-  }
-
-  const type = (text: string): { type: 'type'; payload: string } => {
-    return { type: 'type', payload: text }
-  }
-
-  const clear = (): { type: 'clear' } => {
-    return { type: 'clear' }
-  }
-
-  const cycle: (
-    | string
-    | number
-    | {
-        type: 'prompt' | 'type' | 'password' | 'clear'
-        payload?: string
-        collectionId?: string
-      }
-  )[] = [
-    type('Coda Host [Version 10.0.19044.1889]'),
-    type('(c) Project Coda, LLC. All rights reserved.'),
-    type(''),
-    type('Welcome to the sign up wizard.'),
-    type(''),
-    prmt('Please enter your full name: ', 'name'),
-    prmt('Please enter your email address: ', 'email'),
-    prmt('Please enter your new password: ', 'password'),
-    prmt('Please confirm your new password: ', 'passwordRepeat'),
-    type(''),
-    type('Injecting databases... 25%'),
-    1000,
-    type('Injecting databases... 75%'),
-    1000,
-    type('Injecting databases... done.'),
-    type(''),
-    type('Creating user...'),
-    1000,
-    type('Creating user... done.'),
-    type(''),
-    type('Creating session...'),
-    1000,
-    type('Creating session... done.'),
-    3000,
-    clear(),
-    100,
-    type('Welcome to Project Coda!'),
-  ]
-
-  const wait = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
-  const type_Process = async (step: any) => {
+  const type_Process = async (step: ObjStep) => {
     if (step.type == 'clear') {
       setNodes([])
       return
@@ -74,28 +34,40 @@ function Terminal() {
       return new Promise(resolve => {
         setNodes((nodes: any) => [
           ...nodes,
-          <Typed text={step.payload} finishCb={resolve} />,
+          <Typed text={step.payload!} finishCb={resolve} />,
         ])
       })
     }
-    if (step.type == 'prompt') {
+    if (step.type == 'prompt' || step.type == 'eprompt') {
       return new Promise<void>(resolve => {
         setNodes((nodes: any) => [
           ...nodes,
           <Typed
-            text={step.payload}
+            text={step.payload!}
             finishCb={() => {
               setInputVisible(true)
               setInputCallback({
                 cb: (data: any) => {
-                  console.log(step.collectionId + ' > ' + data)
                   setNodes((nodes: any) => [
                     ...nodes,
-                    <p className='font-mono text-base'>coda:~ $ {data}</p>,
+                    <p className='font-mono text-base'>
+                      {promptText} {data}
+                    </p>,
                     '‎',
                   ])
-                  finalData[step.collectionId] = data
-                  resolve()
+                  if (
+                    step.type == 'eprompt' &&
+                    step.cb &&
+                    step.cb(data, (msg: string) => {
+                      setNodes((nodes: any) => [
+                        ...nodes,
+                        <p className='font-mono text-base'>{msg}</p>,
+                      ])
+                    })
+                  )
+                    resolve()
+
+                  if (step.type == 'prompt') resolve()
                 },
               })
             }}
@@ -113,11 +85,11 @@ function Terminal() {
             await wait(step)
             break
           case 'object':
-            await type_Process(step)
+            await type_Process(step as ObjStep)
             break
         }
         if (step === cycle[cycle.length - 1]) {
-          console.log(finalData)
+          callback(finalData)
         }
       }
     })()
@@ -159,7 +131,9 @@ function Terminal() {
         </div>
       ))}
       {inputVisible && (
-        <p className='font-mono text-base cursor-enabled'>coda:~ $ {input}</p>
+        <p className='font-mono text-base cursor-enabled'>
+          {promptText} {input}
+        </p>
       )}
     </div>
   )
@@ -189,6 +163,36 @@ const Typed = (props: { text: string; finishCb?: any }) => {
   }, [typed])
 
   return <p className='font-mono'>{typed}</p>
+}
+
+export const type = (text: string): { type: 'type'; payload: string } => {
+  return { type: 'type', payload: text }
+}
+
+export const clear = (): { type: 'clear' } => {
+  return { type: 'clear' }
+}
+
+export const prmt = (
+  question: string,
+  id: string
+): { type: 'prompt'; payload: string; collectionId: string } => {
+  return { type: 'prompt', payload: question, collectionId: id }
+}
+
+export const ermt = (
+  question: string,
+  cb: (value: string, print: (msg: string) => void) => boolean
+): {
+  type: 'eprompt'
+  payload: string
+  cb: (value: string, print: (msg: string) => void) => boolean
+} => {
+  return { type: 'eprompt', payload: question, cb }
+}
+
+export const wait = (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 export default Terminal
