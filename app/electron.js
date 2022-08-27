@@ -56,6 +56,14 @@ const createWindow = () => {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.focus()
+  })
+
+  mainWindow.once('show', () => {
+    mainWindow.focus()
+    setTimeout(() => {
+      mainWindow.focus()
+    }, 400)
   })
 
   mainWindow.on('closed', function () {

@@ -9,6 +9,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import DesktopHeader from '../components/DesktopHeader'
 import LogIn from './LogIn'
 import React from 'react'
+import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
 import { useApi } from '../function/ApiWrapper'
@@ -89,8 +90,8 @@ const Root = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
-      <LogIn />
-      <Taskbar />
+      <SignUp />
+      {false && <Taskbar />}
     </div>
   )
 }

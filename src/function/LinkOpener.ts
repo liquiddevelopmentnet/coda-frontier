@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 import { electronState } from '../recoil/atoms'
 import { useRecoilValue } from 'recoil'
 import { useState } from 'react'

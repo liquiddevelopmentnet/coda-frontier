@@ -1,3 +1,8 @@
+/*
+ * Copyright Project Coda, LLC, 2022.
+ * All rights reserved.
+ */
+
 const net = require('net')
 const port = process.env.port ? process.env.port - 100 : 3000
 

@@ -32,3 +32,42 @@
 .mb-full {
   margin-bottom: 100%;
 }
+
+.cursor-enabled::after {
+  content: '';
+  position: relative;
+  top: 3px;
+  right: 0px;
+  /* Remove display: inline-block if not required to be on the same line as text etc */
+  display: inline-block;
+  background-color: #fff;
+  vertical-align: top;
+  width: 5px;
+  height: 18px;
+  -webkit-animation: blink 1.5s step-end infinite;
+  animation: blink 1.5s step-end infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
