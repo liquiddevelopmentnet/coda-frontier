@@ -3,9 +3,10 @@
  * All rights reserved.
  */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import BackgroundWrapper from '../common/BackgroundWrapper'
+import { CSSTransition } from 'react-transition-group'
 import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import CommonInput from '../components/CommonInput'
@@ -17,7 +18,7 @@ import { useApi } from '../function/ApiWrapper'
 import { useSetRecoilState } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
 
-function LogIn() {
+function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   const t = useTranslations().t
 
   const username = useRef<HTMLInputElement>(null)
@@ -28,12 +29,28 @@ function LogIn() {
 
   const [error, setError] = useState('')
 
+  const [flash, setFlash] = useState(signUpReferred)
+
   const api = useApi()
 
   const setToken = useSetRecoilState(tokenState)
 
+  useEffect(() => {
+    setTimeout(() => {
+      setFlash(false)
+    }, 1000)
+  }, [])
+
   return (
     <div className='w-full h-full flex select-none font-mono'>
+      <CSSTransition
+        classNames={'simple-opacity'}
+        timeout={500}
+        in={flash}
+        unmountOnExit
+      >
+        <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
+      </CSSTransition>
       <BackgroundWrapper />
       <ClassicPanel error={error}>
         <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />

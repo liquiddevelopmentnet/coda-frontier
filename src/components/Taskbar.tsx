@@ -87,7 +87,7 @@ function Taskbar() {
   }, [])
 
   return (
-    <>
+    <div>
       <ReactHowler
         src={currentSoundtrack.src}
         playing={isPlaying}
@@ -185,7 +185,7 @@ function Taskbar() {
           <TextTime />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

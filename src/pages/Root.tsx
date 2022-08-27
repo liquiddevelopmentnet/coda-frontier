@@ -3,13 +3,19 @@
  * All rights reserved.
  */
 
-import { electronState, tokenState } from '../recoil/atoms'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import '../transitions.css'
 
+import {
+  electronState,
+  rootViewState,
+  taskbarState,
+  tokenState,
+} from '../recoil/atoms'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+
+import { CSSTransition } from 'react-transition-group'
 import DesktopHeader from '../components/DesktopHeader'
-import LogIn from './LogIn'
 import React from 'react'
-import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
 import { useApi } from '../function/ApiWrapper'
@@ -17,6 +23,8 @@ import { useApi } from '../function/ApiWrapper'
 const Root = () => {
   const setElectron = useSetRecoilState(electronState)
   const [token, setToken] = useRecoilState(tokenState)
+  const rootView = useRecoilValue(rootViewState)
+  const taskbar = useRecoilValue(taskbarState)
 
   const api = useApi()
 
@@ -92,8 +100,15 @@ const Root = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
-      <SignUp />
-      {false && <Taskbar />}
+      {rootView}
+      <CSSTransition
+        classNames={'simple-opacity'}
+        timeout={500}
+        in={taskbar}
+        unmountOnExit
+      >
+        <Taskbar />
+      </CSSTransition>
     </div>
   )
 }

@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 
+import SignUp from '../pages/SignUp'
 import { atom } from 'recoil'
 
 export const tokenState = atom<{
@@ -32,6 +33,16 @@ export const hostState = atom<ProvidedHostState>({
     suffix: '',
     port: 8080,
   },
+})
+
+export const rootViewState = atom<any>({
+  key: 'rootViewState',
+  default: <SignUp />,
+})
+
+export const taskbarState = atom<boolean>({
+  key: 'taskbarState',
+  default: false,
 })
 
 export const languageState = atom<string>({
