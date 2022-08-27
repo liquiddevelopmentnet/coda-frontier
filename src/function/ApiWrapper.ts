@@ -62,7 +62,7 @@ const ApiCall = (
         } else if (error.request) {
           resolve({
             error: true,
-            errorMessage: 'No response from sever. Try again later.',
+            errorMessage: 'No response from server. Try again later.',
             statusCode: 0,
             data: null,
           })
