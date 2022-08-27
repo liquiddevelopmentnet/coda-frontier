@@ -13,6 +13,7 @@ def rnd_str(length: int) -> str:
 directory = sys.argv[1]
 
 for filename in os.listdir(directory):
-    new_name = rnd_str(10) + ".png"
-    os.rename(os.path.join(directory, filename), os.path.join(directory, new_name))
+    new_name = rnd_str(10) + filename.split(".")[-1]
+    os.rename(os.path.join(directory, filename),
+              os.path.join(directory, new_name))
     print(f"{filename} -> {new_name}")
