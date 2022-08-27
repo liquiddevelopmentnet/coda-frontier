@@ -85,7 +85,7 @@ fs.renameSync('./app/out', './build')
 fs.renameSync('./app/build', './build/browser')
 console.log('i | cleaning up')
 
-if (!providedStage == 'dev') {
+if (!(providedStage === 'dev')) {
   fs.writeFileSync(
     './src/data/version.json',
     JSON.stringify(
