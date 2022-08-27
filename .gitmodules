@@ -1,0 +1,3 @@
+[submodule "issue-tracker"]
+	path = issue-tracker
+	url = git@github.com:coda-game/issue-tracker.git
