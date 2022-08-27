@@ -3,20 +3,21 @@ const fs = require('fs')
 const process = require('process')
 
 const providedStage = process.argv[2]
-if (!providedStage == 'dev') {
-  const validStages = ['indev', 'infdev', 'alpha', 'beta', 'production']
 
+const validStages = ['dev', 'indev', 'infdev', 'alpha', 'beta', 'production']
+
+console.log('')
+
+if (providedStage === undefined || !validStages.includes(providedStage)) {
+  console.error(
+    'e | Invalid stage provided. Valid stages are: ' + validStages.join(', ')
+  )
+  console.error('e | Usage: yarn build <stage>')
   console.log('')
+  process.exit(1)
+}
 
-  if (providedStage === undefined || !validStages.includes(providedStage)) {
-    console.error(
-      'e | Invalid stage provided. Valid stages are: ' + validStages.join(', ')
-    )
-    console.error('e | Usage: yarn build <stage>')
-    console.log('')
-    process.exit(1)
-  }
-
+if (!providedStage == 'dev') {
   const revision = childProcess
     .execSync('git rev-parse --short HEAD')
     .toString()
