@@ -81,10 +81,6 @@ function Taskbar() {
     SilentSettings.conf('background_music', true)
     setIsPlaying(SilentSettings.get('background_music'))
 
-    howler.current?.howler.on('end', () => {
-      nextSong()
-    })
-
     return () => {
       setIsPlaying(false)
     }
@@ -97,6 +93,7 @@ function Taskbar() {
         playing={isPlaying}
         volume={0.3}
         ref={howler}
+        onEnd={nextSong}
       />
       <div className='h-[30px] fixed bottom-0 w-screen bg-slate-800 flex justify-between px-3 gap-2 z-20'>
         <div className='h-full flex items-center gap-1'>
