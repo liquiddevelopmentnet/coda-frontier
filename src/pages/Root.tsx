@@ -32,7 +32,8 @@ const Root = () => {
         err => {}
       )
       .then(res => {
-        if (res.data.valid) {
+        if (res.error) {
+        } else if (res.data.valid) {
           console.log(res.data.type + ' validated')
         } else {
           SilentSettings.set('refreshToken', null)
@@ -49,7 +50,8 @@ const Root = () => {
         err => {}
       )
       .then(res => {
-        if (res.data.valid) {
+        if (res.error) {
+        } else if (res.data.valid) {
           console.log(res.data.type + ' validated')
         } else {
           SilentSettings.set('accessToken', null)
