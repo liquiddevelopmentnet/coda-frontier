@@ -1,10 +1,17 @@
 const childProcess = require('child_process')
 const fs = require('fs')
 const process = require('process')
+const archiver = require('archiver')
 
 const providedStage = process.argv[2]
 
 const validStages = ['dev', 'indev', 'infdev', 'alpha', 'beta', 'production']
+
+var versionData = {
+  id: 'xxxxxx.0',
+  rev: 'xxxxxxx',
+  stage: 'development',
+}
 
 console.log('')
 
@@ -17,7 +24,7 @@ if (providedStage === undefined || !validStages.includes(providedStage)) {
   process.exit(1)
 }
 
-if (!providedStage == 'dev') {
+if (!(providedStage === 'dev')) {
   const revision = childProcess
     .execSync('git rev-parse --short HEAD')
     .toString()
@@ -34,7 +41,7 @@ if (!providedStage == 'dev') {
   const monthString = month < 10 ? '0' + month : month
   const dayString = day < 10 ? '0' + day : day
 
-  const versionData = {
+  versionData = {
     id: `${monthString}${year}${dayString}.${increasingBuildNumber}`,
     rev: revision,
     stage: providedStage,
@@ -42,7 +49,7 @@ if (!providedStage == 'dev') {
 
   const verString = `coda: (${versionData.stage}) ${versionData.id} (${versionData.rev})`
 
-  console.log(`i | Building version ${verString})`)
+  console.log(`i | Building version ${verString}`)
 
   console.log('')
 
@@ -72,7 +79,7 @@ childProcess.execSync('yarn build-react')
 console.log('i | moving directories')
 fs.renameSync('./build', './app/build')
 console.log('i | packaging electron -> (2-5 minutes)')
-childProcess.execSync('yarn make', { cwd: './app' })
+childProcess.execSync('yarn make', { cwd: './app', stdio: 'ignore' })
 console.log('i | providing build directory in root')
 fs.renameSync('./app/out', './build')
 fs.renameSync('./app/build', './build/browser')
@@ -92,6 +99,32 @@ if (!providedStage == 'dev') {
     )
   )
 }
-console.log('i | done')
+
+console.log('i | ziping up')
+
+if (!fs.existsSync('./builds')) {
+  fs.mkdirSync('./builds')
+}
+const zname = `./builds/coda-${versionData.stage}-${versionData.id}-${versionData.rev}.zip`
+const output = fs.createWriteStream(zname)
+const archive = archiver('zip')
+
+output
+  .on('close', function () {
+    fs.rmSync('build', { recursive: true })
+    console.log(`i | build finished, ${archive.pointer()} total bytes`)
+    console.log(`i | see it at: ${zname}`)
+    console.log('i | done')
+    process.exit(0)
+  })
+  .on('error', function (err) {
+    console.log('e | error during build')
+    console.log(err)
+    console.log('')
+  })
+
+archive.pipe(output)
+archive.directory('./build', 'coda')
+archive.finalize()
 
 console.log('')
