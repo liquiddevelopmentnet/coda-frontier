@@ -3,6 +3,7 @@
  * All rights reserved.
  */
 
+import { taskbarState, tokenState } from '../recoil/atoms'
 import { useEffect, useRef, useState } from 'react'
 
 import BackgroundWrapper from '../common/BackgroundWrapper'
@@ -13,7 +14,6 @@ import CommonInput from '../components/CommonInput'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import SilentSettings from '../function/SilentSettings'
 import logo from '../assets/images/blk_logo.png'
-import { tokenState } from '../recoil/atoms'
 import { useApi } from '../function/ApiWrapper'
 import { useSetRecoilState } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
@@ -34,10 +34,12 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   const api = useApi()
 
   const setToken = useSetRecoilState(tokenState)
+  const setTaskbar = useSetRecoilState(taskbarState)
 
   useEffect(() => {
     setTimeout(() => {
       setFlash(false)
+      setTaskbar(true)
     }, 1000)
   }, [])
 
