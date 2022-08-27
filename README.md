@@ -12,7 +12,7 @@ Do **NOT** push any code in here, unless specified otherwise by [liquiddevelopme
 
 `yarn dev` starts both, the webpack development server and electron
 
-`yarn build` builds the application
+`yarn build [devtest, coda-indev, coda-infdev, coda-alpha, coda-beta, coda-release]` builds the application in the selected stage, skips versioning if `devtest` is selected
 
 `translate` start the i18n wizard
 
