@@ -4,11 +4,12 @@
  */
 
 import Terminal from '../components/Terminal'
-import { useState } from 'react'
 
 function SignUp() {
   return (
-    <div className='bg-black w-full h-full p-2 text-white cursor-text select-none'>
+    <div className='bg-black w-full h-full'>
+      <div className='bg-white w-full h-full absolute opacity-0 pointer-events-none' />
+      {/* TODO: flash overlay */}
       <Terminal />
     </div>
   )

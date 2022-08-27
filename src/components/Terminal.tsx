@@ -1,68 +1,127 @@
-/*
- * Copyright Project Coda, LLC, 2022.
- * All rights reserved.
- */
-
-/*
- ! Warning: This code here was produced at a time where i could barely think because it was 3am.
- !          I'm sorry if i gave you eye cancer while reading this, not planning to improve it.
- */
-
 import { useEffect, useState } from 'react'
 
 function Terminal() {
-  const prompts = [
-    ['Please enter your email:', 'email'],
-    ['Please enter your name:', 'name'],
-    ['Some additional data (discuss with big rat)', 'add'],
+  const [nodes, setNodes] = useState<any>([])
+  const [input, setInput] = useState<string>('')
+  const [inputVisible, setInputVisible] = useState(false)
+  const [inputCallback, setInputCallback] = useState<any>()
+
+  var finalData: { [key: string]: string } = {}
+
+  const prmt = (
+    question: string,
+    id: string
+  ): { type: 'prompt'; payload: string; collectionId: string } => {
+    return { type: 'prompt', payload: question, collectionId: id }
+  }
+
+  const type = (text: string): { type: 'type'; payload: string } => {
+    return { type: 'type', payload: text }
+  }
+
+  const clear = (): { type: 'clear' } => {
+    return { type: 'clear' }
+  }
+
+  const cycle: (
+    | string
+    | number
+    | {
+        type: 'prompt' | 'type' | 'password' | 'clear'
+        payload?: string
+        collectionId?: string
+      }
+  )[] = [
+    type('Coda Host [Version 10.0.19044.1889]'),
+    type('(c) Project Coda, LLC. All rights reserved.'),
+    type(''),
+    type('Welcome to the sign up wizard.'),
+    type(''),
+    prmt('Please enter your full name: ', 'name'),
+    prmt('Please enter your email address: ', 'email'),
+    prmt('Please enter your new password: ', 'password'),
+    prmt('Please confirm your new password: ', 'passwordRepeat'),
+    type(''),
+    type('Injecting databases... 25%'),
+    1000,
+    type('Injecting databases... 75%'),
+    1000,
+    type('Injecting databases... done.'),
+    type(''),
+    type('Creating user...'),
+    1000,
+    type('Creating user... done.'),
+    type(''),
+    type('Creating session...'),
+    1000,
+    type('Creating session... done.'),
+    3000,
+    clear(),
+    100,
+    type('Welcome to Project Coda!'),
   ]
 
-  const [lines, setLines] = useState<any>([
-    {
-      content: 'Coda Host [Version 10.0.19044.1889]',
-      prompt: false,
-      typeAnimation: true,
-      finish: () => {
-        setLines((c: any) => [
-          ...c,
-          {
-            content: '(c) Project Coda, LLC. All rights reserved.',
-            prompt: false,
-            typeAnimation: true,
-            finish: () => {
-              setLines((c: any) => [
-                ...c,
-                {
-                  content: '‎',
-                  prompt: false,
-                  typeAnimation: true,
-                  finish: () => {
-                    setLines((c: any) => [
-                      ...c,
-                      {
-                        content: prompts[0][0],
-                        prompt: false,
-                        typeAnimation: true,
-                        finish: () => {
-                          setInputVisible(true)
-                        },
-                      },
-                    ])
-                  },
-                },
-              ])
-            },
-          },
+  const wait = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
+  const type_Process = async (step: any) => {
+    if (step.type == 'clear') {
+      setNodes([])
+      return
+    }
+    if (step.type == 'type') {
+      return new Promise(resolve => {
+        setNodes((nodes: any) => [
+          ...nodes,
+          <Typed text={step.payload} finishCb={resolve} />,
         ])
-      },
-    },
-  ])
+      })
+    }
+    if (step.type == 'prompt') {
+      return new Promise<void>(resolve => {
+        setNodes((nodes: any) => [
+          ...nodes,
+          <Typed
+            text={step.payload}
+            finishCb={() => {
+              setInputVisible(true)
+              setInputCallback({
+                cb: (data: any) => {
+                  console.log(step.collectionId + ' > ' + data)
+                  setNodes((nodes: any) => [
+                    ...nodes,
+                    <p className='font-mono text-base'>coda:~ $ {data}</p>,
+                    '‎',
+                  ])
+                  finalData[step.collectionId] = data
+                  resolve()
+                },
+              })
+            }}
+          />,
+        ])
+      })
+    }
+  }
 
-  const [currentPrompt, setCurrentPrompt] = useState(0)
-  const [promptData, setPromptData] = useState({})
-
-  const [input, setInput] = useState<any>('')
-  const [inputVisible, setInputVisible] = useState<boolean>(false)
+  useEffect(() => {
+    ;(async () => {
+      for (const step of cycle) {
+        switch (typeof step) {
+          case 'number':
+            await wait(step)
+            break
+          case 'object':
+            await type_Process(step)
+            break
+        }
+        if (step === cycle[cycle.length - 1]) {
+          console.log(finalData)
+        }
+      }
+    })()
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: any) => {
@@ -72,62 +131,11 @@ function Terminal() {
       } else if (e.key === 'Backspace') {
         setInput(input.slice(0, input.length - 1))
       } else if (e.key === 'Enter') {
+        var data = input
         setInput('')
         setInputVisible(false)
-        if (currentPrompt >= prompts.length - 1) {
-          setInputVisible(false)
-          console.log({
-            ...promptData,
-            [prompts[currentPrompt][1]]: input,
-          })
-          setLines((c: any) => [
-            ...c,
-            {
-              content: input,
-              prompt: true,
-              typeAnimation: false,
-            },
-            {
-              content: '‎',
-              prompt: false,
-              typeAnimation: false,
-            },
-            {
-              content: "Thank you for registering. You're all set!",
-              prompt: false,
-              typeAnimation: true,
-              finish: () => {},
-            },
-          ])
-          return
-        }
-        setPromptData({
-          ...promptData,
-          [prompts[currentPrompt][1]]: input,
-        })
-        var promptTitle = prompts[currentPrompt + 1][0]
-        setCurrentPrompt(currentPrompt + 1)
-        setLines((c: any) => [
-          ...c,
-          {
-            content: input,
-            prompt: true,
-            typeAnimation: false,
-          },
-          {
-            content: '‎',
-            prompt: false,
-            typeAnimation: false,
-          },
-          {
-            content: promptTitle,
-            prompt: false,
-            typeAnimation: true,
-            finish: () => {
-              setInputVisible(true)
-            },
-          },
-        ])
+        inputCallback.cb(data)
+        return
       }
     }
 
@@ -139,59 +147,48 @@ function Terminal() {
   }, [input, inputVisible])
 
   return (
-    <div>
-      {lines.map((line: any, index: any) => (
-        <div key={index}>
-          <Line
-            prompt={line.prompt}
-            content={line.content}
-            typeAnimation={line.typeAnimation}
-            cursor={!inputVisible && index === lines.length - 1}
-            finish={line.finish}
-          />
+    <div className='text-white cursor-text select-none bg-black w-full h-full font-mono p-2'>
+      {nodes.map((node: any, i: number) => (
+        <div
+          key={i}
+          className={`flex ${
+            i >= nodes.length - 1 && !inputVisible && 'cursor-enabled'
+          }`}
+        >
+          {node}
         </div>
       ))}
-      {inputVisible && <Line prompt content={input} cursor />}
+      {inputVisible && (
+        <p className='font-mono text-base cursor-enabled'>coda:~ $ {input}</p>
+      )}
     </div>
   )
 }
 
-function Line({
-  prompt = false,
-  cursor = false,
-  content = '',
-  typeAnimation = false,
-  finish = () => {},
-}: {
-  prompt?: boolean
-  cursor?: boolean
-  content?: string
-  typeAnimation?: boolean
-  finish?: () => void
-}) {
+const Typed = (props: { text: string; finishCb?: any }) => {
+  const text = props.text.trim() == '' ? '‎' : props.text
+
   const [typed, setTyped] = useState('')
 
   useEffect(() => {
-    if (typeAnimation && content != '') {
-      var str = ''
-      const interval = setInterval(() => {
-        setTyped(str + content[str.length])
-        str = str + content[str.length]
-        if (str.length === content.length) {
-          clearInterval(interval)
-          setTimeout(finish, 300)
+    const interval = setInterval(() => {
+      var old = typed
+      if (typed.length < text.length) {
+        setTyped(old + text[typed.length])
+      } else {
+        if (props.finishCb) {
+          setTimeout(props.finishCb, 200)
         }
-      }, 50)
-    }
-    if (typeAnimation && content == '') finish()
-  }, [typeAnimation])
+        clearInterval(interval)
+      }
+    }, 50)
 
-  return (
-    <p className={`font-mono text-base ${cursor && 'cursor-enabled'}`}>
-      {prompt && 'coda:~ $ '}
-      {typeAnimation ? typed : content}
-    </p>
-  )
+    return () => {
+      clearInterval(interval)
+    }
+  }, [typed])
+
+  return <p className='font-mono'>{typed}</p>
 }
 
 export default Terminal
