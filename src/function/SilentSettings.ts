@@ -46,4 +46,14 @@ const conf = (key: string, value: any) => {
   }
 }
 
-export default { init, get, set, conf }
+const present = (key: string) => {
+  var settings = window.localStorage.getItem('_silset')
+  if (settings == null) {
+    init()
+    return false
+  }
+  var obj = JSON.parse(base64url.decode(settings.substring(6)))
+  return obj[key] != undefined
+}
+
+export default { init, get, set, conf, present }
