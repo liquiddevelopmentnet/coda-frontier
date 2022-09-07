@@ -3,7 +3,8 @@ import os
 from colorama import init, Fore, Back, Style
 
 settings = json.load(open("./src/i18n/language/_settings.json"))
-default_lang = json.load(open(f"./src/i18n/language/{settings['defaultLanguage']}.json"))
+default_lang = json.load(
+    open(f"./src/i18n/language/{settings['defaultLanguage']}.json"))
 
 
 def cls():
@@ -69,7 +70,8 @@ def main():
 
         print("Translating from", source)
         name = input("Enter a name for the language (for example: en): ")
-        friendly_name = input("Enter a friendly name for the language (for example: English): ")
+        friendly_name = input(
+            "Enter a friendly name for the language (for example: English): ")
         new_json = {}
 
         print("\n")
@@ -95,7 +97,7 @@ def main():
 
     if option == "2":
         cls()
-        
+
         not_up_to_date_langs = []
 
         langs: list[str] = os.listdir("./src/i18n/language/")
@@ -103,7 +105,7 @@ def main():
         for lang in langs:
             lang_json = json.load(open(f"./src/i18n/language/{lang}"))
             for x in default_lang:
-                if x not in lang_json:
+                if x not in lang_json and lang not in not_up_to_date_langs:
                     not_up_to_date_langs.append(lang)
                     continue
 
