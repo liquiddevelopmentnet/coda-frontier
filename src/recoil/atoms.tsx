@@ -47,5 +47,5 @@ export const taskbarState = atom<boolean>({
 
 export const languageState = atom<string>({
   key: 'languageState',
-  default: 'en',
+  default: 'de',
 })

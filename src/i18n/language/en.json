@@ -13,5 +13,19 @@
   "LogIn.Password": "Password",
   "LogIn.SubmitButton": "Log In",
   "LogIn.Hint": "No account?",
-  "LogIn.HintLink": "Sign Up"
+  "LogIn.HintLink": "Sign Up",
+
+  "SignUp.Prompt.AlreadyHaveAccount": "Do you already have an account?",
+  "SignUp.Welcome": "Welcome to the sign up wizard.",
+
+  "SignUp.Prompt.Username": "Please enter your new username:",
+  "SignUp.Prompt.Email": "Please enter your email address:",
+  "SignUp.Prompt.Password": "Please enter your new password:",
+  "SignUp.Prompt.PasswordConfirm": "Please confirm your new password:",
+
+  "SignUp.Captcha.Announcement": "Initializing verification sequence...",
+  "SignUp.Captcha.Prompt": "Please solve the following captcha",
+  "SignUp.Captcha.Success": "Verification sequence... done.",
+
+  "SignUp.Done": "Initializing teleportation sequence..."
 }

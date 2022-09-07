@@ -18,8 +18,12 @@ import { CSSTransition } from 'react-transition-group'
 import LogIn from './LogIn'
 import { rootViewState } from '../recoil/atoms'
 import { useSetRecoilState } from 'recoil'
+import { useTranslations } from '../i18n/i18n'
+import version from '../data/version.json'
 
 function SignUp() {
+  const t = useTranslations().t
+
   const [flash, setFlash] = useState(false)
   const setRootView = useSetRecoilState(rootViewState)
 
@@ -43,32 +47,35 @@ function SignUp() {
       </CSSTransition>
       <Terminal
         cycle={[
-          print('Coda Host [Version 10.0.19044.1889]'),
+          print(`Coda Host (${version.stage}) ${version.id} (${version.rev})`),
           print('(c) Project Coda, LLC. All rights reserved.'),
           print(''),
-          ermt('Do you already have an account? [Y/n]', (val, print) => {
-            if (val.toLowerCase() == 'y') {
-              setTimeout(() => setFlash(true), 10)
-              return false
-            } else {
-              return true
+          ermt(
+            `${t('SignUp.Prompt.AlreadyHaveAccount')} [Y/n]`,
+            (val, print) => {
+              if (val.toLowerCase() == 'y') {
+                setTimeout(() => setFlash(true), 10)
+                return false
+              } else {
+                return true
+              }
             }
-          }),
-          type('Welcome to the sign up wizard.'),
+          ),
+          type(t('SignUp.Welcome')),
           type(''),
-          prmt('Please enter your new username: ', 'name'),
-          prmt('Please enter your email address: ', 'email'),
-          prmt('Please enter your new password: ', 'password'),
-          prmt('Please confirm your new password: ', 'passwordRepeat'),
-          type('Initializing verification sequence...'),
+          prmt(t('SignUp.Prompt.Username'), 'name'),
+          prmt(t('SignUp.Prompt.Email'), 'email'),
+          prmt(t('SignUp.Prompt.Password'), 'password'),
+          prmt(t('SignUp.Prompt.PasswordConfirm'), 'passwordRepeat'),
+          type(t('SignUp.Captcha.Announcement')),
           1000,
-          captcha(val => {
+          captcha(t('SignUp.Captcha.Prompt'), val => {
             console.log('captcha val:')
             console.log(val)
           }),
-          type('Verification sequence... done.'),
+          type(t('SignUp.Captcha.Success')),
           type(''),
-          type('Initializing teleportation sequence...'),
+          type(t('SignUp.Done')),
         ]}
         promptText='coda:~ $'
         callback={data => {

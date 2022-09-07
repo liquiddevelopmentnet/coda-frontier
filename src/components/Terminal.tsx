@@ -109,7 +109,7 @@ function Terminal({
             {(close: any) => (
               <div className='bg-black w-full h-full border border-white px-[105px] py-5 flex flex-col items-center'>
                 <div className='text-white font-mono mb-8 mt-5 cursor-enabled select-none flex'>
-                  <Typed text='Just making sure that R2D2 stays out' />
+                  <Typed text={step.payload!} />
                 </div>
                 <ReCAPTCHA
                   sitekey='6LeJm2ghAAAAABTf-6uB-MAv7CDoX6v2KIZSFH4Z'
@@ -253,12 +253,14 @@ export const wait = (ms: number) => {
 }
 
 export const captcha = (
+  payload: string,
   cbnp: (value: string) => void
 ): {
   type: 'captcha'
+  payload: string
   cbnp: (value: string) => void
 } => {
-  return { type: 'captcha', cbnp }
+  return { type: 'captcha', payload, cbnp }
 }
 
 export default Terminal

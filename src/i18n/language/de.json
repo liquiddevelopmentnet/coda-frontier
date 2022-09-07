@@ -10,5 +10,15 @@
   "LogIn.SubmitButton": "Einloggen",
   "LogIn.Hint": "Noch kein Account?",
   "LogIn.HintLink": "Registrierung",
-  "General.FormFieldEmptyError": "Feld ist erforderlich"
+  "General.FormFieldEmptyError": "Feld ist erforderlich",
+  "SignUp.Prompt.AlreadyHaveAccount": "Haben Sie bereits ein Konto?",
+  "SignUp.Welcome": "Willkommen beim Anmeldeassistenten.",
+  "SignUp.Prompt.Username": "Bitte geben Sie Ihren neuen Benutzernamen ein:",
+  "SignUp.Prompt.Email": "Geben Sie bitte Ihre Email-Adresse ein:",
+  "SignUp.Prompt.Password": "Bitte geben Sie Ihr neues Passwort ein:",
+  "SignUp.Prompt.PasswordConfirm": "Bitte best\u00e4tigen Sie Ihr neues Passwort:",
+  "SignUp.Captcha.Announcement": "Verifizierungssequenz wird initialisiert...",
+  "SignUp.Captcha.Prompt": "Bitte l\u00f6sen Sie das folgende Captcha",
+  "SignUp.Captcha.Success": "Verifizierungssequenz... fertig.",
+  "SignUp.Done": "Teleportationssequenz wird initialisiert..."
 }
