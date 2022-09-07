@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, shell, protocol } = require('electron')
+const DiscordRPC = require('discord-rpc')
 const path = require('path')
 const url = require('url')
 const isDev = require('electron-is-dev')
@@ -85,3 +86,24 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+const clientId = '1017047174686715975'
+
+DiscordRPC.register(clientId)
+
+const rpc = new DiscordRPC.Client({ transport: 'ipc' })
+
+async function setActivity() {
+  if (!rpc || !mainWindow) {
+    return
+  }
+  rpc.setActivity({
+    details: 'Idling',
+  })
+}
+
+rpc.on('ready', () => {
+  setActivity()
+})
+
+rpc.login({ clientId }).catch(console.error)
