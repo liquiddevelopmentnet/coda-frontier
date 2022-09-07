@@ -28,7 +28,7 @@ function BackgroundWrapper() {
   }, [])
 
   return (
-    <div className='w-full h-full absolute'>
+    <div className='w-full h-full absolute -z-10'>
       <CrossfadeImage duration={1000} src={includedBackgrounds[imageIndex]} />
     </div>
   )

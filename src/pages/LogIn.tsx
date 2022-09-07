@@ -53,7 +53,6 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
       >
         <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
       </CSSTransition>
-      <BackgroundWrapper />
       <ClassicPanel error={error}>
         <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />
         <div className='text-center'>

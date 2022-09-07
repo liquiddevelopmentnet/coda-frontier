@@ -14,6 +14,7 @@ import {
 } from '../recoil/atoms'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
+import BackgroundWrapper from '../common/BackgroundWrapper'
 import { CSSTransition } from 'react-transition-group'
 import DesktopHeader from '../components/DesktopHeader'
 import LogIn from './LogIn'
@@ -110,6 +111,7 @@ const Root = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
+      <BackgroundWrapper />
       <div className='w-full h-full'>
         <CSSTransition
           classNames={'simple-popup'}
