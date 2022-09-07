@@ -7,6 +7,7 @@ import '../transitions.css'
 
 import {
   electronState,
+  flashState,
   rootViewState,
   settingsWindowState,
   taskbarState,
@@ -30,6 +31,7 @@ const Root = () => {
   const [rootView, setRootView] = useRecoilState(rootViewState)
   const taskbar = useRecoilValue(taskbarState)
   const settingsWindow = useRecoilValue(settingsWindowState)
+  const flash = useRecoilValue(flashState)
 
   const api = useApi()
 
@@ -111,6 +113,14 @@ const Root = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
+      <CSSTransition
+        classNames={'simple-opacity'}
+        timeout={500}
+        in={flash}
+        unmountOnExit
+      >
+        <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
+      </CSSTransition>
       <BackgroundWrapper />
       <div className='w-full h-full'>
         <CSSTransition
@@ -121,7 +131,14 @@ const Root = () => {
         >
           <Settings />
         </CSSTransition>
-        {rootView}
+        <CSSTransition
+          classNames={'simple-opacity'}
+          timeout={500}
+          in={!settingsWindow}
+          unmountOnExit
+        >
+          {rootView}
+        </CSSTransition>
         <CSSTransition
           classNames={'simple-opacity'}
           timeout={500}

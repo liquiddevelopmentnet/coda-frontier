@@ -64,3 +64,10 @@ export const languageState = atom<string>({
   key: 'languageState',
   default: 'en',
 })
+
+// vfx
+
+export const flashState = atom<boolean>({
+  key: 'flashState',
+  default: false,
+})

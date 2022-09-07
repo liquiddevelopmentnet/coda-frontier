@@ -3,11 +3,9 @@
  * All rights reserved.
  */
 
-import { taskbarState, tokenState } from '../recoil/atoms'
+import { flashState, taskbarState, tokenState } from '../recoil/atoms'
 import { useEffect, useRef, useState } from 'react'
 
-import BackgroundWrapper from '../common/BackgroundWrapper'
-import { CSSTransition } from 'react-transition-group'
 import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import CommonInput from '../components/CommonInput'
@@ -29,7 +27,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
 
   const [error, setError] = useState('')
 
-  const [flash, setFlash] = useState(signUpReferred)
+  const setFlash = useSetRecoilState(flashState)
 
   const api = useApi()
 
@@ -37,22 +35,16 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   const setTaskbar = useSetRecoilState(taskbarState)
 
   useEffect(() => {
-    setTimeout(() => {
-      setFlash(false)
-      setTaskbar(true)
-    }, 1000)
+    if (signUpReferred) {
+      setTimeout(() => {
+        setFlash(false)
+        setTaskbar(true)
+      }, 1000)
+    }
   }, [])
 
   return (
     <div className='w-full h-full flex select-none font-mono'>
-      <CSSTransition
-        classNames={'simple-opacity'}
-        timeout={500}
-        in={flash}
-        unmountOnExit
-      >
-        <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
-      </CSSTransition>
       <ClassicPanel error={error}>
         <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />
         <div className='text-center'>

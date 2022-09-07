@@ -12,19 +12,18 @@ import Terminal, {
   prmt,
   type,
 } from '../components/Terminal'
-import { useEffect, useState } from 'react'
+import { flashState, rootViewState } from '../recoil/atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
-import { CSSTransition } from 'react-transition-group'
 import LogIn from './LogIn'
-import { rootViewState } from '../recoil/atoms'
-import { useSetRecoilState } from 'recoil'
+import { useEffect } from 'react'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
 
 function SignUp() {
   const t = useTranslations().t
 
-  const [flash, setFlash] = useState(false)
+  const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)
 
   useEffect(() => {
@@ -37,14 +36,6 @@ function SignUp() {
 
   return (
     <div className='bg-black w-full h-full'>
-      <CSSTransition
-        classNames={'simple-opacity'}
-        timeout={500}
-        in={flash}
-        unmountOnExit
-      >
-        <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
-      </CSSTransition>
       <Terminal
         cycle={[
           print(`Coda Host (${version.stage}) ${version.id} (${version.rev})`),
