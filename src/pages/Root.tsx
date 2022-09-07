@@ -140,7 +140,7 @@ const Root = () => {
           {rootView}
         </CSSTransition>
         <CSSTransition
-          classNames={'simple-opacity'}
+          classNames={'long-opacity'}
           timeout={500}
           in={taskbar}
           unmountOnExit
