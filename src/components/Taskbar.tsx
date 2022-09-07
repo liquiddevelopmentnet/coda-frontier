@@ -158,7 +158,7 @@ function Taskbar() {
             <span className='font-bold'>{currentSoundtrack.artist}</span>
           </p>
         </div>
-        <div className='h-full flex items-center gap-3'>
+        <div className='h-full flex items-center'>
           <BsGearFill
             color='white'
             size={12}
