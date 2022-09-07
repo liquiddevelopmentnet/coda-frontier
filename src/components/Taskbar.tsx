@@ -101,7 +101,7 @@ function Taskbar() {
         ref={howler}
         onEnd={nextSong}
       />
-      <div className='h-[30px] fixed bottom-0 w-screen bg-gradient-to-t from-slate-900 to-transparent flex justify-between px-3 gap-2 z-40'>
+      <div className='h-[30px] fixed bottom-0 w-screen bg-gradient-to-t from-slate-900 to-transparent flex justify-between px-3 gap-2 z-40 select-none'>
         <div className='h-full flex items-center gap-1'>
           <BsMusicNoteBeamed color='white' className='my-auto mr-1' />
           <div className='flex mr-3 ml-2'>
