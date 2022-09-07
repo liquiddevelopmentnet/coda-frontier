@@ -14,7 +14,6 @@
 
 # app
 /app/node_modules
-/app/yarn.lock
 /app/build
 /app/out
 
@@ -28,7 +27,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# lock files
-yarn.lock
-package-lock.json
