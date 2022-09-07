@@ -1,16 +1,23 @@
+import React, { useEffect } from 'react'
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { electronState, settingsWindowState } from '../recoil/atoms'
 
+import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
+import AppearanceSettings from './settings/tabs/appSettings/AppearanceSettings'
 import { CgClose } from 'react-icons/cg'
+import ConnectionsSettings from './settings/tabs/userSettings/ConnectionsSettings'
 import { FaDiscord } from 'react-icons/fa'
+import FriendRequestsSettings from './settings/tabs/userSettings/FriendRequestsSettings'
 import { IoLogOut } from 'react-icons/io5'
-import { useEffect } from 'react'
+import ProfileSettings from './settings/tabs/userSettings/ProfileSettings'
+import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
+import SoundSettings from './settings/tabs/appSettings/SoundSettings'
 import { useLinkOpener } from '../function/LinkOpener'
 import version from '../data/version.json'
 
-const activeTabState = atom({
+const activeTabState = atom<{ id: string; node: React.ReactNode }>({
   key: 'activeTabState',
-  default: 'profile',
+  default: { id: 'profile', node: <ProfileSettings /> },
 })
 
 function Settings() {
@@ -18,6 +25,7 @@ function Settings() {
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
   const electron = useRecoilValue(electronState)
+  const activeTab = useRecoilValue(activeTabState)
 
   useEffect(() => {
     window.onkeydown = e => {
@@ -33,14 +41,14 @@ function Settings() {
 
   return (
     <div
-      className={`w-full h-full absolute top-0 left-0 z-30 bg-transparent ${
-        electron.is && 'mt-[22px]'
+      className={`w-full h-full z-30 bg-transparent ${
+        electron.is && 'mt-[0px]'
       }`}
     >
       <CgClose
         color='white'
         size={25}
-        className='cursor-pointer hover:opacity-80 absolute right-4 top-4'
+        className='cursor-pointer hover:opacity-80 absolute right-4 top-[38px]'
         onClick={() => {
           setSettingsWindow(false)
         }}
@@ -48,15 +56,39 @@ function Settings() {
       <div className='flex w-full h-full'>
         <div className='flex flex-col min-w-min p-4 bg-gradient-to-r from-[#1e293b] via-[#1e293bf1] to-[#1e293be2]'>
           <SettingsTabGroup title='user settings'>
-            <SettingsTab id='profile' name='Profile' />
-            <SettingsTab id='security' name='Security' />
-            <SettingsTab id='connections' name='Connections' />
-            <SettingsTab id='friend_requests' name='Friend Requests' />
+            <SettingsTab
+              id='profile'
+              name='Profile'
+              target={<ProfileSettings />}
+            />
+            <SettingsTab
+              id='security'
+              name='Security'
+              target={<SecuritySettings />}
+            />
+            <SettingsTab
+              id='connections'
+              name='Connections'
+              target={<ConnectionsSettings />}
+            />
+            <SettingsTab
+              id='friend_requests'
+              name='Friend Requests'
+              target={<FriendRequestsSettings />}
+            />
           </SettingsTabGroup>
           <SettingsTabGroup title='app settings'>
-            <SettingsTab id='appearance' name='Appearance' />
-            <SettingsTab id='sound' name='Sound' />
-            <SettingsTab id='advanced' name='Advanced' />
+            <SettingsTab
+              id='appearance'
+              name='Appearance'
+              target={<AppearanceSettings />}
+            />
+            <SettingsTab id='sound' name='Sound' target={<SoundSettings />} />
+            <SettingsTab
+              id='advanced'
+              name='Advanced'
+              target={<AdvancedSettings />}
+            />
           </SettingsTabGroup>
           <SettingsTabGroup title={null}>
             <SettingsTab
@@ -80,8 +112,8 @@ function Settings() {
           </div>
           <p className='text-xxs text-gray-500 mt-3'>{`coda (${version.stage}) ${version.id} (${version.rev})`}</p>
         </div>
-        <div className='w-full h-full bg-[#1e293be2]'>
-          {/* TODO: Tab content */}
+        <div className='w-full h-full bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar'>
+          <div className='mr-24'>{activeTab.node}</div>
         </div>
       </div>
     </div>
@@ -112,6 +144,7 @@ const SettingsTabGroup = (props: {
 const SettingsTab = (props: {
   id: string
   name: string
+  target?: React.ReactNode | undefined
   icon?: React.ReactNode | undefined
   customAction?: () => void
 }) => {
@@ -119,12 +152,13 @@ const SettingsTab = (props: {
   return (
     <div
       className={`bg-gradient-to-r to-transparent ${
-        activeTab == props.id
+        activeTab.id == props.id
           ? 'from-gray-900'
           : 'from-transparent hover:from-[#111827b3] cursor-pointer'
       } h-8 w-52 rounded-[4px] items-center px-3 flex justify-between`}
       onClick={() => {
-        if (props.customAction == undefined) setActiveTab(props.id)
+        if (props.customAction == undefined)
+          setActiveTab({ id: props.id, node: props.target ?? <></> })
         else props.customAction()
       }}
     >

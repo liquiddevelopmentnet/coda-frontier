@@ -39,6 +39,13 @@ export const hostState = atom<ProvidedHostState>({
   },
 })
 
+// settings
+
+export const settingsState = atom<any>({
+  key: 'settingsState',
+  default: {},
+})
+
 // routing
 
 export const rootViewState = atom<any>({

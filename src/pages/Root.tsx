@@ -9,6 +9,7 @@ import {
   electronState,
   flashState,
   rootViewState,
+  settingsState,
   settingsWindowState,
   taskbarState,
   tokenState,
@@ -18,14 +19,19 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import BackgroundWrapper from '../common/BackgroundWrapper'
 import { CSSTransition } from 'react-transition-group'
 import DesktopHeader from '../components/DesktopHeader'
-import LogIn from './LogIn'
-import React from 'react'
+import NoBackgroundReplacement from '../common/NoBackgroundReplacement'
 import Settings from './Settings'
 import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
 import { useApi } from '../function/ApiWrapper'
+import { useEffect } from 'react'
+import { useSettings } from './settings/Settings'
 
 const Root = () => {
+  const settingsController = useSettings()
+
+  const settings = useRecoilValue(settingsState)
+
   const setElectron = useSetRecoilState(electronState)
   const [token, setToken] = useRecoilState(tokenState)
   const [rootView, setRootView] = useRecoilState(rootViewState)
@@ -35,14 +41,16 @@ const Root = () => {
 
   const api = useApi()
 
-  React.useEffect(() => {
+  useEffect(() => {
+    settingsController.init()
+
     SilentSettings.conf('refreshToken', null)
     SilentSettings.conf('accessToken', null)
 
-    const refreshTokenPresent = SilentSettings.present('refreshToken')
+    /*const refreshTokenPresent = SilentSettings.present('refreshToken')
 
     if (refreshTokenPresent) {
-      setRootView(<LogIn />) // TODO: Change to game mode selection
+      setRootView(<LogIn />) // xTODO: Change to game mode selection
 
       api
         .make(
@@ -58,7 +66,7 @@ const Root = () => {
           } else {
             SilentSettings.set('refreshToken', null)
             console.log('refresh token expired')
-            // ! TODO - let the user log in again
+            // x! TODO - let the user log in again
           }
         })
 
@@ -84,7 +92,7 @@ const Root = () => {
                 'POST',
                 { refreshToken: SilentSettings.get('refreshToken') },
                 err => {
-                  // ! TODO - let the user log in again
+                  // x! TODO - let the user log in again
                 }
               )
               .then(res => {
@@ -99,7 +107,7 @@ const Root = () => {
         refresh: SilentSettings.get('refreshToken'),
         access: SilentSettings.get('accessToken'),
       })
-    }
+    }*/
 
     const isElectron = window.require !== undefined
     if (isElectron) {
@@ -121,7 +129,11 @@ const Root = () => {
       >
         <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
       </CSSTransition>
-      <BackgroundWrapper />
+      {settings['appearance.backgroundImages'] ? (
+        <BackgroundWrapper />
+      ) : (
+        <NoBackgroundReplacement />
+      )}
       <div className='w-full h-full'>
         <CSSTransition
           classNames={'simple-popup'}
