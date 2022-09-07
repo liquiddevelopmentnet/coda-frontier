@@ -1,9 +1,9 @@
-import { atom, useRecoilState, useSetRecoilState } from 'recoil'
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { electronState, settingsWindowState } from '../recoil/atoms'
 
 import { CgClose } from 'react-icons/cg'
 import { FaDiscord } from 'react-icons/fa'
 import { IoLogOut } from 'react-icons/io5'
-import { settingsWindowState } from '../recoil/atoms'
 import { useEffect } from 'react'
 import { useLinkOpener } from '../function/LinkOpener'
 import version from '../data/version.json'
@@ -17,6 +17,7 @@ function Settings() {
   const linkOpener = useLinkOpener()
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
+  const electron = useRecoilValue(electronState)
 
   useEffect(() => {
     window.onkeydown = e => {
@@ -31,7 +32,11 @@ function Settings() {
   }, [])
 
   return (
-    <div className='w-full h-full absolute top-0 left-0 mt-[22px] z-30 bg-transparent'>
+    <div
+      className={`w-full h-full absolute top-0 left-0 z-30 bg-transparent ${
+        electron.is && 'mt-[22px]'
+      }`}
+    >
       <CgClose
         color='white'
         size={25}
