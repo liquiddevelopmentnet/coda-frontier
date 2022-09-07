@@ -3,9 +3,12 @@
  * All rights reserved.
  */
 
-import { CgClose } from 'react-icons/cg'
-import { GiSquare } from 'react-icons/gi'
-import { VscChromeMinimize } from 'react-icons/vsc'
+import {
+  VscChromeClose,
+  VscChromeMaximize,
+  VscChromeMinimize,
+} from 'react-icons/vsc'
+
 import { electronState } from '../recoil/atoms'
 import { useRecoilValue } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
@@ -37,7 +40,7 @@ function DesktopHeader() {
               }}
               className='h-full flex w-7 hover:bg-slate-700 cursor-pointer'
             >
-              <GiSquare color='white' size={10} className='m-auto' />
+              <VscChromeMaximize color='white' className='m-auto' />
             </div>
             <div
               onClick={() => {
@@ -45,7 +48,7 @@ function DesktopHeader() {
               }}
               className='h-full flex w-7 hover:bg-red-500 cursor-pointer'
             >
-              <CgClose color='white' className='m-auto' />
+              <VscChromeClose color='white' className='m-auto' />
             </div>
           </div>
         </div>
