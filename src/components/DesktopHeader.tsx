@@ -48,7 +48,7 @@ function DesktopHeader() {
               }}
               className='h-full flex w-7 hover:bg-red-500 cursor-pointer'
             >
-              <VscChromeClose color='white' className='m-auto' />
+              <VscChromeClose color='white' size={16} className='m-auto' />
             </div>
           </div>
         </div>
