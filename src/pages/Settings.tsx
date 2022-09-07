@@ -46,7 +46,7 @@ function Settings() {
         }}
       />
       <div className='flex w-full h-full'>
-        <div className='flex flex-col min-w-min p-4 bg-[#1e293bec]'>
+        <div className='flex flex-col min-w-min p-4 bg-gradient-to-r from-[#1e293b] via-[#1e293bf1] to-[#1e293be2]'>
           <SettingsTabGroup title='user settings'>
             <SettingsTab id='profile' name='Profile' />
             <SettingsTab id='security' name='Security' />
