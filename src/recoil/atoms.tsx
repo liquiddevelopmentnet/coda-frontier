@@ -6,6 +6,18 @@
 import SignUp from '../pages/SignUp'
 import { atom } from 'recoil'
 
+// electron
+
+export const electronState = atom<{ is: boolean; ipc: any }>({
+  key: 'electronState',
+  default: {
+    is: false,
+    ipc: null,
+  },
+})
+
+// api
+
 export const tokenState = atom<{
   refresh: string | null
   access: string | null
@@ -14,14 +26,6 @@ export const tokenState = atom<{
   default: {
     refresh: null,
     access: null,
-  },
-})
-
-export const electronState = atom<{ is: boolean; ipc: any }>({
-  key: 'electronState',
-  default: {
-    is: false,
-    ipc: null,
   },
 })
 
@@ -35,15 +39,26 @@ export const hostState = atom<ProvidedHostState>({
   },
 })
 
+// routing
+
 export const rootViewState = atom<any>({
   key: 'rootViewState',
   default: <SignUp />,
 })
 
+// additional views
+
 export const taskbarState = atom<boolean>({
   key: 'taskbarState',
   default: false,
 })
+
+export const settingsWindowState = atom<boolean>({
+  key: 'settingsWindowState',
+  default: false,
+})
+
+// settings that need live updates
 
 export const languageState = atom<string>({
   key: 'languageState',

@@ -78,3 +78,13 @@
   border: none !important;
   width: auto !important;
 }
+
+.text-xs-c {
+  font-size: 11.8px;
+  line-height: 10px;
+}
+
+.text-xxs {
+  font-size: 10px;
+  line-height: 12px;
+}

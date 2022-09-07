@@ -12,3 +12,25 @@
   opacity: 0;
   transition: opacity 500ms;
 }
+
+.simple-popup-enter {
+  opacity: 0;
+  transform: scale(0.9);
+  filter: blur(10px);
+}
+.simple-popup-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 200ms, transform 200ms;
+  filter: blur(0);
+}
+.simple-popup-exit {
+  opacity: 1;
+  filter: blur(0);
+}
+.simple-popup-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 200ms, transform 200ms;
+  filter: blur(10px);
+}

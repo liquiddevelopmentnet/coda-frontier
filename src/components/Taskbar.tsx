@@ -25,7 +25,9 @@ import downtownNewYork from '../assets/soundtrack/downtown-newyork.mp3'
 import justAnotherBeautiful from '../assets/soundtrack/just-another-beautiful.mp3'
 import ostCoconutBeach from '../assets/soundtrack/coconut-beach.mp3'
 import ostSx from '../assets/soundtrack/sx.mp3'
+import { settingsWindowState } from '../recoil/atoms'
 import { useLinkOpener } from '../function/LinkOpener'
+import { useRecoilState } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
 
 const soundtracks = [
@@ -54,6 +56,9 @@ const soundtracks = [
 function Taskbar() {
   const t = useTranslations().t
   const linkOpener = useLinkOpener()
+
+  const [settingsWindow, setSettingsWindow] =
+    useRecoilState(settingsWindowState)
 
   const [currentSoundtrack, setCurrentSoundtrack] = React.useState<{
     name: string
@@ -95,7 +100,7 @@ function Taskbar() {
         ref={howler}
         onEnd={nextSong}
       />
-      <div className='h-[30px] fixed bottom-0 w-screen bg-slate-800 flex justify-between px-3 gap-2 z-20'>
+      <div className='h-[30px] fixed bottom-0 w-screen bg-slate-800 flex justify-between px-3 gap-2 z-40'>
         <div className='h-full flex items-center gap-1'>
           <BsMusicNoteBeamed color='white' className='my-auto mr-1' />
           <div className='flex mr-3 ml-2'>
@@ -156,6 +161,9 @@ function Taskbar() {
           <BsGearFill
             color='white'
             className='my-auto mr-1 w-3 cursor-pointer hover:opacity-80'
+            onClick={() => {
+              setSettingsWindow(!settingsWindow)
+            }}
           />
           <Divider />
           <svg
