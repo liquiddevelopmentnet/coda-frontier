@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/decl.d.ts", "src/api.d.ts", "app/electron.js"],
+  "include": ["src", "src/decl.d.ts", "src/api.d.ts", "app/index.js"],
   "typeRoots": ["node_modules/@types"]
 }

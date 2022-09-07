@@ -2,10 +2,10 @@
   "name": "coda",
   "version": "1.0.0",
   "description": "A speed programming game where you have to solve problems to try and eliminate other people.",
-  "main": "electron.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron-forge start",
+    "start": "electron .",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
