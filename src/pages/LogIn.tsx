@@ -3,17 +3,23 @@
  * All rights reserved.
  */
 
-import { flashState, taskbarState, tokenState } from '../recoil/atoms'
+import {
+  flashState,
+  rootViewState,
+  taskbarState,
+  tokenState,
+} from '../recoil/atoms'
 import { useEffect, useRef, useState } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
 import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import CommonInput from '../components/CommonInput'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
+import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import logo from '../assets/images/blk_logo.png'
 import { useApi } from '../function/ApiWrapper'
-import { useSetRecoilState } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
 
 function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
@@ -27,7 +33,8 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
 
   const [error, setError] = useState('')
 
-  const setFlash = useSetRecoilState(flashState)
+  const [flash, setFlash] = useRecoilState(flashState)
+  const setRootView = useSetRecoilState(rootViewState)
 
   const api = useApi()
 
@@ -122,7 +129,13 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
         <HintWithLinkAfter
           hint={t('LogIn.Hint')}
           linkText={t('LogIn.HintLink')}
-          link='/signup'
+          onClick={() => {
+            setFlash(true)
+            setTaskbar(false)
+            setTimeout(() => {
+              setRootView(<SignUp loginReferred />)
+            }, 1000)
+          }}
         />
       </ClassicPanel>
     </div>

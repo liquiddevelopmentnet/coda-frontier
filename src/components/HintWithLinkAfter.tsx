@@ -6,16 +6,19 @@
 function HintWithLinkAfter({
   hint,
   linkText,
-  link,
+  onClick,
 }: {
   hint: string
   linkText: string
-  link: string
+  onClick: () => void
 }) {
   return (
     <p className='text-sm'>
       {hint}{' '}
-      <span className='text-blue-500 cursor-pointer hover:text-blue-600'>
+      <span
+        onClick={onClick}
+        className='text-blue-500 cursor-pointer hover:text-blue-600'
+      >
         {linkText}
       </span>
     </p>

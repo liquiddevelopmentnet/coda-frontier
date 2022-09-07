@@ -20,19 +20,19 @@ import { useEffect } from 'react'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
 
-function SignUp() {
+function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
   const t = useTranslations().t
 
   const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)
 
   useEffect(() => {
-    if (flash) {
+    if (loginReferred) {
       setTimeout(() => {
-        setRootView(<LogIn signUpReferred />)
+        setFlash(false)
       }, 1000)
     }
-  }, [flash])
+  }, [])
 
   return (
     <div className='bg-black w-full h-full'>
@@ -45,7 +45,12 @@ function SignUp() {
             `${t('SignUp.Prompt.AlreadyHaveAccount')} [Y/n]`,
             (val, print) => {
               if (val.toLowerCase() == 'y') {
-                setTimeout(() => setFlash(true), 10)
+                setTimeout(() => {
+                  setFlash(true)
+                  setTimeout(() => {
+                    setRootView(<LogIn signUpReferred />)
+                  }, 1000)
+                }, 1000)
                 return false
               } else {
                 return true
@@ -71,7 +76,12 @@ function SignUp() {
         promptText='coda:~ $'
         callback={data => {
           console.log('from signup > ', data)
-          setTimeout(() => setFlash(true), 1000)
+          setTimeout(() => {
+            setFlash(true)
+            setTimeout(() => {
+              setRootView(<LogIn signUpReferred />)
+            }, 1000)
+          }, 1000)
         }}
       />
     </div>
