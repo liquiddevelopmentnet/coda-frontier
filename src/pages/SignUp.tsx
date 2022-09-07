@@ -3,7 +3,15 @@
  * All rights reserved.
  */
 
-import Terminal, { clear, ermt, prmt, type } from '../components/Terminal'
+import 'reactjs-popup/dist/index.css'
+
+import Terminal, {
+  captcha,
+  ermt,
+  print,
+  prmt,
+  type,
+} from '../components/Terminal'
 import { useEffect, useState } from 'react'
 
 import { CSSTransition } from 'react-transition-group'
@@ -35,9 +43,9 @@ function SignUp() {
       </CSSTransition>
       <Terminal
         cycle={[
-          type('Coda Host [Version 10.0.19044.1889]'),
-          type('(c) Project Coda, LLC. All rights reserved.'),
-          type(''),
+          print('Coda Host [Version 10.0.19044.1889]'),
+          print('(c) Project Coda, LLC. All rights reserved.'),
+          print(''),
           ermt('Do you already have an account? [Y/n]', (val, print) => {
             if (val.toLowerCase() == 'y') {
               setTimeout(() => setFlash(true), 10)
@@ -48,28 +56,19 @@ function SignUp() {
           }),
           type('Welcome to the sign up wizard.'),
           type(''),
-          prmt('Please enter your full name: ', 'name'),
+          prmt('Please enter your new username: ', 'name'),
           prmt('Please enter your email address: ', 'email'),
           prmt('Please enter your new password: ', 'password'),
           prmt('Please confirm your new password: ', 'passwordRepeat'),
+          type('Initializing verification sequence...'),
+          1000,
+          captcha(val => {
+            console.log('captcha val:')
+            console.log(val)
+          }),
+          type('Verification sequence... done.'),
           type(''),
-          type('Injecting databases... 25%'),
-          1000,
-          type('Injecting databases... 75%'),
-          1000,
-          type('Injecting databases... done.'),
-          type(''),
-          type('Creating user...'),
-          1000,
-          type('Creating user... done.'),
-          type(''),
-          type('Creating session...'),
-          1000,
-          type('Creating session... done.'),
-          3000,
-          clear(),
-          100,
-          type('Welcome to Project Coda!'),
+          type('Initializing teleportation sequence...'),
         ]}
         promptText='coda:~ $'
         callback={data => {

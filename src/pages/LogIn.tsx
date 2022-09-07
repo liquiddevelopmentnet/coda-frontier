@@ -82,10 +82,6 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
           }}
         />
         <div className='mb-16' />
-        {/*<ReCAPTCHA
-              sitekey="6LeJm2ghAAAAABTf-6uB-MAv7CDoX6v2KIZSFH4Z"
-              onChange={onChange}
-            />*/}
         <CommonButton
           type='primary'
           label={t('LogIn.SubmitButton')}

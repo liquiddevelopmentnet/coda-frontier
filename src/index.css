@@ -9,6 +9,7 @@
 
 * {
   overflow: hidden;
+  outline: none;
   @apply jetbrains-regular;
 }
 
@@ -70,4 +71,10 @@
   100% {
     opacity: 1;
   }
+}
+
+.popup-content {
+  padding: 0 !important;
+  border: none !important;
+  width: auto !important;
 }

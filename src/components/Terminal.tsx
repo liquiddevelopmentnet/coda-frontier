@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react'
 
+import Popup from 'reactjs-popup'
+import ReCAPTCHA from 'react-google-recaptcha'
+
 type ObjStep = {
-  type: 'prompt' | 'eprompt' | 'type' | 'password' | 'clear'
+  type:
+    | 'print'
+    | 'prompt'
+    | 'eprompt'
+    | 'type'
+    | 'password'
+    | 'clear'
+    | 'captcha'
   payload?: string
   collectionId?: string
   cb?: (value: string, print: (msg: string) => void) => boolean
+  cbnp?: (value: string) => void
 }
 
 type Step = string | number | ObjStep
@@ -26,6 +37,13 @@ function Terminal({
   var finalData: { [key: string]: string } = {}
 
   const type_Process = async (step: ObjStep) => {
+    if (step.type === 'print') {
+      var toPrint = step.payload?.trim() == '' ? '‎' : step.payload
+      setNodes((nodes: any) => [
+        ...nodes,
+        <p className='font-mono text-base'>{toPrint}</p>,
+      ])
+    }
     if (step.type == 'clear') {
       setNodes([])
       return
@@ -72,6 +90,41 @@ function Terminal({
               })
             }}
           />,
+        ])
+      })
+    }
+    if (step.type == 'captcha') {
+      return new Promise<void>(resolve => {
+        setNodes((nodes: any) => [
+          ...nodes,
+          <Popup
+            defaultOpen={true}
+            position='center center'
+            modal
+            nested
+            closeOnDocumentClick={false}
+            closeOnEscape={false}
+          >
+            {/* @ts-ignore */}
+            {(close: any) => (
+              <div className='bg-black w-full h-full border border-white px-[105px] py-5 flex flex-col items-center'>
+                <div className='text-white font-mono mb-8 mt-5 cursor-enabled select-none flex'>
+                  <Typed text='Just making sure that R2D2 stays out' />
+                </div>
+                <ReCAPTCHA
+                  sitekey='6LeJm2ghAAAAABTf-6uB-MAv7CDoX6v2KIZSFH4Z'
+                  onChange={(val: any) => {
+                    setTimeout(() => {
+                      close()
+                      step.cbnp!(val)
+                      resolve()
+                    }, 1000)
+                  }}
+                />
+                <div className='mt-6' />
+              </div>
+            )}
+          </Popup>,
         ])
       })
     }
@@ -165,6 +218,10 @@ const Typed = (props: { text: string; finishCb?: any }) => {
   return <p className='font-mono'>{typed}</p>
 }
 
+export const print = (text: string): { type: 'print'; payload: string } => {
+  return { type: 'print', payload: text }
+}
+
 export const type = (text: string): { type: 'type'; payload: string } => {
   return { type: 'type', payload: text }
 }
@@ -193,6 +250,15 @@ export const ermt = (
 
 export const wait = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export const captcha = (
+  cbnp: (value: string) => void
+): {
+  type: 'captcha'
+  cbnp: (value: string) => void
+} => {
+  return { type: 'captcha', cbnp }
 }
 
 export default Terminal
