@@ -12,6 +12,10 @@
   opacity: 0;
   transition: opacity 200ms;
 }
+.s-opacity-exit-done {
+  opacity: 0;
+  transition: opacity 500ms;
+}
 
 .l-opacity-enter {
   opacity: 0;
@@ -24,6 +28,10 @@
   opacity: 1;
 }
 .l-opacity-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.l-opacity-exit-done {
   opacity: 0;
   transition: opacity 500ms;
 }
@@ -47,5 +55,10 @@
   opacity: 0;
   transform: scale(0.9);
   transition: opacity 200ms, transform 200ms;
+  filter: blur(10px);
+}
+.simple-popup-exit-done {
+  opacity: 0;
+  transform: scale(0.9);
   filter: blur(10px);
 }
