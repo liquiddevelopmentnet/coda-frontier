@@ -52,6 +52,7 @@
   "Settings.AppSettings.Appearance.BackgroundImages.Dim.Description": "The amount of dim that should be applied applied to the background image",
 
   "Settings.AppSettings.Sound": "Sound",
+  "Settings.AppSettings.Language": "Language",
   "Settings.AppSettings.Advanced": "Advanced",
 
   "Settings.LogOut": "Log Out"

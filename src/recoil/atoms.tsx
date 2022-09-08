@@ -69,13 +69,6 @@ export const settingsWindowState = atom<boolean>({
   default: false,
 })
 
-// settings that need live updates
-
-export const languageState = atom<string>({
-  key: 'languageState',
-  default: 'en',
-})
-
 // vfx
 
 export const flashState = atom<boolean>({

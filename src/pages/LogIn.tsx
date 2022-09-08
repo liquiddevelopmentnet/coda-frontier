@@ -23,7 +23,7 @@ import { useApi } from '../function/ApiWrapper'
 import { useTranslations } from '../i18n/i18n'
 
 function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
-  const t = useTranslations().t
+  const t = useTranslations()
 
   const username = useRef<HTMLInputElement>(null)
   const password = useRef<HTMLInputElement>(null)

@@ -4,7 +4,7 @@ import SettingsSection from '../../components/SettingsSection'
 import { useTranslations } from '../../../../i18n/i18n'
 
 function AppearanceSettings() {
-  const t = useTranslations().t
+  const t = useTranslations()
 
   return (
     <div className='w-full'>

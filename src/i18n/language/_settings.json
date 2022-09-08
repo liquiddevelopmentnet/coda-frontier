@@ -1,7 +1,7 @@
 {
-  "defaultLanguage": "en",
+  "defaultLanguage": "us",
   "languageNames": {
-    "en": "English",
+    "us": "English",
     "de": "Deutsch"
   }
 }

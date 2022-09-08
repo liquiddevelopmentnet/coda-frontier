@@ -21,7 +21,7 @@ import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
 
 function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
-  const t = useTranslations().t
+  const t = useTranslations()
 
   const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)

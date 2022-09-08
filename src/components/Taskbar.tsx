@@ -53,7 +53,7 @@ const soundtracks = [
 ]
 
 function Taskbar() {
-  const t = useTranslations().t
+  const t = useTranslations()
   const linkOpener = useLinkOpener()
 
   const [settingsWindow, setSettingsWindow] =

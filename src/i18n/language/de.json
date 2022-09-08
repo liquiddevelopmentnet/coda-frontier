@@ -38,6 +38,7 @@
   "Settings.AppSettings.Appearance.BackgroundImages.Dim": "Dimmung",
   "Settings.AppSettings.Appearance.BackgroundImages.Dim.Description": "Die menge an Dimmung f\u00fcr die Hintergrundbilder",
   "Settings.AppSettings.Sound": "Sound",
+  "Settings.AppSettings.Language": "Sprache",
   "Settings.AppSettings.Advanced": "Erweitert",
   "Settings.LogOut": "Abmelden"
 }

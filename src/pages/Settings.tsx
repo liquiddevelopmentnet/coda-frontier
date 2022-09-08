@@ -13,6 +13,7 @@ import ConnectionsSettings from './settings/tabs/userSettings/ConnectionsSetting
 import { FaDiscord } from 'react-icons/fa'
 import FriendRequestsSettings from './settings/tabs/userSettings/FriendRequestsSettings'
 import { IoLogOut } from 'react-icons/io5'
+import LanguageSettings from './settings/tabs/appSettings/LanguageSettings'
 import ProfileSettings from './settings/tabs/userSettings/ProfileSettings'
 import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
 import SoundSettings from './settings/tabs/appSettings/SoundSettings'
@@ -26,7 +27,7 @@ const activeTabState = atom<{ id: string; node: React.ReactNode }>({
 })
 
 function Settings() {
-  const t = useTranslations().t
+  const t = useTranslations()
   const linkOpener = useLinkOpener()
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
@@ -84,6 +85,11 @@ function Settings() {
               target={<AppearanceSettings />}
             />
             <SettingsTab id='sound' name='Sound' target={<SoundSettings />} />
+            <SettingsTab
+              id='language'
+              name={t('Settings.AppSettings.Language')}
+              target={<LanguageSettings />}
+            />
             <SettingsTab
               id='advanced'
               name={t('Settings.AppSettings.Advanced')}

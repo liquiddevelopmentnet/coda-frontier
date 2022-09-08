@@ -14,7 +14,7 @@ import { useRecoilValue } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
 
 function DesktopHeader() {
-  const t = useTranslations().t
+  const t = useTranslations()
 
   const electron = useRecoilValue(electronState)
 
