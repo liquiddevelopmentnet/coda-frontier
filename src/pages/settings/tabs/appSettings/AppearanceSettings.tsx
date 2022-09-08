@@ -8,7 +8,7 @@ function AppearanceSettings() {
       <SettingsSection title='background images' />
       <BooleanOption
         title='enabled'
-        description='Background images are specific images selected by our team that will displayed behind the main content, they are designed to be **relaxing** and not **distracting**'
+        description='Background images are specific images selected by our team that will be displayed behind the main content, they are designed to be **relaxing** and not **distracting**'
         default={true}
         identifier='appearance.backgroundImages'
       />
