@@ -1,7 +1,6 @@
 import { atom, useRecoilState } from 'recoil'
 
 import Flags from 'country-flag-icons/react/3x2'
-import SettingsNotice from '../../components/SettingsNotice'
 import SettingsSection from '../../components/SettingsSection'
 import languageSettings from '../../../../i18n/language/_settings.json'
 import { useEffect } from 'react'

@@ -7,6 +7,7 @@ import 'reactjs-popup/dist/index.css'
 
 import Terminal, {
   captcha,
+  clear,
   ermt,
   print,
   prmt,
@@ -16,7 +17,9 @@ import { flashState, rootViewState } from '../recoil/atoms'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
 import LogIn from './LogIn'
+import languageSettings from '../i18n/language/_settings.json'
 import { useEffect } from 'react'
+import { useSettings } from './settings/Settings'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
 
@@ -26,6 +29,8 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
   const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)
 
+  const settings = useSettings()
+
   useEffect(() => {
     if (loginReferred) {
       setTimeout(() => {
@@ -33,6 +38,11 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
       }, 1000)
     }
   }, [])
+
+  const languages = Object.keys(languageSettings.languageNames).map(
+    // @ts-ignore
+    x => print(`[${x}] ${languageSettings.languageNames[x]}`)
+  )
 
   return (
     <div className='bg-black w-full h-full'>
@@ -57,21 +67,35 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
               }
             }
           ),
-          type(t('SignUp.Welcome')),
-          type(''),
-          prmt(t('SignUp.Prompt.Username'), 'name'),
-          prmt(t('SignUp.Prompt.Email'), 'email'),
-          prmt(t('SignUp.Prompt.Password'), 'password'),
-          prmt(t('SignUp.Prompt.PasswordConfirm'), 'passwordRepeat'),
-          type(t('SignUp.Captcha.Announcement')),
+          type('Please select a language, following options are available:'),
+          ...languages,
+          ermt(``, (val, print) => {
+            if (Object.keys(languageSettings.languageNames).includes(val)) {
+              settings.set('language', val)
+              return true
+            } else {
+              print('Invalid language selected.')
+              return false
+            }
+          }),
+          type('Okay...'),
           1000,
-          captcha(t('SignUp.Captcha.Prompt'), val => {
+          clear(),
+          type('SignUp.Welcome'),
+          type(''),
+          prmt('SignUp.Prompt.Username', 'name'),
+          prmt('SignUp.Prompt.Email', 'email'),
+          prmt('SignUp.Prompt.Password', 'password'),
+          prmt('SignUp.Prompt.PasswordConfirm', 'passwordRepeat'),
+          type('SignUp.Captcha.Announcement'),
+          1000,
+          captcha('SignUp.Captcha.Prompt', val => {
             console.log('captcha val:')
             console.log(val)
           }),
-          type(t('SignUp.Captcha.Success')),
+          type('SignUp.Captcha.Success'),
           type(''),
-          type(t('SignUp.Done')),
+          type('SignUp.Done'),
         ]}
         promptText='coda:~ $'
         callback={data => {

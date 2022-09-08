@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Popup from 'reactjs-popup'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { useTranslations } from '../i18n/i18n'
 
 type ObjStep = {
   type:
@@ -193,7 +194,13 @@ function Terminal({
 }
 
 const Typed = (props: { text: string; finishCb?: any }) => {
-  const text = props.text.trim() == '' ? '‎' : props.text
+  const t = useTranslations()
+
+  var text = props.text.trim() == '' ? '‎' : props.text
+
+  if (text.startsWith('SignUp.')) {
+    text = t(text)
+  }
 
   const [typed, setTyped] = useState('')
 
