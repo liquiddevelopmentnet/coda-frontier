@@ -123,7 +123,12 @@ const Root = () => {
   return (
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
-      <CSSTransition classNames={'l-opacity'} timeout={500} in={flash}>
+      <CSSTransition
+        classNames={'l-opacity'}
+        timeout={500}
+        in={flash}
+        mountOnEnter
+      >
         <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
       </CSSTransition>
       <NoBackgroundReplacement />
@@ -131,6 +136,7 @@ const Root = () => {
         classNames={'l-opacity'}
         timeout={500}
         in={settings('appearance.backgroundImages', true)}
+        mountOnEnter
       >
         <BackgroundWrapper />
       </CSSTransition>
@@ -139,6 +145,7 @@ const Root = () => {
           classNames={'simple-popup'}
           timeout={200}
           in={settingsWindow}
+          mountOnEnter
         >
           <Settings />
         </CSSTransition>
@@ -146,10 +153,16 @@ const Root = () => {
           classNames={'s-opacity'}
           timeout={200}
           in={showRootContent}
+          mountOnEnter
         >
           <div className='w-full h-full'>{rootView}</div>
         </CSSTransition>
-        <CSSTransition classNames={'l-opacity'} timeout={500} in={taskbar}>
+        <CSSTransition
+          classNames={'l-opacity'}
+          timeout={500}
+          in={taskbar}
+          mountOnEnter
+        >
           <Taskbar />
         </CSSTransition>
       </div>
