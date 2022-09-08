@@ -5,7 +5,7 @@
 
 const net = require('net')
 const child_process = require('child_process')
-const port = process.env.port ? process.env.port - 100 : 3000
+const port = process.env.port ? process.env.port - 100 : 5000
 
 process.env.ELECTRON_START_URL = `http://localhost:${port}`
 
@@ -17,9 +17,10 @@ const tryConnection = () =>
     client.end()
     if (!startedElectron) {
       console.log('starting electron')
+      console.log(`running: ${process.platform == 'win32' && 'set '}ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`)
       startedElectron = true
       child_process.execSync(
-        `set ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`,
+        `${process.platform == 'win32' && 'set '}ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`,
         { stdio: 'pipe', cwd: './app' }
       )
     }
