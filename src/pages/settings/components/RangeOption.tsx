@@ -1,14 +1,16 @@
 import ReactCommonmark from 'react-commonmark'
-import Toggle from 'react-toggle'
+import Slider from 'rc-slider'
 import { settingsState } from '../../../recoil/atoms'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useSettings } from '../Settings'
 
-function BooleanOption(props: {
+// This provides a range between 0.0 and 10.0
+
+function RangeOption(props: {
   title: string
   description: string
-  default: boolean
+  default: number
   identifier: string
 }) {
   const settings = useSettings()
@@ -19,10 +21,21 @@ function BooleanOption(props: {
 
   const settingsRec = useRecoilValue(settingsState)
 
+  const debounce = (func: () => any, timeout = 300) => {
+    let timer: NodeJS.Timeout
+    return (...args: any[]) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        // @ts-ignore
+        func.apply(this, args)
+      }, timeout)
+    }
+  }
+
   return (
     <div className='space-y-5'>
       <div className='mt-4 bg-gray-500 opacity-20 h-[1px] w-full' />
-      <div className='flex justify-between'>
+      <div className='flex justify-between overflow-visible'>
         <div>
           <p className='text-gray-400 font-bold text-xs-c uppercase'>
             {props.title}
@@ -31,19 +44,26 @@ function BooleanOption(props: {
             <ReactCommonmark source={props.description} skipHtml={true} />
           </div>
         </div>
-        <div className='flex'>
-          <Toggle
-            checked={
+        <div className='w-32 h-16 flex overflow-visible'>
+          <Slider
+            onChange={(nextValues: any) => {
+              debounce(
+                settings.set(
+                  props.identifier,
+                  Math.round(nextValues * 10 * 10) / 10
+                ),
+                300
+              )
+            }}
+            min={0}
+            max={1}
+            defaultValue={
               settingsRec[props.identifier] == undefined
                 ? props.default
-                : settingsRec[props.identifier]
+                : settingsRec[props.identifier] / 10
             }
-            className='opacity-90 mt-[18px]'
-            name={props.identifier}
-            onChange={e => {
-              settings.set(props.identifier, e.target.checked)
-            }}
-            icons={false}
+            step={0.01}
+            className='mt-[18px]'
           />
         </div>
       </div>
@@ -51,4 +71,4 @@ function BooleanOption(props: {
   )
 }
 
-export default BooleanOption
+export default RangeOption

@@ -3,8 +3,6 @@
  * All rights reserved.
  */
 
-import 'rc-slider/assets/index.css'
-
 import {
   BsGearFill,
   BsMusicNoteBeamed,
@@ -106,7 +104,7 @@ function Taskbar() {
       <div className='h-[30px] fixed bottom-0 w-screen flex justify-between px-3 gap-2 z-40 select-none'>
         <div className='h-full flex items-center gap-1'>
           <BsMusicNoteBeamed color='white' className='my-auto mr-1' />
-          <div className='flex mr-3 ml-2'>
+          <div className='flex mr-3 ml-2 overflow-visible'>
             {isPlaying ? (
               <BsStopFill
                 color='white'
@@ -137,7 +135,7 @@ function Taskbar() {
             {volume === 0 && <BsVolumeMuteFill color='white' />}
             {volume > 0 && volume < 0.4 && <BsVolumeDownFill color='white' />}
             {volume >= 0.4 && <BsVolumeUpFill color='white' />}
-            <div className='h-3 w-14 my-auto ml-2 overflow-visible'>
+            <div className='h-3 w-14 my-auto mb-1 ml-2 overflow-visible'>
               <Slider
                 onChange={(nextValues: any) => {
                   let targetVolume = Math.round(nextValues * 10) / 10

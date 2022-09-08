@@ -5,6 +5,8 @@
 
 import React, { useEffect, useRef } from 'react'
 
+import { useSafeSettings } from '../pages/settings/SafeSettingsHook'
+
 function CrossfadeImage({
   duration = 1000,
   src,
@@ -17,6 +19,8 @@ function CrossfadeImage({
 
   const top = useRef<HTMLImageElement>(null)
   const bottom = useRef<HTMLImageElement>(null)
+
+  const settings = useSafeSettings()
 
   useEffect(() => {
     let tosrc = src
@@ -49,7 +53,7 @@ function CrossfadeImage({
     <div
       className='w-full h-full flex'
       style={{
-        filter: 'blur(3px)',
+        filter: `blur(${settings('appearance.backgroundImages.blur', 3)}px)`,
         transform: 'scale(1.05)',
       }}
     >

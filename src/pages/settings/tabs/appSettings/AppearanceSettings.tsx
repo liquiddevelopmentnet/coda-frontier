@@ -1,4 +1,5 @@
 import BooleanOption from '../../components/BooleanOption'
+import RangeOption from '../../components/RangeOption'
 import SettingsSection from '../../components/SettingsSection'
 
 function AppearanceSettings() {
@@ -10,6 +11,12 @@ function AppearanceSettings() {
         description='Background images are specific images selected by our team that will displayed behind the main content, they are designed to be **relaxing** and not **distracting**'
         default={true}
         identifier='appearance.backgroundImages'
+      />
+      <RangeOption
+        title='blur'
+        description='The blur amount of the background image'
+        default={0.3}
+        identifier='appearance.backgroundImages.blur'
       />
     </div>
   )
