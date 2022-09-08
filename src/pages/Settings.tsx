@@ -17,6 +17,7 @@ import ProfileSettings from './settings/tabs/userSettings/ProfileSettings'
 import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
 import SoundSettings from './settings/tabs/appSettings/SoundSettings'
 import { useLinkOpener } from '../function/LinkOpener'
+import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
 
 const activeTabState = atom<{ id: string; node: React.ReactNode }>({
@@ -25,6 +26,7 @@ const activeTabState = atom<{ id: string; node: React.ReactNode }>({
 })
 
 function Settings() {
+  const t = useTranslations().t
   const linkOpener = useLinkOpener()
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
@@ -53,45 +55,45 @@ function Settings() {
     >
       <div className='flex w-full h-full'>
         <div className='flex flex-col min-w-min p-4 bg-gradient-to-r from-[#1e293b] via-[#1e293bf1] to-[#1e293be2]'>
-          <SettingsTabGroup title='user settings'>
+          <SettingsTabGroup title={t('Settings.UserSettings')}>
             <SettingsTab
               id='profile'
-              name='Profile'
+              name={t('Settings.UserSettings.Profile')}
               target={<ProfileSettings />}
             />
             <SettingsTab
               id='security'
-              name='Security'
+              name={t('Settings.UserSettings.Security')}
               target={<SecuritySettings />}
             />
             <SettingsTab
               id='connections'
-              name='Connections'
+              name={t('Settings.UserSettings.Connections')}
               target={<ConnectionsSettings />}
             />
             <SettingsTab
               id='friend_requests'
-              name='Friend Requests'
+              name={t('Settings.UserSettings.FriendRequests')}
               target={<FriendRequestsSettings />}
             />
           </SettingsTabGroup>
-          <SettingsTabGroup title='app settings'>
+          <SettingsTabGroup title={t('Settings.AppSettings')}>
             <SettingsTab
               id='appearance'
-              name='Appearance'
+              name={t('Settings.AppSettings.Appearance')}
               target={<AppearanceSettings />}
             />
             <SettingsTab id='sound' name='Sound' target={<SoundSettings />} />
             <SettingsTab
               id='advanced'
-              name='Advanced'
+              name={t('Settings.AppSettings.Advanced')}
               target={<AdvancedSettings />}
             />
           </SettingsTabGroup>
           <SettingsTabGroup title={null}>
             <SettingsTab
               id='logout'
-              name='Logout'
+              name={t('Settings.LogOut')}
               icon={<IoLogOut color='white' size={20} />}
               customAction={() => {
                 console.log('logout')

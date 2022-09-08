@@ -1,27 +1,38 @@
 import BooleanOption from '../../components/BooleanOption'
 import RangeOption from '../../components/RangeOption'
 import SettingsSection from '../../components/SettingsSection'
+import { useTranslations } from '../../../../i18n/i18n'
 
 function AppearanceSettings() {
+  const t = useTranslations().t
+
   return (
     <div className='w-full'>
-      <SettingsSection title='background images' />
+      <SettingsSection
+        title={t('Settings.AppSettings.Appearance.BackgroundImages')}
+      />
       <BooleanOption
-        title='enabled'
-        description='Background images are specific images selected by our team that will be displayed behind the main content, they are designed to be **relaxing** and not **distracting**'
+        title={t('Settings.AppSettings.Appearance.BackgroundImages.Enabled')}
+        description={t(
+          'Settings.AppSettings.Appearance.BackgroundImages.Enabled.Description'
+        )}
         default={true}
         identifier='appearance.backgroundImages'
       />
       <RangeOption
-        title='blur'
-        description='The blur amount of the background image'
+        title={t('Settings.AppSettings.Appearance.BackgroundImages.Blur')}
+        description={t(
+          'Settings.AppSettings.Appearance.BackgroundImages.Blur.Description'
+        )}
         default={0.3}
         identifier='appearance.backgroundImages.blur'
         dependsOn='appearance.backgroundImages'
       />
       <RangeOption
-        title='dim'
-        description='The amount of dim applied to the background image'
+        title={t('Settings.AppSettings.Appearance.BackgroundImages.Dim')}
+        description={t(
+          'Settings.AppSettings.Appearance.BackgroundImages.Dim.Description'
+        )}
         default={0.1}
         identifier='appearance.backgroundImages.dim'
         dependsOn='appearance.backgroundImages'
