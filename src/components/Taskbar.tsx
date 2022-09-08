@@ -135,7 +135,7 @@ function Taskbar() {
             {volume === 0 && <BsVolumeMuteFill color='white' />}
             {volume > 0 && volume < 0.4 && <BsVolumeDownFill color='white' />}
             {volume >= 0.4 && <BsVolumeUpFill color='white' />}
-            <div className='h-3 w-14 my-auto mb-1 ml-2 overflow-visible'>
+            <div className='h-3 w-14 my-auto mb-[4px] ml-2 overflow-visible'>
               <Slider
                 onChange={(nextValues: any) => {
                   let targetVolume = Math.round(nextValues * 10) / 10
@@ -186,7 +186,7 @@ function Taskbar() {
 }
 
 const Divider = () => {
-  return <div className='w-[1px] h-[15px] my-auto ml-4 mr-4 bg-slate-700' />
+  return <div className='w-[1px] h-[15px] my-auto ml-4 mr-4 bg-gray-400' />
 }
 
 export default Taskbar
