@@ -127,9 +127,9 @@ const Root = () => {
         classNames={'l-opacity'}
         timeout={500}
         in={flash}
-        mountOnEnter
+        unmountOnExit
       >
-        <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
+        <div className='bg-white w-full h-full absolute z-30' />
       </CSSTransition>
       <NoBackgroundReplacement />
       <CSSTransition
@@ -145,7 +145,7 @@ const Root = () => {
           classNames={'simple-popup'}
           timeout={200}
           in={settingsWindow}
-          mountOnEnter
+          unmountOnExit
         >
           <Settings />
         </CSSTransition>
