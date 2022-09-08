@@ -11,6 +11,7 @@ import {
   rootViewState,
   settingsState,
   settingsWindowState,
+  showRootContentState,
   taskbarState,
   tokenState,
 } from '../recoil/atoms'
@@ -25,18 +26,20 @@ import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
 import { useApi } from '../function/ApiWrapper'
 import { useEffect } from 'react'
+import { useSafeSettings } from './settings/SafeSettingsHook'
 import { useSettings } from './settings/Settings'
 
 const Root = () => {
   const settingsController = useSettings()
 
-  const settings = useRecoilValue(settingsState)
+  const settings = useSafeSettings()
 
   const setElectron = useSetRecoilState(electronState)
   const [token, setToken] = useRecoilState(tokenState)
   const [rootView, setRootView] = useRecoilState(rootViewState)
   const taskbar = useRecoilValue(taskbarState)
   const settingsWindow = useRecoilValue(settingsWindowState)
+  const showRootContent = useRecoilValue(showRootContentState)
   const flash = useRecoilValue(flashState)
 
   const api = useApi()
@@ -129,7 +132,7 @@ const Root = () => {
       >
         <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
       </CSSTransition>
-      {settings['appearance.backgroundImages'] ? (
+      {settings('appearance.backgroundImages', true) ? (
         <BackgroundWrapper />
       ) : (
         <NoBackgroundReplacement />
@@ -137,7 +140,7 @@ const Root = () => {
       <div className='w-full h-full'>
         <CSSTransition
           classNames={'simple-popup'}
-          timeout={500}
+          timeout={200}
           in={settingsWindow}
           unmountOnExit
         >
@@ -145,8 +148,8 @@ const Root = () => {
         </CSSTransition>
         <CSSTransition
           classNames={'simple-opacity'}
-          timeout={500}
-          in={!settingsWindow}
+          timeout={200}
+          in={showRootContent}
           unmountOnExit
         >
           {rootView}

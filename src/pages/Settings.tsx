@@ -45,14 +45,6 @@ function Settings() {
         electron.is && 'mt-[0px]'
       }`}
     >
-      <CgClose
-        color='white'
-        size={25}
-        className='cursor-pointer hover:opacity-80 absolute right-4 top-[38px]'
-        onClick={() => {
-          setSettingsWindow(false)
-        }}
-      />
       <div className='flex w-full h-full'>
         <div className='flex flex-col min-w-min p-4 bg-gradient-to-r from-[#1e293b] via-[#1e293bf1] to-[#1e293be2]'>
           <SettingsTabGroup title='user settings'>
@@ -114,6 +106,16 @@ function Settings() {
         </div>
         <div className='w-full h-full bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar'>
           <div className='mr-24'>{activeTab.node}</div>
+        </div>
+        <div className='w-16 bg-[#1e293be2] p-4'>
+          <CgClose
+            color='white'
+            size={25}
+            className='cursor-pointer hover:opacity-80'
+            onClick={() => {
+              setSettingsWindow(false)
+            }}
+          />
         </div>
       </div>
     </div>

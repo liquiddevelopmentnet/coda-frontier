@@ -53,6 +53,11 @@ export const rootViewState = atom<any>({
   default: <SignUp />,
 })
 
+export const showRootContentState = atom<boolean>({
+  key: 'hideRootContentState',
+  default: true,
+})
+
 // additional views
 
 export const taskbarState = atom<boolean>({
