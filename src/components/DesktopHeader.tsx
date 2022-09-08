@@ -21,7 +21,7 @@ function DesktopHeader() {
   return (
     <>
       {electron.is && (
-        <div className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between'>
+        <div className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between z-50'>
           <p className='text-white jetbrains-regular text-xs ml-2 my-auto'>
             {t('Header.AppName')}
           </p>

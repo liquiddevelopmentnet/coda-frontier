@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { electronState, settingsWindowState } from '../recoil/atoms'
+import {
+  electronState,
+  settingsWindowState,
+  showRootContentState,
+} from '../recoil/atoms'
 
 import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
 import AppearanceSettings from './settings/tabs/appSettings/AppearanceSettings'
@@ -24,6 +28,7 @@ function Settings() {
   const linkOpener = useLinkOpener()
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
+  const setShowRootContent = useSetRecoilState(showRootContentState)
   const electron = useRecoilValue(electronState)
   const activeTab = useRecoilValue(activeTabState)
 
@@ -31,6 +36,7 @@ function Settings() {
     window.onkeydown = e => {
       if (e.key === 'Escape') {
         setSettingsWindow(false)
+        setShowRootContent(true)
       }
     }
 
@@ -41,8 +47,8 @@ function Settings() {
 
   return (
     <div
-      className={`w-full h-full z-30 bg-transparent ${
-        electron.is && 'mt-[0px]'
+      className={`w-full h-full absolute left-0 z-30 bg-transparent ${
+        electron.is ? 'top-[22px]' : 'top-0'
       }`}
     >
       <div className='flex w-full h-full'>
@@ -114,6 +120,7 @@ function Settings() {
             className='cursor-pointer hover:opacity-80'
             onClick={() => {
               setSettingsWindow(false)
+              setShowRootContent(true)
             }}
           />
         </div>

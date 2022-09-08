@@ -16,6 +16,8 @@ import {
   BsVolumeUpFill,
 } from 'react-icons/bs'
 import React, { useRef, useState } from 'react'
+import { settingsWindowState, showRootContentState } from '../recoil/atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
 import { FaDiscord } from 'react-icons/fa'
 import ReactHowler from 'react-howler'
@@ -26,9 +28,7 @@ import downtownNewYork from '../assets/soundtrack/downtown-newyork.mp3'
 import justAnotherBeautiful from '../assets/soundtrack/just-another-beautiful.mp3'
 import ostCoconutBeach from '../assets/soundtrack/coconut-beach.mp3'
 import ostSx from '../assets/soundtrack/sx.mp3'
-import { settingsWindowState } from '../recoil/atoms'
 import { useLinkOpener } from '../function/LinkOpener'
-import { useRecoilState } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
 
 const soundtracks = [
@@ -60,6 +60,8 @@ function Taskbar() {
 
   const [settingsWindow, setSettingsWindow] =
     useRecoilState(settingsWindowState)
+
+  const setShowRootContent = useSetRecoilState(showRootContentState)
 
   const [currentSoundtrack, setCurrentSoundtrack] = React.useState<{
     name: string
@@ -164,6 +166,8 @@ function Taskbar() {
             size={12}
             className='my-auto mr-1 cursor-pointer hover:opacity-80'
             onClick={() => {
+              console.log(settingsWindow)
+              setShowRootContent(settingsWindow)
               setSettingsWindow(!settingsWindow)
             }}
           />

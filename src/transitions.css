@@ -1,29 +1,29 @@
-.simple-opacity-enter {
+.s-opacity-enter {
   opacity: 0;
 }
-.simple-opacity-enter-active {
+.s-opacity-enter-active {
   opacity: 1;
   transition: opacity 200ms;
 }
-.simple-opacity-exit {
+.s-opacity-exit {
   opacity: 1;
 }
-.simple-opacity-exit-active {
+.s-opacity-exit-active {
   opacity: 0;
   transition: opacity 200ms;
 }
 
-.long-opacity-enter {
+.l-opacity-enter {
   opacity: 0;
 }
-.long-opacity-enter-active {
+.l-opacity-enter-active {
   opacity: 1;
   transition: opacity 500ms;
 }
-.long-opacity-exit {
+.l-opacity-exit {
   opacity: 1;
 }
-.long-opacity-exit-active {
+.l-opacity-exit-active {
   opacity: 0;
   transition: opacity 500ms;
 }

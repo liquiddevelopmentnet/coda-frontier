@@ -125,7 +125,7 @@ const Root = () => {
     <div className='w-screen h-screen overflow-hidden'>
       <DesktopHeader />
       <CSSTransition
-        classNames={'simple-opacity'}
+        classNames={'l-opacity'}
         timeout={500}
         in={flash}
         unmountOnExit
@@ -147,15 +147,15 @@ const Root = () => {
           <Settings />
         </CSSTransition>
         <CSSTransition
-          classNames={'simple-opacity'}
+          classNames={'s-opacity'}
           timeout={200}
           in={showRootContent}
           unmountOnExit
         >
-          {rootView}
+          <div className='w-full h-full'>{rootView}</div>
         </CSSTransition>
         <CSSTransition
-          classNames={'long-opacity'}
+          classNames={'l-opacity'}
           timeout={500}
           in={taskbar}
           unmountOnExit
