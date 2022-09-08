@@ -42,22 +42,22 @@
   height: 24px;
   padding: 0;
   border-radius: 30px;
-  background-color: #4d4d4d;
+  @apply bg-gray-700;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
 .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: #000000;
+  @apply opacity-70;
 }
 
 .react-toggle--checked .react-toggle-track {
-  background-color: #1ed860;
+  @apply bg-gradient-to-r from-red-500 to-pink-500;
 }
 
 .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: #16a84a;
+  @apply opacity-70;
 }
 
 .react-toggle-track-check {
@@ -110,7 +110,6 @@
   left: 1px;
   width: 22px;
   height: 22px;
-  border: 1px solid #4d4d4d;
   border-radius: 50%;
   background-color: #fafafa;
 

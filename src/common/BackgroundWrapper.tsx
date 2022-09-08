@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react'
 
 import CrossfadeImage from './CrossfadeImage'
 import includedBackgrounds from '../function/BackgroundImages'
+import { useSafeSettings } from '../pages/settings/SafeSettingsHook'
 
 function BackgroundWrapper() {
   const [imageIndex, setImageIndex] = useState(
     Math.floor(Math.random() * includedBackgrounds.length)
   )
+
+  const settings = useSafeSettings()
 
   useEffect(() => {
     const itv = setInterval(() => {
@@ -28,8 +31,14 @@ function BackgroundWrapper() {
   }, [])
 
   return (
-    <div className='w-full h-full absolute -z-10'>
-      <CrossfadeImage duration={1000} src={includedBackgrounds[imageIndex]} />
+    <div className='-z-10'>
+      <div
+        className='w-full h-full absolute -z-10 bg-black'
+        style={{ opacity: settings('appearance.backgroundImages.dim', 0) / 10 }}
+      />
+      <div className='w-full h-full absolute -z-20'>
+        <CrossfadeImage duration={1000} src={includedBackgrounds[imageIndex]} />
+      </div>
     </div>
   )
 }

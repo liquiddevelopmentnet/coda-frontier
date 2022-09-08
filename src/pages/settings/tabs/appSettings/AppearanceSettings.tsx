@@ -18,6 +18,12 @@ function AppearanceSettings() {
         default={0.3}
         identifier='appearance.backgroundImages.blur'
       />
+      <RangeOption
+        title='dim'
+        description='The amount of dim applied to the background image'
+        default={0.1}
+        identifier='appearance.backgroundImages.dim'
+      />
     </div>
   )
 }
