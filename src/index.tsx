@@ -5,6 +5,7 @@
 
 import './index.css'
 import './assets/thirdParty/devtools'
+import './assets/thirdParty/react-toggle.css'
 
 import ReactDOM from 'react-dom/client'
 import { RecoilRoot } from 'recoil'

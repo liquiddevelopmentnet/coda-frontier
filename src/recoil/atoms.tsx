@@ -64,7 +64,6 @@ export const taskbarState = atom<boolean>({
   key: 'taskbarState',
   default: false,
 })
-
 export const settingsWindowState = atom<boolean>({
   key: 'settingsWindowState',
   default: false,

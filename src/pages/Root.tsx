@@ -9,7 +9,6 @@ import {
   electronState,
   flashState,
   rootViewState,
-  settingsState,
   settingsWindowState,
   showRootContentState,
   taskbarState,
@@ -132,11 +131,15 @@ const Root = () => {
       >
         <div className='bg-white w-full h-full absolute pointer-events-none z-30' />
       </CSSTransition>
-      {settings('appearance.backgroundImages', true) ? (
+      <NoBackgroundReplacement />
+      <CSSTransition
+        classNames={'l-opacity'}
+        timeout={500}
+        in={settings('appearance.backgroundImages', true)}
+        unmountOnExit
+      >
         <BackgroundWrapper />
-      ) : (
-        <NoBackgroundReplacement />
-      )}
+      </CSSTransition>
       <div className='w-full h-full'>
         <CSSTransition
           classNames={'simple-popup'}

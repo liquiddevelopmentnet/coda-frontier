@@ -17,7 +17,7 @@ import {
 } from 'react-icons/bs'
 import React, { useRef, useState } from 'react'
 import { settingsWindowState, showRootContentState } from '../recoil/atoms'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { FaDiscord } from 'react-icons/fa'
 import ReactHowler from 'react-howler'
@@ -103,7 +103,7 @@ function Taskbar() {
         ref={howler}
         onEnd={nextSong}
       />
-      <div className='h-[30px] fixed bottom-0 w-screen bg-gradient-to-t from-slate-900 to-transparent flex justify-between px-3 gap-2 z-40 select-none'>
+      <div className='h-[30px] fixed bottom-0 w-screen flex justify-between px-3 gap-2 z-40 select-none'>
         <div className='h-full flex items-center gap-1'>
           <BsMusicNoteBeamed color='white' className='my-auto mr-1' />
           <div className='flex mr-3 ml-2'>
@@ -166,7 +166,6 @@ function Taskbar() {
             size={12}
             className='my-auto mr-1 cursor-pointer hover:opacity-80'
             onClick={() => {
-              console.log(settingsWindow)
               setShowRootContent(settingsWindow)
               setSettingsWindow(!settingsWindow)
             }}

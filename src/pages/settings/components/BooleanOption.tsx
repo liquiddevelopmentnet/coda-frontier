@@ -1,4 +1,5 @@
 import ReactCommonmark from 'react-commonmark'
+import Toggle from 'react-toggle'
 import { settingsState } from '../../../recoil/atoms'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
@@ -18,13 +19,6 @@ function BooleanOption(props: {
 
   const settingsRec = useRecoilValue(settingsState)
 
-  useEffect(() => {
-    const iv = setInterval(() => {
-      console.log(settingsRec)
-    }, 2000)
-    return () => clearInterval(iv)
-  }, [settingsRec])
-
   return (
     <div className='space-y-5'>
       <div className='mt-4 bg-gray-500 opacity-20 h-[1px] w-full' />
@@ -38,21 +32,21 @@ function BooleanOption(props: {
           </div>
         </div>
         <div className='flex items-center'>
-          <input
-            type='checkbox'
-            className='h-5 w-5 text-gray-400'
+          <Toggle
             checked={
               settingsRec[props.identifier] == undefined
                 ? props.default
                 : settingsRec[props.identifier]
             }
+            className='opacity-90'
+            name={props.identifier}
             onChange={e => {
               settings.set(props.identifier, e.target.checked)
             }}
+            icons={false}
           />
         </div>
       </div>
-      <div className='bg-gray-500 opacity-20 h-[1px] w-full' />
     </div>
   )
 }
