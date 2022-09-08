@@ -17,12 +17,14 @@ function AppearanceSettings() {
         description='The blur amount of the background image'
         default={0.3}
         identifier='appearance.backgroundImages.blur'
+        dependsOn='appearance.backgroundImages'
       />
       <RangeOption
         title='dim'
         description='The amount of dim applied to the background image'
         default={0.1}
         identifier='appearance.backgroundImages.dim'
+        dependsOn='appearance.backgroundImages'
       />
     </div>
   )

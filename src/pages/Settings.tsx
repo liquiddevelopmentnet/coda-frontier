@@ -110,7 +110,7 @@ function Settings() {
           </div>
           <p className='text-xxs text-gray-500 mt-3'>{`coda (${version.stage}) ${version.id} (${version.rev})`}</p>
         </div>
-        <div className='w-full h-full bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar'>
+        <div className='w-full h-full bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar select-none'>
           <div className='mr-24'>{activeTab.node}</div>
         </div>
         <div className='w-16 bg-[#1e293be2] p-4'>
