@@ -33,7 +33,7 @@ function RangeOption(props: {
   }
 
   return (
-    <div className='space-y-5'>
+    <div className='space-y-5 overflow-visible mr-3'>
       <div className='mt-4 bg-gray-500 opacity-20 h-[1px] w-full' />
       <div className='flex justify-between overflow-visible'>
         <div>
