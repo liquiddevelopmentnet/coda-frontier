@@ -31,7 +31,7 @@ function RangeOption(props: {
 
   return (
     <OptionBase inherit={props}>
-      <div className='w-32 h-16'>
+      <div className='w-32 h-16 overflow-visible'>
         <Slider
           onChange={(nextValues: any) => {
             debounce(
