@@ -34,7 +34,7 @@
   "Settings.UserSettings": "User Settings",
 
   "Settings.UserSettings.Profile": "Profile",
-  "Settings.UserSettings.Profile.NotLoggedIn": "You have to **login** to access this settings.",
+  "Settings.UserSettings.Profile.NotLoggedIn": "You have to **login** to access these settings.",
 
   "Settings.UserSettings.Security": "Security",
   "Settings.UserSettings.Connections": "Connections",
@@ -45,11 +45,11 @@
   "Settings.AppSettings.Appearance": "Appearance",
   "Settings.AppSettings.Appearance.BackgroundImages": "Background Images",
   "Settings.AppSettings.Appearance.BackgroundImages.Enabled": "Enabled",
-  "Settings.AppSettings.Appearance.BackgroundImages.Enabled.Description": "Background images are specific images selected by our team that will be displayed behind the main content, they are designed to be **relaxing** and not **distracting**",
+  "Settings.AppSettings.Appearance.BackgroundImages.Enabled.Description": "Enable the display of background images.",
   "Settings.AppSettings.Appearance.BackgroundImages.Blur": "Blur",
-  "Settings.AppSettings.Appearance.BackgroundImages.Blur.Description": "The blur amount of the background image",
-  "Settings.AppSettings.Appearance.BackgroundImages.Dim": "Dim",
-  "Settings.AppSettings.Appearance.BackgroundImages.Dim.Description": "The amount of dim that should be applied applied to the background image",
+  "Settings.AppSettings.Appearance.BackgroundImages.Blur.Description": "How blurry the background image will be.",
+  "Settings.AppSettings.Appearance.BackgroundImages.Dim": "Dimness",
+  "Settings.AppSettings.Appearance.BackgroundImages.Dim.Description": "How dim the background image will be.",
 
   "Settings.AppSettings.Sound": "Sound",
   "Settings.AppSettings.Language": "Language",
