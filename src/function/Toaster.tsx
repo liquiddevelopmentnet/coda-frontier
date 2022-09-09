@@ -30,9 +30,11 @@ const Toast = (props: {
 }) => {
   const duration = props.duration ?? 5000
   const [percent, setPercent] = useState(100)
+  const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
     const iv = setInterval(() => {
+      if (hovered) return
       setPercent(p => {
         if (p <= 0) {
           clearInterval(iv)
@@ -46,13 +48,15 @@ const Toast = (props: {
     return () => {
       clearInterval(iv)
     }
-  }, [])
+  }, [hovered])
 
   return (
     <div
       className={`${
         props.t.visible ? 'animate-enter' : 'animate-leave'
-      } mb-5 bg-gray-600 bg-opacity-50 rounded-[4px] flex flex-col`}
+      } mb-5 bg-gray-600 bg-opacity-50 rounded-[4px] flex flex-col cursor-default select-none`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <div className='flex space-x-3 items-center p-2 px-4'>
         {props.type == 'success' && (
