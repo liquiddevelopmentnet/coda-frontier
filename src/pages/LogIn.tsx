@@ -19,7 +19,7 @@ import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import logo from '../assets/images/blk_logo.png'
-import { useApi } from '../function/ApiWrapper'
+import { useApi } from '../function/GatewayWrapper'
 import { useTranslations } from '../i18n/i18n'
 
 function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
