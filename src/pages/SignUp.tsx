@@ -51,6 +51,8 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
           print(`Coda Host (${version.stage}) ${version.id} (${version.rev})`),
           print('(c) Project Coda, LLC. All rights reserved.'),
           print(''),
+          print('You can press Ctrl+C at any time to cancel the wizard.'),
+          print(''),
           ermt(
             `${t('SignUp.Prompt.AlreadyHaveAccount')} [Y/n]`,
             (val, print) => {
@@ -62,8 +64,11 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
                   }, 1000)
                 }, 1000)
                 return false
-              } else {
+              } else if (val.toLowerCase() == 'n') {
                 return true
+              } else {
+                print('Invalid input. Please try again.')
+                return false
               }
             }
           ),
@@ -74,7 +79,7 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
               settings.set('language', val)
               return true
             } else {
-              print('Invalid language selected.')
+              print('Invalid language selected, please try again.')
               return false
             }
           }),
@@ -100,12 +105,15 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
         promptText='coda:~ $'
         callback={data => {
           console.log('from signup > ', data)
-          setTimeout(() => {
-            setFlash(true)
-            setTimeout(() => {
-              setRootView(<LogIn signUpReferred />)
-            }, 1000)
-          }, 1000)
+          setTimeout(
+            () => {
+              setFlash(true)
+              setTimeout(() => {
+                setRootView(<LogIn signUpReferred />)
+              }, 1000)
+            },
+            data != null ? 1000 : 0
+          )
         }}
       />
     </div>

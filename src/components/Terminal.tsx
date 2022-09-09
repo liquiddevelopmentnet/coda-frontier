@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import Popup from 'reactjs-popup'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -35,6 +35,12 @@ function Terminal({
   const [inputVisible, setInputVisible] = useState(false)
   const [inputCallback, setInputCallback] = useState<any>()
 
+  const terminalRef = useRef<any>()
+
+  useEffect(() => {
+    terminalRef.current.scrollTop = terminalRef.current.scrollHeight
+  }, [nodes, inputVisible])
+
   var finalData: { [key: string]: string } = {}
 
   const type_Process = async (step: ObjStep) => {
@@ -66,7 +72,7 @@ function Terminal({
             finishCb={() => {
               setInputVisible(true)
               setInputCallback({
-                cb: (data: any) => {
+                cb: async (data: any) => {
                   setNodes((nodes: any) => [
                     ...nodes,
                     <p className='font-mono text-base'>
@@ -74,17 +80,22 @@ function Terminal({
                     </p>,
                     '‎',
                   ])
-                  if (
-                    step.type == 'eprompt' &&
-                    step.cb &&
-                    step.cb(data, (msg: string) => {
-                      setNodes((nodes: any) => [
-                        ...nodes,
-                        <p className='font-mono text-base'>{msg}</p>,
-                      ])
-                    })
-                  )
-                    resolve()
+                  if (step.type == 'eprompt' && step.cb) {
+                    if (
+                      step.cb(data, (msg: string) => {
+                        setNodes((nodes: any) => [
+                          ...nodes,
+                          <p className='font-mono text-base'>{msg}</p>,
+                        ])
+                      })
+                    ) {
+                      resolve()
+                    } else {
+                      type_Process(step).then(() => {
+                        resolve()
+                      })
+                    }
+                  }
 
                   if (step.type == 'prompt') resolve()
                 },
@@ -153,11 +164,17 @@ function Terminal({
     const handleKeyDown = (e: any) => {
       if (!inputVisible) return
       if (e.key.length === 1) {
+        if (e.key === 'c' && e.ctrlKey) {
+          e.preventDefault()
+          callback(null)
+          return
+        }
         setInput(input + e.key)
       } else if (e.key === 'Backspace') {
         setInput(input.slice(0, input.length - 1))
       } else if (e.key === 'Enter') {
         var data = input
+        if (data.trim() == '') return
         setInput('')
         setInputVisible(false)
         inputCallback.cb(data)
@@ -173,7 +190,10 @@ function Terminal({
   }, [input, inputVisible])
 
   return (
-    <div className='text-white cursor-text select-none bg-black w-full h-full font-mono p-2'>
+    <div
+      ref={terminalRef}
+      className='text-white cursor-text select-none bg-black w-full h-full font-mono p-2 overflow-y-scroll'
+    >
       {nodes.map((node: any, i: number) => (
         <div
           key={i}
@@ -189,6 +209,7 @@ function Terminal({
           {promptText} {input}
         </p>
       )}
+      <div className='mb-5' />
     </div>
   )
 }
