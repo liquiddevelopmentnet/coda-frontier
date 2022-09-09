@@ -16,8 +16,8 @@ function CommonButton({
   loading?: boolean
   disabled?: boolean
 }) {
-  const primaryClasses = 'bg-gradient-to-br from-red-500 to-pink-500'
-  const secondaryClasses = 'bg-gradient-to-br from-gray-400 to-gray-500'
+  const primaryClasses = 'bg-gradient-to-r from-red-500 to-pink-500'
+  const secondaryClasses = 'bg-gradient-to-r from-gray-500 to-slate-600'
 
   var classes
 
