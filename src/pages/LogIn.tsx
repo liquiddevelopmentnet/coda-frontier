@@ -83,6 +83,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
         <CommonButton
           type='primary'
           label={t('LogIn.SubmitButton')}
+          dominant
           onClick={() => {
             setError('')
             var exec = true

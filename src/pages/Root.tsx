@@ -23,6 +23,7 @@ import NoBackgroundReplacement from '../common/NoBackgroundReplacement'
 import Settings from './Settings'
 import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
+import { Toaster } from 'react-hot-toast'
 import { useApi } from '../function/GatewayWrapper'
 import { useEffect } from 'react'
 import { useSafeSettings } from './settings/SafeSettingsHook'
@@ -113,15 +114,20 @@ const Root = () => {
 
     const isElectron = window.require !== undefined
     if (isElectron) {
+      const isDev =
+        typeof window.process.env.CODA_DEVELOPMENT_ENVIRONMENT != 'undefined' &&
+        window.process.env.CODA_DEVELOPMENT_ENVIRONMENT === 'true'
       setElectron({
         is: isElectron,
         ipc: window.require('electron').ipcRenderer,
+        dev: isDev,
       })
     }
   }, [])
 
   return (
     <div className='w-screen h-screen overflow-hidden'>
+      <Toaster />
       <DesktopHeader />
       <CSSTransition
         classNames={'l-opacity'}

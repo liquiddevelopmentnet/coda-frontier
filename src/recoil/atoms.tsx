@@ -8,11 +8,12 @@ import { atom } from 'recoil'
 
 // electron
 
-export const electronState = atom<{ is: boolean; ipc: any }>({
+export const electronState = atom<{ is: boolean; ipc: any; dev: boolean }>({
   key: 'electronState',
   default: {
     is: false,
     ipc: null,
+    dev: false,
   },
 })
 

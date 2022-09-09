@@ -43,6 +43,7 @@ const createWindow = () => {
   })
 
   console.log(`Development environment: ${isDev}`)
+  process.env.CODA_DEVELOPMENT_ENVIRONMENT = isDev
 
   const startUrl =
     process.env.ELECTRON_START_URL ||

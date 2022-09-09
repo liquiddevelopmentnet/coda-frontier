@@ -10,6 +10,7 @@ import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
 import AppearanceSettings from './settings/tabs/appSettings/AppearanceSettings'
 import { CgClose } from 'react-icons/cg'
 import ConnectionsSettings from './settings/tabs/userSettings/ConnectionsSettings'
+import DeveloperOptions from './settings/tabs/DeveloperOptions'
 import { FaDiscord } from 'react-icons/fa'
 import FriendRequestsSettings from './settings/tabs/userSettings/FriendRequestsSettings'
 import { IoLogOut } from 'react-icons/io5'
@@ -96,6 +97,15 @@ function Settings() {
               target={<AdvancedSettings />}
             />
           </SettingsTabGroup>
+          {electron.is && electron.dev && (
+            <SettingsTabGroup title={null}>
+              <SettingsTab
+                id='dev'
+                name='Developer Options'
+                target={<DeveloperOptions />}
+              />
+            </SettingsTabGroup>
+          )}
           <SettingsTabGroup title={null}>
             <SettingsTab
               id='logout'
