@@ -8,7 +8,7 @@ const providedStage = process.argv[2]
 const validStages = ['dev', 'indev', 'infdev', 'alpha', 'beta', 'production']
 
 var versionData = {
-  id: 'xxxxxx.0',
+  id: 'xxxxxx',
   rev: 'xxxxxxx',
   stage: 'development',
 }
@@ -30,9 +30,6 @@ if (!(providedStage === 'dev')) {
     .toString()
     .trim()
 
-  const increasingBuildNumber =
-    parseInt(fs.readFileSync('.codaibn', 'utf8').toString().trim()) + 1
-
   const day = new Date().getDate()
   const yearX = new Date().getFullYear()
   const year = yearX.toString().substring(2)
@@ -42,7 +39,7 @@ if (!(providedStage === 'dev')) {
   const dayString = day < 10 ? '0' + day : day
 
   versionData = {
-    id: `${monthString}${year}${dayString}.${increasingBuildNumber}`,
+    id: `${monthString}${year}${dayString}`,
     rev: revision,
     stage: providedStage,
   }
@@ -52,15 +49,6 @@ if (!(providedStage === 'dev')) {
   console.log(`i | Building version ${verString}`)
 
   console.log('')
-
-  fs.writeFileSync('.codaibn', increasingBuildNumber.toString())
-  console.log(
-    'i | committing build number (this may ask for your password if using gpg keys)'
-  )
-  childProcess.execSync(`git commit -m "${verString}" .codaibn`)
-  console.log('i | pushing build number')
-  childProcess.execSync(`git push origin main`)
-  console.log('i | git done')
 
   fs.writeFileSync(
     './src/data/version.json',
@@ -90,7 +78,7 @@ if (!(providedStage === 'dev')) {
     './src/data/version.json',
     JSON.stringify(
       {
-        id: 'xxxxxx.0',
+        id: 'xxxxxx',
         rev: 'xxxxxxx',
         stage: 'development',
       },
