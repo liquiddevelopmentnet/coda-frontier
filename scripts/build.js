@@ -10,7 +10,7 @@ const validStages = ['dev', 'indev', 'infdev', 'alpha', 'beta', 'production']
 var versionData = {
   id: 'xxxxxx',
   rev: 'xxxxxxx',
-  stage: 'development',
+  stage: 'indev',
 }
 
 console.log('')
@@ -65,12 +65,30 @@ if (fs.existsSync('out')) {
 console.log('i | creating production optimized build -> (max 2 minutes)')
 childProcess.execSync('yarn build-react')
 console.log('i | moving directories')
-fs.renameSync('./build', './app/build')
+try {
+  fs.renameSync('./build', './app/build')
+} catch (e) {
+  console.log('e | failed to move build directory, only copying')
+  fs.copyFileSync('./build', './app/build')
+  fs.rmSync('./build', { recursive: true })
+}
 console.log('i | packaging electron -> (2-5 minutes)')
 childProcess.execSync('yarn make', { cwd: './app', stdio: 'ignore' })
 console.log('i | providing build directory in root')
-fs.renameSync('./app/out', './build')
-fs.renameSync('./app/build', './build/browser')
+try {
+  fs.renameSync('./app/out', './build')
+} catch (e) {
+  console.log('e | failed to move build directory, only copying')
+  fs.copyFileSync('./app/out', './build')
+  fs.rmSync('./app/out', { recursive: true })
+}
+try {
+  fs.renameSync('./app/build', './build/browser')
+} catch (e) {
+  console.log('e | failed to move build directory, only copying')
+  fs.copyFileSync('./app/build', './build/browser')
+  fs.rmSync('./app/build', { recursive: true })
+}
 console.log('i | cleaning up')
 
 if (!(providedStage === 'dev')) {
@@ -80,7 +98,7 @@ if (!(providedStage === 'dev')) {
       {
         id: 'xxxxxx',
         rev: 'xxxxxxx',
-        stage: 'development',
+        stage: 'indev',
       },
       null,
       2
