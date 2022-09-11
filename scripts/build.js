@@ -74,7 +74,11 @@ try {
   fs.rmSync('./build', { recursive: true })
 }
 console.log('i | packaging electron -> (2-5 minutes)')
-childProcess.execSync('yarn make', { cwd: './app', stdio: 'ignore' })
+try {
+  childProcess.execSync('yarn make', { cwd: './app', stdio: 'ignore' })
+} catch (e) {
+  childProcess.execSync('/usr/bin/yarn make', { cwd: './app', stdio: 'ignore' })
+}
 console.log('i | providing build directory in root')
 try {
   fs.renameSync('./app/out', './build')
