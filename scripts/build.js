@@ -69,7 +69,7 @@ try {
   fs.renameSync('./build', './app/build')
 } catch (e) {
   console.log('e | failed to move build directory, only copying')
-  fs.copyFileSync('./build', './app/build')
+  copyFolderRecursiveSync('./build', './app/build')
   fs.rmSync('./build', { recursive: true })
 }
 console.log('i | packaging electron -> (2-5 minutes)')
@@ -79,14 +79,14 @@ try {
   fs.renameSync('./app/out', './build')
 } catch (e) {
   console.log('e | failed to move build directory, only copying')
-  fs.copyFileSync('./app/out', './build')
+  copyFolderRecursiveSync('./app/out', './build')
   fs.rmSync('./app/out', { recursive: true })
 }
 try {
   fs.renameSync('./app/build', './build/browser')
 } catch (e) {
   console.log('e | failed to move build directory, only copying')
-  fs.copyFileSync('./app/build', './build/browser')
+  copyFolderRecursiveSync('./app/build', './build/browser')
   fs.rmSync('./app/build', { recursive: true })
 }
 console.log('i | cleaning up')
@@ -134,3 +134,26 @@ archive.directory('./build', 'coda')
 archive.finalize()
 
 console.log('')
+
+function copyFolderRecursiveSync(source, target) {
+  var files = []
+
+  // Check if folder needs to be created or integrated
+  var targetFolder = path.join(target, path.basename(source))
+  if (!fs.existsSync(targetFolder)) {
+    fs.mkdirSync(targetFolder)
+  }
+
+  // Copy
+  if (fs.lstatSync(source).isDirectory()) {
+    files = fs.readdirSync(source)
+    files.forEach(function (file) {
+      var curSource = path.join(source, file)
+      if (fs.lstatSync(curSource).isDirectory()) {
+        copyFolderRecursiveSync(curSource, targetFolder)
+      } else {
+        copyFileSync(curSource, targetFolder)
+      }
+    })
+  }
+}
