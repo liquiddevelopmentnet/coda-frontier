@@ -2,6 +2,7 @@ const childProcess = require('child_process')
 const fs = require('fs')
 const process = require('process')
 const archiver = require('archiver')
+const path = require('path')
 
 const providedStage = process.argv[2]
 
