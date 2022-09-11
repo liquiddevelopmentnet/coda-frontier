@@ -27,6 +27,9 @@
   "SignUp.Captcha.Prompt": "Please solve the following captcha",
   "SignUp.Captcha.Success": "Verification sequence... done.",
 
+  "SignUp.SignUpProcess": "Initializing database injection sequence...",
+  "SignUp.SignUpProcess.Success": "Database injection sequence... done.",
+
   "SignUp.Done": "Initializing teleportation sequence...",
 
   "Settings.Extra.NotAvailableYet": "This feature is *not* implemented yet, be prepared to see it in a further release.",

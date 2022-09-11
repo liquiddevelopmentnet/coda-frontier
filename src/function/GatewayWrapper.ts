@@ -3,9 +3,11 @@
  * All rights reserved.
  */
 
+import axios, { AxiosRequestConfig } from 'axios'
+
 import api from '../data/api.json'
-import axios from 'axios'
 import { hostUrlState } from '../recoil/selectors'
+import { tokenState } from '../recoil/atoms'
 import { useRecoilValue } from 'recoil'
 import { useState } from 'react'
 
@@ -14,17 +16,22 @@ const ApiCall = (
   endpoint: [ApiNamespace, ApiKey],
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
   body: {},
-  errCallback: (err: any) => void,
   urlParams: {} = {},
-  headers: {} = {}
+  headers: {} = {},
+  params: string[] = [],
+  token: string | null = null
 ) => {
   return new Promise<ApiResponse>((resolve, reject) => {
     const [namespace, key] = endpoint
 
     const pathKey: string = namespace + '.' + key
-    const url: string = host + (api as any)[pathKey]
+    var url: string = host + (api as any)[pathKey]
 
-    const config = {
+    for (var i = 0; i < params.length; i++) {
+      url = url.replaceAll(`{${i}}`, params[i])
+    }
+
+    const config: AxiosRequestConfig<any> = {
       method,
       url,
       headers: {
@@ -35,6 +42,11 @@ const ApiCall = (
       },
       data: body,
       params: urlParams,
+      timeout: 4000,
+    }
+
+    if (token) {
+      config.headers!['Authorization'] = 'Bearer ' + token
     }
 
     axios(config)
@@ -80,33 +92,35 @@ const ApiCall = (
 
 export function useApi() {
   const host = useRecoilValue(hostUrlState)
+  const token = useRecoilValue(tokenState)
 
   const [functionProvider, setFunctionProvider] = useState<{
     make: (
       endpoint: [ApiNamespace, ApiKey],
       method: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT' | 'OPTIONS',
       body: {},
-      errCallback: (err: any) => void,
       urlParams?: {},
-      headers?: {}
+      headers?: {},
+      params?: string[]
     ) => Promise<ApiResponse>
   }>({
     make: (
       endpoint,
       method,
       body,
-      errCallback,
       urlParams = {},
-      headers = {}
+      headers = {},
+      params?: string[]
     ): Promise<ApiResponse> => {
       return ApiCall(
         host,
         endpoint,
         method,
         body,
-        errCallback,
         urlParams,
-        headers
+        headers,
+        params,
+        token.access
       )
     },
   })
@@ -114,7 +128,7 @@ export function useApi() {
   return functionProvider
 }
 
-type ApiResponse = {
+export type ApiResponse = {
   error: boolean
   errorMessage: string | null
   statusCode: number

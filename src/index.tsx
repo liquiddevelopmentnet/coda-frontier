@@ -10,7 +10,7 @@ import './assets/thirdParty/react-slider.css'
 
 import ReactDOM from 'react-dom/client'
 import { RecoilRoot } from 'recoil'
-import Root from './pages/Root'
+import RootProvider from './RootProvider'
 import SilentSettings from './function/SilentSettings'
 
 window.addEventListener('devtoolschange', (event: any) => {
@@ -33,10 +33,11 @@ window.addEventListener('devtoolschange', (event: any) => {
 SilentSettings.init()
 
 const root = ReactDOM.createRoot(document.getElementById('codaMount')!)
+
 root.render(
   <>
     <RecoilRoot>
-      <Root />
+      <RootProvider />
     </RecoilRoot>
   </>
 )

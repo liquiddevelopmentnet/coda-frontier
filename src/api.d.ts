@@ -6,6 +6,6 @@
 // Automatically generated from src/data/api.json.
 
 type ApiNamespace = 'Gateway'
-type ApiKey = 'SignUp' | 'LogIn' | 'Validate' | 'Refresh' | 'User'
+type ApiKey = 'Root' | 'SignUp' | 'LogIn' | 'Validate' | 'Refresh' | 'User'
 
-// Latest change: 2022-08-26 17:12:26.701268
+// Latest change: 2022-09-10 20:13:05.001417

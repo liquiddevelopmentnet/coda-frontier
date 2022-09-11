@@ -20,6 +20,7 @@ import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import logo from '../assets/images/blk_logo.png'
 import { useApi } from '../function/GatewayWrapper'
+import { useGateway } from '../function/Gateway'
 import { useTranslations } from '../i18n/i18n'
 
 function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
@@ -36,8 +37,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)
 
-  const api = useApi()
-
+  const gateway = useGateway()
   const setToken = useSetRecoilState(tokenState)
   const setTaskbar = useSetRecoilState(taskbarState)
 
@@ -84,7 +84,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
           type='primary'
           label={t('LogIn.SubmitButton')}
           dominant
-          onClick={() => {
+          onClick={async () => {
             setError('')
             var exec = true
             if (username.current?.value.trim() === '') {
@@ -95,35 +95,31 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
               setPasswordError(t('General.FormFieldEmptyError'))
               exec = false
             }
-            if (!exec) return
-            api
-              .make(
-                ['Gateway', 'LogIn'],
-                'POST',
-                {
-                  username: username.current?.value,
-                  password: password.current?.value,
-                },
-                err => {
-                  setError(err)
-                }
-              )
-              .then(result => {
-                if (result.error) {
-                  setError(result.errorMessage!)
-                  return
-                }
+            if (
+              !exec ||
+              username.current == undefined ||
+              password.current == undefined
+            )
+              return
 
-                SilentSettings.set('refreshToken', result.data.refreshToken!)
-                SilentSettings.set('accessToken', result.data.authToken!)
+            const loginResult = await gateway.login({
+              username: username.current.value,
+              password: password.current.value,
+            })
+            const userDetails = await gateway.getUser({
+              uuid: loginResult[1],
+            })
 
-                setToken({
-                  refresh: result.data.refreshToken!,
-                  access: result.data.authToken!,
-                })
+            console.log(loginResult)
+            console.log(userDetails)
 
-                console.log('Successfully logged in')
-              })
+            SilentSettings.set('refreshToken', loginResult[2])
+            SilentSettings.set('accessToken', loginResult[3])
+
+            setToken({
+              refresh: loginResult[2]!,
+              access: loginResult[3]!,
+            })
           }}
         />
         <div className='mb-6' />

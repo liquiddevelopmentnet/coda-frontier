@@ -9,16 +9,19 @@ import Terminal, {
   captcha,
   clear,
   ermt,
+  getData,
   print,
   prmt,
   type,
 } from '../components/Terminal'
-import { flashState, rootViewState } from '../recoil/atoms'
+import { flashState, rootViewState, tokenState } from '../recoil/atoms'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
 import LogIn from './LogIn'
+import SilentSettings from '../function/SilentSettings'
 import languageSettings from '../i18n/language/_settings.json'
 import { useEffect } from 'react'
+import { useGateway } from '../function/Gateway'
 import { useSettings } from './settings/Settings'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
@@ -43,6 +46,11 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
     // @ts-ignore
     x => print(`[${x}] ${languageSettings.languageNames[x]}`)
   )
+
+  var initialData: any = {}
+
+  const gateway = useGateway()
+  const setToken = useSetRecoilState(tokenState)
 
   return (
     <div className='bg-black w-full h-full'>
@@ -88,23 +96,60 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
           clear(),
           type('SignUp.Welcome'),
           type(''),
-          prmt('SignUp.Prompt.Username', 'name'),
+          prmt('SignUp.Prompt.Username', 'username'),
           prmt('SignUp.Prompt.Email', 'email'),
-          prmt('SignUp.Prompt.Password', 'password'),
-          prmt('SignUp.Prompt.PasswordConfirm', 'passwordRepeat'),
+          ermt('SignUp.Prompt.Password', (val, print) => {
+            initialData['password'] = val
+            return true
+          }),
+          ermt('SignUp.Prompt.PasswordConfirm', (val, print) => {
+            if (val == initialData['password']) {
+              return true
+            } else {
+              return false
+            }
+          }),
           type('SignUp.Captcha.Announcement'),
           1000,
           captcha('SignUp.Captcha.Prompt', val => {
-            console.log('captcha val:')
+            initialData['captcha'] = val
             console.log(val)
           }),
           type('SignUp.Captcha.Success'),
           type(''),
+          type('SignUp.SignUpProcess'),
+          getData(async data => {
+            data = { ...data, ...initialData }
+
+            const signUpResult = await gateway.signUp(data)
+            if (signUpResult[0] == true) {
+              const loginResult = await gateway.login({
+                username: data.username,
+                password: data.password,
+              })
+              const userDetails = await gateway.getUser({
+                uuid: loginResult[1],
+              })
+
+              console.log(signUpResult)
+              console.log(loginResult)
+              console.log(userDetails)
+
+              SilentSettings.set('refreshToken', loginResult[2])
+              SilentSettings.set('accessToken', loginResult[3])
+
+              setToken({
+                refresh: loginResult[2]!,
+                access: loginResult[3]!,
+              })
+            }
+          }),
+          type('SignUp.SignUpProcess.Success'),
+          type(''),
           type('SignUp.Done'),
         ]}
         promptText='coda:~ $'
-        callback={data => {
-          console.log('from signup > ', data)
+        callback={async d => {
           setTimeout(
             () => {
               setFlash(true)
@@ -112,7 +157,7 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
                 setRootView(<LogIn signUpReferred />)
               }, 1000)
             },
-            data != null ? 1000 : 0
+            d != null ? 1000 : 0
           )
         }}
       />

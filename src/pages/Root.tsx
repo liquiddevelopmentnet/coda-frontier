@@ -30,11 +30,8 @@ import { useSafeSettings } from './settings/SafeSettingsHook'
 import { useSettings } from './settings/Settings'
 
 const Root = () => {
-  const settingsController = useSettings()
-
   const settings = useSafeSettings()
 
-  const setElectron = useSetRecoilState(electronState)
   const [token, setToken] = useRecoilState(tokenState)
   const [rootView, setRootView] = useRecoilState(rootViewState)
   const taskbar = useRecoilValue(taskbarState)
@@ -45,11 +42,6 @@ const Root = () => {
   const api = useApi()
 
   useEffect(() => {
-    settingsController.init()
-
-    SilentSettings.conf('refreshToken', null)
-    SilentSettings.conf('accessToken', null)
-
     /*const refreshTokenPresent = SilentSettings.present('refreshToken')
 
     if (refreshTokenPresent) {
@@ -111,24 +103,10 @@ const Root = () => {
         access: SilentSettings.get('accessToken'),
       })
     }*/
-
-    const isElectron = window.require !== undefined
-    if (isElectron) {
-      const isDev =
-        typeof window.process.env.CODA_DEVELOPMENT_ENVIRONMENT != 'undefined' &&
-        window.process.env.CODA_DEVELOPMENT_ENVIRONMENT === 'true'
-      setElectron({
-        is: isElectron,
-        ipc: window.require('electron').ipcRenderer,
-        dev: isDev,
-      })
-    }
   }, [])
 
   return (
     <div className='w-screen h-screen overflow-hidden'>
-      <Toaster />
-      <DesktopHeader />
       <CSSTransition
         classNames={'l-opacity'}
         timeout={500}

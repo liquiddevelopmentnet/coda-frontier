@@ -1,4 +1,5 @@
 {
+  "Gateway.Root": "gateway/",
   "Gateway.SignUp": "gateway/signup",
   "Gateway.LogIn": "gateway/login",
   "Gateway.Validate": "gateway/valid",

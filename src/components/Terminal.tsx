@@ -13,10 +13,12 @@ type ObjStep = {
     | 'password'
     | 'clear'
     | 'captcha'
+    | 'getData'
   payload?: string
   collectionId?: string
   cb?: (value: string, print: (msg: string) => void) => boolean
   cbnp?: (value: string) => void
+  collector?: (data: any) => Promise<void>
 }
 
 type Step = string | number | ObjStep
@@ -54,6 +56,12 @@ function Terminal({
     if (step.type == 'clear') {
       setNodes([])
       return
+    }
+    if (step.type == 'getData') {
+      return new Promise<void>(async resolve => {
+        await step.collector!(finalData)
+        resolve()
+      })
     }
     if (step.type == 'type') {
       return new Promise(resolve => {
@@ -97,7 +105,10 @@ function Terminal({
                     }
                   }
 
-                  if (step.type == 'prompt') resolve()
+                  if (step.type == 'prompt') {
+                    finalData[step.collectionId!] = data
+                    resolve()
+                  }
                 },
               })
             }}
@@ -289,6 +300,15 @@ export const captcha = (
   cbnp: (value: string) => void
 } => {
   return { type: 'captcha', payload, cbnp }
+}
+
+export const getData = (
+  collector: (data: any) => Promise<void>
+): {
+  type: 'getData'
+  collector: (data: any) => Promise<void>
+} => {
+  return { type: 'getData', collector }
 }
 
 export default Terminal
