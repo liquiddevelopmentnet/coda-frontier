@@ -31,11 +31,13 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
     }
   }, [])
 
+  const r = 'F'
+
   return (
     <div className='w-full h-full bg-[#1e293b91]'>
       {user != null && (
         <div className='w-full h-full flex flex-col'>
-          <div className='w-full h-[80px] bg-slate-900 bg-opacity-90 flex px-5 gap-3 items-center'>
+          <div className='w-full h-[80px] bg-slate-900 bg-opacity-90 flex pl-5 gap-3 items-center'>
             <img
               src={user.avatar}
               className='w-10 h-10 rounded-full shadow-lg border border-pink-500'
@@ -51,11 +53,17 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
                 <Badge badge={badge} />
               ))}
             </div>
-            <div className='ml-auto'>
+            <div
+              className={`ml-auto ${
+                user.rank == 'UNRANKED'
+                  ? 'pr-5'
+                  : `flex -rotate-45 h-[2000px] overflow-visible ${RankImages[r][1]}`
+              }`}
+            >
               {user.rank == 'UNRANKED' ? (
                 <p className='text-gray-400 text-xs'>Unranked</p>
               ) : (
-                <img src={RankImages[user.rank]} className='w-14' />
+                <img src={RankImages[r][0]} className='w-[70px]' />
               )}
             </div>
           </div>
