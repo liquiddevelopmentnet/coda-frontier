@@ -47,8 +47,8 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
               <p className='text-gray-400 text-xs'>{user.email}</p>
             </div>
             <div className='flex ml-7'>
-              {user.badges.map(badge => (
-                <Badge badge={badge} />
+              {user.badges.map((badge, index) => (
+                <Badge key={index} badge={badge} />
               ))}
             </div>
             <div
