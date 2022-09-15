@@ -55,6 +55,8 @@ function CrossfadeImage({
       style={{
         filter: `blur(${settings('appearance.backgroundImages.blur', 3)}px)`,
         transform: 'scale(1.05)',
+        maxWidth: '100vw',
+        objectFit: 'cover',
       }}
     >
       <img
