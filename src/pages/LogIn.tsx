@@ -15,11 +15,11 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import ClassicPanel from '../components/ClassicPanel'
 import CommonButton from '../components/CommonButton'
 import CommonInput from '../components/CommonInput'
+import Dashboard from './Dashboard'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
 import logo from '../assets/images/blk_logo.png'
-import { useApi } from '../function/GatewayWrapper'
 import { useGateway } from '../function/Gateway'
 import { useTranslations } from '../i18n/i18n'
 
@@ -36,6 +36,8 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
 
   const [flash, setFlash] = useRecoilState(flashState)
   const setRootView = useSetRecoilState(rootViewState)
+
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const gateway = useGateway()
   const setToken = useSetRecoilState(tokenState)
@@ -84,7 +86,10 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
           type='primary'
           label={t('LogIn.SubmitButton')}
           dominant
+          loading={loggingIn}
           onClick={async () => {
+            if (loggingIn) return
+            setLoggingIn(true)
             setError('')
             var exec = true
             if (username.current?.value.trim() === '') {
@@ -120,6 +125,12 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
               refresh: loginResult[2]!,
               access: loginResult[3]!,
             })
+
+            setLoggingIn(false)
+            setFlash(true)
+            setTimeout(() => {
+              setRootView(<Dashboard finishFlash />)
+            }, 1000)
           }}
         />
         <div className='mb-6' />

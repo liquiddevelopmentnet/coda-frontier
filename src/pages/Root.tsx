@@ -18,6 +18,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 import BackgroundWrapper from '../common/BackgroundWrapper'
 import { CSSTransition } from 'react-transition-group'
+import Dashboard from './Dashboard'
 import DesktopHeader from '../components/DesktopHeader'
 import NoBackgroundReplacement from '../common/NoBackgroundReplacement'
 import Settings from './Settings'

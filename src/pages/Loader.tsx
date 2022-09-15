@@ -1,15 +1,25 @@
+import {
+  electronState,
+  rootViewState,
+  taskbarState,
+  tokenState,
+} from '../recoil/atoms'
 import { useEffect, useState } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
+import Dashboard from './Dashboard'
 import { IoIosWarning } from 'react-icons/io'
-import { electronState } from '../recoil/atoms'
+import SilentSettings from '../function/SilentSettings'
 import { sleep } from '../function/AsyncUtils'
 import { useGateway } from '../function/Gateway'
-import { useRecoilValue } from 'recoil'
 
 function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const [percentage, setPercentage] = useState(0)
   const [error, setError] = useState<string>('')
   const gateway = useGateway()
+  const setRootView = useSetRecoilState(rootViewState)
+  const setToken = useSetRecoilState(tokenState)
+  const setTaskbar = useSetRecoilState(taskbarState)
 
   const electron = useRecoilValue(electronState)
 
@@ -23,6 +33,19 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
       const gatewayAvailable = await gateway.ping()
       if (!gatewayAvailable) {
         return "Can't reach gateway server. Try again later."
+      }
+    },
+    async () => {
+      if (
+        SilentSettings.present('refreshToken') &&
+        SilentSettings.present('accessToken')
+      ) {
+        setToken({
+          refresh: SilentSettings.get('refreshToken'),
+          access: SilentSettings.get('accessToken'),
+        })
+        setTaskbar(true)
+        setRootView(<Dashboard />)
       }
     },
   ]

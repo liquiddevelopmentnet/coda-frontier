@@ -1,9 +1,18 @@
 import { ApiResponse, useApi } from './GatewayWrapper'
+import { atom, useRecoilValue } from 'recoil'
 
-import { StringLiteral } from '@babel/types'
+import SilentSettings from './SilentSettings'
+import { tokenState } from '../recoil/atoms'
+import { tokenToUUID } from './Utils'
+
+const userState = atom<User | null>({
+  key: 'userState',
+  default: null,
+})
 
 export function useGateway() {
   const wrapper = useApi()
+  const token = useRecoilValue(tokenState)
 
   return {
     ping: async (): Promise<boolean> => {
@@ -52,25 +61,38 @@ export function useGateway() {
     getUser: async (data: {
       uuid: string
     }): Promise<[boolean, User] | [boolean, string]> => {
-      const result: ApiResponse = await wrapper.make(
-        ['Gateway', 'User'],
-        'GET',
-        {},
-        {},
-        {},
-        [data.uuid]
-      )
-
-      if (result.error) {
-        return [false, result.errorMessage!]
-      }
-
-      return [true, result.data]
+      return getUser({ wrapper: wrapper, uuid: data.uuid })
+    },
+    getLocalUser: async (): Promise<[boolean, User] | [boolean, string]> => {
+      return getUser({
+        wrapper: wrapper,
+        uuid: tokenToUUID(token.refresh || ''),
+      })
     },
   }
 }
 
-interface User {
+const getUser = async (data: {
+  wrapper: any
+  uuid: string
+}): Promise<[boolean, User] | [boolean, string]> => {
+  const result: ApiResponse = await data.wrapper.make(
+    ['Gateway', 'User'],
+    'GET',
+    {},
+    {},
+    {},
+    [data.uuid]
+  )
+
+  if (result.error) {
+    return [false, result.errorMessage!]
+  }
+
+  return [true, result.data]
+}
+
+export interface User {
   username: string
   uuid: string
   bio: string
@@ -85,7 +107,7 @@ interface User {
   totalPlayed: number
 }
 
-type Badge =
+export type Badge =
   | 'staff.admin'
   | 'staff.moderator'
   | 'special.friend'
@@ -96,9 +118,9 @@ type Badge =
   | 'play.taskcreator'
   | 'play.codar'
 
-type Rank = 'SP' | 'S' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'UNRANKED'
+export type Rank = 'SP' | 'S' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'UNRANKED'
 
-type Permission =
+export type Permission =
   | 'dev.projectcoda.gateway.user'
   | 'dev.projectcoda.gateway.moderator'
   | 'dev.projectcoda.gateway.admin'

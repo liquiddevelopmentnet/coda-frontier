@@ -17,6 +17,7 @@ import Terminal, {
 import { flashState, rootViewState, tokenState } from '../recoil/atoms'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
+import Dashboard from './Dashboard'
 import LogIn from './LogIn'
 import SilentSettings from '../function/SilentSettings'
 import languageSettings from '../i18n/language/_settings.json'
@@ -154,7 +155,7 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
             () => {
               setFlash(true)
               setTimeout(() => {
-                setRootView(<LogIn signUpReferred />)
+                setRootView(<Dashboard finishFlash />)
               }, 1000)
             },
             d != null ? 1000 : 0
