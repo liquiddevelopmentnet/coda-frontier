@@ -31,8 +31,6 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
     }
   }, [])
 
-  const r = 'F'
-
   return (
     <div className='w-full h-full bg-[#1e293b91]'>
       {user != null && (
@@ -57,13 +55,15 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
               className={`ml-auto ${
                 user.rank == 'UNRANKED'
                   ? 'pr-5'
-                  : `flex -rotate-45 h-[2000px] overflow-visible ${RankImages[r][1]}`
+                  : `flex -rotate-45 h-[2000px] overflow-visible ${
+                      RankImages[user.rank][1]
+                    }`
               }`}
             >
               {user.rank == 'UNRANKED' ? (
                 <p className='text-gray-400 text-xs'>Unranked</p>
               ) : (
-                <img src={RankImages[r][0]} className='w-[70px]' />
+                <img src={RankImages[user.rank][0]} className='w-[70px]' />
               )}
             </div>
           </div>
