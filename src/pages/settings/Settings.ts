@@ -21,7 +21,10 @@ const _init = () => {
   return { rec: obj, ret: {} }
 }
 
-const _get = (key: string, def: string | boolean | number | undefined) => {
+const _get = (
+  key: string,
+  def: string | boolean | number | undefined | any[]
+) => {
   var settings = window.localStorage.getItem('_set')
   if (settings == null) {
     _init()
@@ -31,7 +34,10 @@ const _get = (key: string, def: string | boolean | number | undefined) => {
   return { rec: null, ret: obj[key] == undefined ? def : obj[key] }
 }
 
-const _set = (key: string, value: string | boolean | number | undefined) => {
+const _set = (
+  key: string,
+  value: string | boolean | number | undefined | any[]
+) => {
   var settings = window.localStorage.getItem('_set')
   if (settings == null) {
     _init()
@@ -43,7 +49,10 @@ const _set = (key: string, value: string | boolean | number | undefined) => {
   return { rec: obj, ret: undefined }
 }
 
-const _conf = (key: string, value: string | boolean | number | undefined) => {
+const _conf = (
+  key: string,
+  value: string | boolean | number | undefined | any[]
+) => {
   if (_get(key, undefined).ret == undefined) {
     return _set(key, value)
   }
@@ -55,9 +64,18 @@ export function useSettings() {
 
   const [functionProvider, setFunctionProvider] = useState<{
     init: () => any
-    get: (key: string, def: string | boolean | number | undefined) => any
-    set: (key: string, value: string | boolean | number | undefined) => any
-    conf: (key: string, value: string | boolean | number | undefined) => any
+    get: (
+      key: string,
+      def: string | boolean | number | undefined | any[]
+    ) => any
+    set: (
+      key: string,
+      value: string | boolean | number | undefined | any[]
+    ) => any
+    conf: (
+      key: string,
+      value: string | boolean | number | undefined | any[]
+    ) => any
   }>({
     init: () => {
       const result = _init()
@@ -66,21 +84,27 @@ export function useSettings() {
       }
       return result.ret
     },
-    get: (key: string, def: string | boolean | number | undefined) => {
+    get: (key: string, def: string | boolean | number | undefined | any[]) => {
       const result = _get(key, def)
       if (result.rec != null) {
         setRecSettings(result.rec)
       }
       return result.ret
     },
-    set: (key: string, value: string | boolean | number | undefined) => {
+    set: (
+      key: string,
+      value: string | boolean | number | undefined | any[]
+    ) => {
       const result = _set(key, value)
       if (result.rec != null) {
         setRecSettings(result.rec)
       }
       return result.ret
     },
-    conf: (key: string, value: string | boolean | number | undefined) => {
+    conf: (
+      key: string,
+      value: string | boolean | number | undefined | any[]
+    ) => {
       const result = _conf(key, value)
       if (result.rec != null) {
         setRecSettings(result.rec)

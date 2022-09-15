@@ -1,4 +1,5 @@
 import BooleanOption from '../../components/BooleanOption'
+import ListOption from '../../components/ListOption'
 import RangeOption from '../../components/RangeOption'
 import SettingsSection from '../../components/SettingsSection'
 import { useTranslations } from '../../../../i18n/i18n'
@@ -10,6 +11,7 @@ function AppearanceSettings() {
     <div className='w-full'>
       <SettingsSection
         title={t('Settings.AppSettings.Appearance.BackgroundImages')}
+        f
       />
       <BooleanOption
         title={t('Settings.AppSettings.Appearance.BackgroundImages.Enabled')}
@@ -36,6 +38,19 @@ function AppearanceSettings() {
         default={0.1}
         identifier='appearance.backgroundImages.dim'
         dependsOn='appearance.backgroundImages'
+      />
+      <SettingsSection title='Custom Backgrounds' />
+      <ListOption
+        title='Custom Backgrounds'
+        description='Custom background image links'
+        default={[]}
+        identifier='appearance.backgroundImages.custom'
+      />
+      <BooleanOption
+        title='Add Included Backgrounds'
+        description='Add the included backgrounds to the rotation'
+        default={true}
+        identifier='appearance.backgroundImages.included'
       />
     </div>
   )
