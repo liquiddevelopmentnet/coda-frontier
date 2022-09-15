@@ -78,9 +78,9 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   return (
     <div className='w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 flex'>
       <div className='m-auto'>
-        <div className={`${electron.is && 'mb-[22px] text-center space-y-5'}`}>
+        <div className={`${electron.is && 'mb-[22px]'}`}>
           {error === '' ? (
-            <>
+            <div className='flex flex-col text-center space-y-5'>
               <p className='text-white'>Loading...</p>
               <div className='flex h-[1px] w-96 flex-row rounded-full bg-slate-700'>
                 <div
@@ -88,7 +88,7 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
                   style={{ width: `${percentage}%` }}
                 />
               </div>
-            </>
+            </div>
           ) : (
             <>
               <IoIosWarning className='text-5xl text-red-500 mx-auto opacity-90' />
