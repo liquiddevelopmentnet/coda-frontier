@@ -3,7 +3,7 @@ import { flashState, taskbarState } from '../recoil/atoms'
 import { useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
-import BadgeImages from '../function/BadgeImages'
+import Badge from '../components/Badge'
 import CommonButton from '../components/CommonButton'
 import RankImages from '../function/RankImages'
 import { codaToast } from '../function/Toaster'
@@ -48,7 +48,7 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
             </div>
             <div className='flex ml-7'>
               {user.badges.map(badge => (
-                <img src={BadgeImages[badge]} className='w-8' />
+                <Badge badge={badge} />
               ))}
             </div>
             <div className='ml-auto'>

@@ -58,5 +58,26 @@
   "Settings.AppSettings.Language": "Language",
   "Settings.AppSettings.Advanced": "Advanced",
 
-  "Settings.LogOut": "Log Out"
+  "Settings.LogOut": "Log Out",
+
+  "Badges.staff.admin": "Admin (Staff)",
+  "Badges.staff.admin.Description": "The decorated user is an admin of Project Coda.",
+  "Badges.staff.developer": "Developer (Staff)",
+  "Badges.staff.developer.Description": "The decorated user is a developer of Project Coda.",
+  "Badges.staff.moderator": "Moderator (Staff)",
+  "Badges.staff.moderator.Description": "The decorated user is a moderator of Project Coda.",
+  "Badges.special.friend": "Friend",
+  "Badges.special.friend.Description": "The decorated user is a friend of a developer of Project Coda.",
+  "Badges.special.tester": "Early Tester",
+  "Badges.special.tester.Description": "The decorated user tested Project Coda before its first general release.",
+  "Badges.general.devil": "Devil",
+  "Badges.general.devil.Description": "The decorated user has KO-ed a developer of Project Coda.",
+  "Badges.general.patron": "Donator",
+  "Badges.general.patron.Description": "The decorated user is a donator of Project Coda.",
+  "Badges.play.top3": "Top 3",
+  "Badges.play.top3.Description": "The decorated user is in the top 3 of the current leaderboard.",
+  "Badges.play.taskcreator": "Task Creator",
+  "Badges.play.taskcreator.Description": "The decorated user has created a Task that was accepted.",
+  "Badges.play.codar": "Codar",
+  "Badges.play.codar.Description": "The decorated player has won at least one match."
 }
