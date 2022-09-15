@@ -11,6 +11,7 @@ function BooleanOption(props: {
   description: string
   default: boolean
   identifier: string
+  dependsOn?: string
 }) {
   const settings = useSettings()
 

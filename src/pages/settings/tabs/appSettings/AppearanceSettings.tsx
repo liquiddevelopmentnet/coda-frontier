@@ -39,18 +39,19 @@ function AppearanceSettings() {
         identifier='appearance.backgroundImages.dim'
         dependsOn='appearance.backgroundImages'
       />
-      <SettingsSection title='Custom Backgrounds' />
       <ListOption
         title='Custom Backgrounds'
         description='Custom background image links'
         default={[]}
         identifier='appearance.backgroundImages.custom'
+        dependsOn='appearance.backgroundImages'
       />
       <BooleanOption
         title='Add Included Backgrounds'
         description='Add the included backgrounds to the rotation'
         default={true}
         identifier='appearance.backgroundImages.included'
+        dependsOn='appearance.backgroundImages.custom'
       />
     </div>
   )

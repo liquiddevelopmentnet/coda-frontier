@@ -18,6 +18,7 @@ function ListOption(props: {
   description: string
   default: any[]
   identifier: string
+  dependsOn?: string
 }) {
   const settings = useSettings()
   const settingsRec = useRecoilValue(settingsState)

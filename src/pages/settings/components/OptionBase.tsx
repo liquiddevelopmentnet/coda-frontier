@@ -3,6 +3,7 @@ import Slider from 'rc-slider'
 import { settingsState } from '../../../recoil/atoms'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
+import { useSafeSettings } from '../SafeSettingsHook'
 import { useSettings } from '../Settings'
 
 function OptionBase(props: {
@@ -16,6 +17,7 @@ function OptionBase(props: {
   children: React.ReactNode
 }) {
   const settings = useSettings()
+  const safeSettings = useSafeSettings()
 
   useEffect(() => {
     settings.conf(props.inherit.identifier, props.inherit.default)
@@ -27,7 +29,8 @@ function OptionBase(props: {
     <div
       className={`space-y-5 overflow-visible mr-3 ${
         props.inherit.dependsOn != undefined &&
-        settingsRec[props.inherit.dependsOn] == false
+        (settingsRec[props.inherit.dependsOn] == false ||
+          safeSettings(props.inherit.dependsOn!, []).size === 0)
           ? 'opacity-30 pointer-events-none'
           : ''
       }`}
