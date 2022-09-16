@@ -1,25 +1,47 @@
-# Coda Frontend
+![banner](banner.png?raw=true)
+
+### ❗ NOTE: Do **not** push code in here unless otherwise specified by [liquiddevelopmentnet](https://github.com/liquiddevelopmentnet).
 
 <br>
 
-This is the code repository for the frontend.
+This is the main repository for the coda web/desktop app.
 
-Do **NOT** push any code in here, unless specified otherwise by [liquiddevelopmentnet](https://github.com/liquiddevelopmentnet).
+## Issues
+
+If you want to submit a bug or feature please use our [issue tracker](//coda-game/issue-tracker) or if you are a NPT[^npt] of project coda, please use the deveden test suite.
+
+## Setting up a development environment
+**Yarn is required to perform development actions on this codespace!**
+```
+$ git clone git@github.com:coda-game/frontier.git coda-frontier && cd coda-frontier && yarn && cd app && yarn && cd ..
+```
+
+
+This command will set-up a working development directory in `./coda-frontier`.
 
 <br>
 
-## Commands
+To run the app in development mode:
+```
+$ yarn dev
+```
 
-`yarn dev` starts both, the webpack development server and electron
+## List of scripts
 
-`yarn build [dev, indev, infdev, alpha, beta, production]` builds the application in the selected stage, skips versioning if `dev` is selected
+`translate.exe` / `scripts/translation_tool.py`: Start the *i18n* wizard.
 
-`translate` start the i18n wizard
+`scripts/generate_api_typings.py`: Generates typings for the [api.json](src/data/api.json) file.
 
-<br>
+`scripts/generate_background_export.py` Generates exports for the background provided in [this folder](src/assets/includedBackgrounds).
 
-## Manual Scripts
+## Building
 
-`generate_api_typings.py` generates the corresponding typings for the [api.json](src/data/api.json) file
+❗ NOTE: Do **not** build for non-dev stages as this automatically done by our artifact server.
 
-`generate_background_export.py` generates a file where the backgrounds can be imported from
+```
+$ yarn build <stage>
+```
+
+Valid stages: `[dev, indev, infdev, alpha, beta, production]`
+
+[^npt]: Non- Public Tester
