@@ -77,7 +77,7 @@ console.log('i | packaging electron -> (2-5 minutes)')
 try {
   childProcess.execSync('yarn make', { cwd: './app', stdio: 'pipe' })
 } catch (e) {
-  childProcess.execSync('/usr/bin/yarn make', { cwd: './app', stdio: 'pipe' })
+  childProcess.execSync('sudo yarn make', { cwd: './app', stdio: 'pipe' })
 }
 console.log('i | providing build directory in root')
 try {
