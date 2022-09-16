@@ -155,7 +155,13 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
             () => {
               setFlash(true)
               setTimeout(() => {
-                setRootView(<Dashboard finishFlash />)
+                setRootView(
+                  d == null ? (
+                    <LogIn signUpReferred />
+                  ) : (
+                    <Dashboard finishFlash />
+                  )
+                )
               }, 1000)
             },
             d != null ? 1000 : 0
