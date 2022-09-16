@@ -16,7 +16,7 @@ type ObjStep = {
     | 'getData'
   payload?: string
   collectionId?: string
-  cb?: (value: string, print: (msg: string) => void) => boolean
+  cb?: (value: string, print: (msg: string) => void) => boolean | 'break'
   cbnp?: (value: string) => void
   collector?: (data: any) => Promise<void>
 }
@@ -89,15 +89,16 @@ function Terminal({
                     '‎',
                   ])
                   if (step.type == 'eprompt' && step.cb) {
-                    if (
-                      step.cb(data, (msg: string) => {
-                        setNodes((nodes: any) => [
-                          ...nodes,
-                          <p className='font-mono text-base'>{msg}</p>,
-                        ])
-                      })
-                    ) {
+                    const res = step.cb(data, (msg: string) => {
+                      setNodes((nodes: any) => [
+                        ...nodes,
+                        <p className='font-mono text-base'>{msg}</p>,
+                      ])
+                    })
+                    if (res == true) {
                       resolve()
+                    } else if (res == 'break') {
+                      return
                     } else {
                       type_Process(step).then(() => {
                         resolve()
@@ -278,11 +279,11 @@ export const prmt = (
 
 export const ermt = (
   question: string,
-  cb: (value: string, print: (msg: string) => void) => boolean
+  cb: (value: string, print: (msg: string) => void) => boolean | 'break'
 ): {
   type: 'eprompt'
   payload: string
-  cb: (value: string, print: (msg: string) => void) => boolean
+  cb: (value: string, print: (msg: string) => void) => boolean | 'break'
 } => {
   return { type: 'eprompt', payload: question, cb }
 }

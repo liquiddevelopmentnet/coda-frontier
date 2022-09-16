@@ -72,7 +72,7 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
                     setRootView(<LogIn signUpReferred />)
                   }, 1000)
                 }, 1000)
-                return false
+                return 'break'
               } else if (val.toLowerCase() == 'n') {
                 return true
               } else {
