@@ -32,7 +32,7 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
   }, [])
 
   return (
-    <div className='w-full h-full bg-[#1e293b91]'>
+    <div className='w-full h-full bg-[#1e293b91] select-none'>
       {user != null && (
         <div className='w-full h-full flex flex-col'>
           <div className='w-full h-[80px] bg-slate-900 bg-opacity-90 flex pl-5 gap-3 items-center'>
