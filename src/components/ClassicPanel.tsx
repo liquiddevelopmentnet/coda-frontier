@@ -15,7 +15,7 @@ function ClassicPanel({
   return (
     <div className='bg-white bg-opacity-80 m-auto p-7 rounded-[4px] flex flex-col items-center z-20 shadow-2xl'>
       {children}
-      <p className='text-xs text-red-500'>{error}</p>
+      <p className='text-xs text-red-500 mt-4'>{error}</p>
     </div>
   )
 }

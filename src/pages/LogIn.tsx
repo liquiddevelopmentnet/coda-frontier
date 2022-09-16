@@ -111,9 +111,22 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
               username: username.current.value,
               password: password.current.value,
             })
+
+            if (loginResult[0] == false) {
+              setError(t(loginResult[1]))
+              setLoggingIn(false)
+              return
+            }
+
             const userDetails = await gateway.getUser({
               uuid: loginResult[1],
             })
+
+            if (userDetails[0] == false) {
+              setError('Failed to get user details.')
+              setLoggingIn(false)
+              return
+            }
 
             console.log(loginResult)
             console.log(userDetails)
