@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   electronState,
+  rootViewState,
   settingsWindowState,
   showRootContentState,
+  tokenState,
 } from '../recoil/atoms'
 
 import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
@@ -15,9 +17,12 @@ import { FaDiscord } from 'react-icons/fa'
 import FriendRequestsSettings from './settings/tabs/userSettings/FriendRequestsSettings'
 import { IoLogOut } from 'react-icons/io5'
 import LanguageSettings from './settings/tabs/appSettings/LanguageSettings'
+import LogIn from './LogIn'
 import ProfileSettings from './settings/tabs/userSettings/ProfileSettings'
 import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
+import SilentSettings from '../function/SilentSettings'
 import SoundSettings from './settings/tabs/appSettings/SoundSettings'
+import { codaToast } from '../function/Toaster'
 import { useLinkOpener } from '../function/LinkOpener'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
@@ -35,6 +40,8 @@ function Settings() {
   const setShowRootContent = useSetRecoilState(showRootContentState)
   const electron = useRecoilValue(electronState)
   const activeTab = useRecoilValue(activeTabState)
+  const setRootView = useSetRecoilState(rootViewState)
+  const [token, setToken] = useRecoilState(tokenState)
 
   useEffect(() => {
     window.onkeydown = e => {
@@ -106,16 +113,29 @@ function Settings() {
               />
             </SettingsTabGroup>
           )}
-          <SettingsTabGroup title={null}>
-            <SettingsTab
-              id='logout'
-              name={t('Settings.LogOut')}
-              icon={<IoLogOut color='white' size={20} />}
-              customAction={() => {
-                console.log('logout')
-              }}
-            />
-          </SettingsTabGroup>
+          {token.access != null && token.refresh != null && (
+            <SettingsTabGroup title={null}>
+              <SettingsTab
+                id='logout'
+                name={t('Settings.LogOut')}
+                icon={<IoLogOut color='white' size={20} />}
+                customAction={() => {
+                  SilentSettings.set('refreshToken', undefined)
+                  SilentSettings.set('accessToken', undefined)
+
+                  setToken({
+                    refresh: null,
+                    access: null,
+                  })
+
+                  setSettingsWindow(false)
+                  setShowRootContent(true)
+                  setRootView(<LogIn />)
+                  codaToast({ type: 'success', message: 'Logged out' })
+                }}
+              />
+            </SettingsTabGroup>
+          )}
           <div className='flex mt-3'>
             <FaDiscord
               color='white'
