@@ -1,6 +1,13 @@
 {
   "Header.AppName": "coda",
 
+  "Gateway.UsernameUsed": "Username is already in use",
+  "Gateway.EmailUsed": "Email is already in use",
+  "Gateway.Captcha": "Invalid captcha",
+  "Gateway.BadCredentials": "Bad credentials",
+  "Gateway.Unauthorized": "Unauthorized",
+  "Gateway.Parameters": "Invalid parameters",
+
   "Taskbar.Music.NowPlaying": "Now Playing",
   "Taskbar.Music.Paused": "Paused",
   "Taskbar.Music.By": "by",
