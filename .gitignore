@@ -12,11 +12,6 @@
 /builds
 /out
 
-# app
-/app/node_modules
-/app/build
-/app/out
-
 # misc
 .DS_Store
 .env.local
