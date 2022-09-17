@@ -1,5 +1,4 @@
 import {
-  electronState,
   rootViewState,
   taskbarState,
   tokenState,
@@ -13,6 +12,8 @@ import SilentSettings from '../function/SilentSettings'
 import { sleep } from '../function/AsyncUtils'
 import { useGateway } from '../function/Gateway'
 
+declare const window: any;
+
 function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const [percentage, setPercentage] = useState(0)
   const [error, setError] = useState<string>('')
@@ -20,8 +21,6 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const setRootView = useSetRecoilState(rootViewState)
   const setToken = useSetRecoilState(tokenState)
   const setTaskbar = useSetRecoilState(taskbarState)
-
-  const electron = useRecoilValue(electronState)
 
   const steps = [
     async () => {
@@ -78,7 +77,7 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   return (
     <div className='w-full h-full bg-gradient-to-b from-slate-800 to-slate-900 flex'>
       <div className='m-auto'>
-        <div className={`${electron.is && 'mb-[22px]'}`}>
+        <div className={`${window.__TAURI__ && 'mb-[22px]'}`}>
           {error === '' ? (
             <div className='flex flex-col text-center space-y-5'>
               <p className='text-white'>Loading...</p>

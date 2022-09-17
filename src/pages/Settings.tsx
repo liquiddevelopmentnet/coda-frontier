@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
-  electronState,
   rootViewState,
   settingsWindowState,
   showRootContentState,
   tokenState,
 } from '../recoil/atoms'
+
+declare const window: any;
 
 import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
 import AppearanceSettings from './settings/tabs/appSettings/AppearanceSettings'
@@ -38,13 +39,12 @@ function Settings() {
 
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
   const setShowRootContent = useSetRecoilState(showRootContentState)
-  const electron = useRecoilValue(electronState)
   const activeTab = useRecoilValue(activeTabState)
   const setRootView = useSetRecoilState(rootViewState)
   const [token, setToken] = useRecoilState(tokenState)
 
   useEffect(() => {
-    window.onkeydown = e => {
+    window.onkeydown = (e: any) => {
       if (e.key === 'Escape') {
         setSettingsWindow(false)
         setShowRootContent(true)
@@ -59,7 +59,7 @@ function Settings() {
   return (
     <div
       className={`w-full h-full absolute left-0 z-30 bg-transparent ${
-        electron.is ? 'top-[22px]' : 'top-0'
+        window.__TAURI__ ? 'top-[22px]' : 'top-0'
       }`}
     >
       <div className='flex w-full h-full'>
@@ -104,7 +104,7 @@ function Settings() {
               target={<AdvancedSettings />}
             />
           </SettingsTabGroup>
-          {electron.is && electron.dev && (
+          {window.__TAURI__ && (
             <SettingsTabGroup title={null}>
               <SettingsTab
                 id='dev'

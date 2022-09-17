@@ -3,19 +3,18 @@
  * All rights reserved.
  */
 
-import { electronState } from '../recoil/atoms'
-import { useRecoilValue } from 'recoil'
+import { open } from '@tauri-apps/api/shell'
 import { useState } from 'react'
 
-export function useLinkOpener() {
-  const electron = useRecoilValue(electronState)
+declare const window: any;
 
+export function useLinkOpener() {
   const [functionProvider, setFunctionProvider] = useState<{
     open: (link: string) => any
   }>({
     open: (link: string) => {
-      if (electron.is) {
-        electron.ipc.send('open_url', link)
+      if (window.__TAURI__) {
+        open(link)
       } else {
         window.open(link, '_blank')
       }
