@@ -5,7 +5,7 @@ description = "A speed programming game where you have to solve problems to try 
 authors = ["liquiddevelopmentnet"]
 license = "MIT"
 repository = "https://github.com/coda-game/frontier"
-default-run = "app"
+default-run = "coda"
 edition = "2021"
 rust-version = "1.57"
 
