@@ -13,7 +13,7 @@ If you want to submit a bug or feature please use our [issue tracker](//coda-gam
 ## Setting up a development environment
 **Yarn is required to perform development actions on this codespace!**
 ```
-$ git clone git@github.com:coda-game/frontier.git coda-frontier && cd coda-frontier && yarn && cd app && yarn && cd ..
+$ git clone git@github.com:coda-game/frontier.git coda-frontier && cd coda-frontier && yarn
 ```
 
 
@@ -23,7 +23,7 @@ This command will set-up a working development directory in `./coda-frontier`.
 
 To run the app in development mode:
 ```
-$ yarn dev
+$ yarn tauri dev
 ```
 
 ## List of scripts
@@ -39,9 +39,9 @@ $ yarn dev
 ❗ NOTE: Do **not** build for non-dev stages as this automatically done by our artifact server.
 
 ```
-$ yarn build <stage>
+$ yarn tauri build --target <target>
 ```
 
-Valid stages: `[dev, indev, infdev, alpha, beta, production]`
+Valid targets: Run `rustup target list`
 
 [^npt]: Non- Public Tester

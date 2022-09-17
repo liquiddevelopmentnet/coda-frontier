@@ -9,18 +9,17 @@ import {
   VscChromeMinimize,
 } from 'react-icons/vsc'
 
-import { electronState } from '../recoil/atoms'
-import { useRecoilValue } from 'recoil'
 import { useTranslations } from '../i18n/i18n'
+import { appWindow } from '@tauri-apps/api/window'
+
+declare const window: any;
 
 function DesktopHeader() {
   const t = useTranslations()
 
-  const electron = useRecoilValue(electronState)
-
   return (
     <>
-      {electron.is && (
+      {window.__TAURI__ && (
         <div className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between z-50'>
           <p className='text-white jetbrains-regular text-xs ml-2 my-auto'>
             {t('Header.AppName')}
@@ -28,7 +27,7 @@ function DesktopHeader() {
           <div className='flex h-full drag-region-reserve'>
             <div
               onClick={() => {
-                electron.ipc.send('window_minimize')
+                appWindow.minimize()
               }}
               className='h-full flex w-7 hover:bg-slate-700 cursor-pointer'
             >
@@ -36,7 +35,7 @@ function DesktopHeader() {
             </div>
             <div
               onClick={() => {
-                electron.ipc.send('window_toggle_maximize')
+                appWindow.toggleMaximize()
               }}
               className='h-full flex w-7 hover:bg-slate-700 cursor-pointer'
             >
@@ -44,7 +43,7 @@ function DesktopHeader() {
             </div>
             <div
               onClick={() => {
-                electron.ipc.send('window_close')
+                appWindow.close()
               }}
               className='h-full flex w-7 hover:bg-red-500 cursor-pointer'
             >

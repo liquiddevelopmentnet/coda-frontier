@@ -6,7 +6,6 @@
 import '../transitions.css'
 
 import {
-  electronState,
   flashState,
   rootViewState,
   settingsWindowState,
@@ -14,21 +13,16 @@ import {
   taskbarState,
   tokenState,
 } from '../recoil/atoms'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 import BackgroundWrapper from '../common/BackgroundWrapper'
 import { CSSTransition } from 'react-transition-group'
-import Dashboard from './Dashboard'
-import DesktopHeader from '../components/DesktopHeader'
 import NoBackgroundReplacement from '../common/NoBackgroundReplacement'
 import Settings from './Settings'
-import SilentSettings from '../function/SilentSettings'
 import Taskbar from '../components/Taskbar'
-import { Toaster } from 'react-hot-toast'
 import { useApi } from '../function/GatewayWrapper'
 import { useEffect } from 'react'
 import { useSafeSettings } from './settings/SafeSettingsHook'
-import { useSettings } from './settings/Settings'
 
 const Root = () => {
   const settings = useSafeSettings()

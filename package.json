@@ -1,6 +1,5 @@
 {
   "name": "coda",
-  "main": "src/electron.js",
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
@@ -8,6 +7,7 @@
   "description": "A speed programming game where you have to solve problems to try and eliminate other people.",
   "dependencies": {
     "@animxyz/react": "^0.6.7",
+    "@tauri-apps/api": "^1.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
@@ -31,13 +31,11 @@
     "stream-browserify": "^3.0.0"
   },
   "scripts": {
-    "dev": "nf start",
-    "devwps": "react-app-rewired start",
-    "devdes": "cd app && set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "build-react": "react-app-rewired build",
+    "dev": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "build": "node scripts/build.js"
+    "tauri": "tauri"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
+    "@tauri-apps/cli": "^1.1.1",
     "@types/axios": "^0.14.0",
     "@types/babel__core": "^7.1.19",
     "@types/rc-slider": "^9.3.1",
