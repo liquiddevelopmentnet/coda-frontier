@@ -9,10 +9,10 @@ import {
   VscChromeMinimize,
 } from 'react-icons/vsc'
 
-import { useTranslations } from '../i18n/i18n'
 import { appWindow } from '@tauri-apps/api/window'
+import { useTranslations } from '../i18n/i18n'
 
-declare const window: any;
+declare const window: any
 
 function DesktopHeader() {
   const t = useTranslations()
@@ -20,7 +20,10 @@ function DesktopHeader() {
   return (
     <>
       {window.__TAURI__ && (
-        <div className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between z-50'>
+        <div
+          data-tauri-drag-region
+          className='h-[22px] w-screen drag-region bg-slate-800 flex justify-between z-50'
+        >
           <p className='text-white jetbrains-regular text-xs ml-2 my-auto'>
             {t('Header.AppName')}
           </p>
