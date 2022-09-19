@@ -1,18 +1,15 @@
-import {
-  rootViewState,
-  taskbarState,
-  tokenState,
-} from '../recoil/atoms'
+import { rootViewState, taskbarState, tokenState } from '../recoil/atoms'
 import { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import Dashboard from './Dashboard'
 import { IoIosWarning } from 'react-icons/io'
 import SilentSettings from '../function/SilentSettings'
+import { invoke } from '@tauri-apps/api/tauri'
 import { sleep } from '../function/AsyncUtils'
 import { useGateway } from '../function/Gateway'
 
-declare const window: any;
+declare const window: any
 
 function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const [percentage, setPercentage] = useState(0)
@@ -24,7 +21,7 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
 
   const steps = [
     async () => {
-      // give the user the illusion of loading something
+      await invoke('set_rpc', { state: 'Loading', detail: '' })
       await sleep(1123)
     },
     async () => {

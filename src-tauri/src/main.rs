@@ -3,33 +3,19 @@
     windows_subsystem = "windows"
 )]
 
-extern crate discord_rpc_client;
+mod rpc;
 
-use discord_rpc_client::Client;
-use std::time::SystemTime;
+#[tauri::command]
+fn set_rpc(state: &str, detail: &str) -> String {
+    rpc::set_rpc(state, detail);
+    "Success".to_string()
+}
 
 fn main() {
-    let mut drcp: Client = Client::new(1017047174686715975).expect("Failed to create client");
-    drcp.start();
-
-    if let Err(why) = drcp.set_activity(|a| {
-        a.state("Speed Programming 1v1")
-            .details("Ingame")
-            .timestamps(|t| {
-                t.start(
-                    SystemTime::now()
-                        .duration_since(SystemTime::UNIX_EPOCH)
-                        .unwrap()
-                        .as_millis() as u64,
-                )
-            })
-            .assets(|a| a.large_image("lki").large_text("Coda"))
-            .instance(true)
-    }) {
-        println!("Failed to set presence: {}", why);
-    }
+    rpc::init();
 
     tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![set_rpc])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

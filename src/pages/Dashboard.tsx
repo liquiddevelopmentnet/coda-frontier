@@ -7,6 +7,7 @@ import Badge from '../components/Badge'
 import CommonButton from '../components/CommonButton'
 import RankImages from '../function/RankImages'
 import { codaToast } from '../function/Toaster'
+import { invoke } from '@tauri-apps/api/tauri'
 
 function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
   const [flash, setFlash] = useRecoilState(flashState)
@@ -16,6 +17,7 @@ function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
 
   useEffect(() => {
     ;(async () => {
+      await invoke('set_rpc', { state: 'Dashboard', detail: '' })
       const result = await gw.getLocalUser()
       if (result[0] == false) {
         codaToast({ message: result[1] as string, type: 'error' })
