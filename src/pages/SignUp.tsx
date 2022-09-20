@@ -20,8 +20,8 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import Dashboard from './Dashboard'
 import LogIn from './LogIn'
 import SilentSettings from '../function/SilentSettings'
-import { invoke } from '@tauri-apps/api/tauri'
 import languageSettings from '../i18n/language/_settings.json'
+import { useDiscordRpc } from '../function/DiscordRpc'
 import { useEffect } from 'react'
 import { useGateway } from '../function/Gateway'
 import { useSettings } from './settings/Settings'
@@ -36,10 +36,10 @@ function SignUp({ loginReferred = false }: { loginReferred?: boolean }) {
 
   const settings = useSettings()
 
+  const drpc = useDiscordRpc()
+
   useEffect(() => {
-    ;(async () => {
-      await invoke('set_rpc', { state: 'Sign Up Wizard', detail: '' })
-    })()
+    drpc('Sign Up Wizard', '')
     if (loginReferred) {
       setTimeout(() => {
         setFlash(false)

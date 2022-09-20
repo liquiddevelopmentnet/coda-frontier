@@ -7,17 +7,18 @@ import Badge from '../components/Badge'
 import CommonButton from '../components/CommonButton'
 import RankImages from '../function/RankImages'
 import { codaToast } from '../function/Toaster'
-import { invoke } from '@tauri-apps/api/tauri'
+import { useDiscordRpc } from '../function/DiscordRpc'
 
 function Dashboard({ finishFlash = false }: { finishFlash?: boolean }) {
   const [flash, setFlash] = useRecoilState(flashState)
   const [user, setUser] = useState<User | null>(null)
   const setTaskbar = useSetRecoilState(taskbarState)
   const gw = useGateway()
+  const drpc = useDiscordRpc()
 
   useEffect(() => {
     ;(async () => {
-      await invoke('set_rpc', { state: 'Dashboard', detail: '' })
+      drpc('Dashboard', '')
       const result = await gw.getLocalUser()
       if (result[0] == false) {
         codaToast({ message: result[1] as string, type: 'error' })

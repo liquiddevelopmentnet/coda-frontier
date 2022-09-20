@@ -1,13 +1,13 @@
 import { rootViewState, taskbarState, tokenState } from '../recoil/atoms'
 import { useEffect, useState } from 'react'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import Dashboard from './Dashboard'
 import { IoIosWarning } from 'react-icons/io'
 import SilentSettings from '../function/SilentSettings'
-import { invoke } from '@tauri-apps/api/tauri'
 import { sleep } from '../function/AsyncUtils'
+import { useDiscordRpc } from '../function/DiscordRpc'
 import { useGateway } from '../function/Gateway'
+import { useSetRecoilState } from 'recoil'
 
 declare const window: any
 
@@ -18,10 +18,11 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const setRootView = useSetRecoilState(rootViewState)
   const setToken = useSetRecoilState(tokenState)
   const setTaskbar = useSetRecoilState(taskbarState)
+  const drpc = useDiscordRpc()
 
   const steps = [
     async () => {
-      await invoke('set_rpc', { state: 'Loading', detail: '' })
+      drpc('Loading', '')
       await sleep(1123)
     },
     async () => {
