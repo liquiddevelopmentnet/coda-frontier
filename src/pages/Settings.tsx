@@ -7,8 +7,6 @@ import {
   tokenState,
 } from '../recoil/atoms'
 
-declare const window: any;
-
 import AdvancedSettings from './settings/tabs/appSettings/AdvancedSettings'
 import AppearanceSettings from './settings/tabs/appSettings/AppearanceSettings'
 import { CgClose } from 'react-icons/cg'
@@ -27,6 +25,8 @@ import { codaToast } from '../function/Toaster'
 import { useLinkOpener } from '../function/LinkOpener'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
+
+declare const window: any
 
 const activeTabState = atom<{ id: string; node: React.ReactNode }>({
   key: 'activeTabState',
