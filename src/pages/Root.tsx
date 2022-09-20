@@ -124,7 +124,7 @@ const Root = () => {
           classNames={'simple-popup'}
           timeout={200}
           in={settingsWindow}
-          unmountOnExit
+          mountOnEnter
         >
           <Settings />
         </CSSTransition>

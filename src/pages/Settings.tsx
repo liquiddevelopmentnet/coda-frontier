@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { User, useGateway } from '../function/Gateway'
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import {
   rootViewState,
@@ -33,17 +34,34 @@ const activeTabState = atom<{ id: string; node: React.ReactNode }>({
   default: { id: 'profile', node: <ProfileSettings /> },
 })
 
+export const settingsUserState = atom<User | null>({
+  key: 'settingsUserState',
+  default: null,
+})
+
 function Settings() {
   const t = useTranslations()
   const linkOpener = useLinkOpener()
 
+  const [user, setUser] = useRecoilState(settingsUserState)
+
   const setSettingsWindow = useSetRecoilState(settingsWindowState)
   const setShowRootContent = useSetRecoilState(showRootContentState)
-  const activeTab = useRecoilValue(activeTabState)
+  const [activeTab, setActiveTab] = useRecoilState(activeTabState)
   const setRootView = useSetRecoilState(rootViewState)
   const [token, setToken] = useRecoilState(tokenState)
 
+  const gw = useGateway()
+
   useEffect(() => {
+    ;(async () => {
+      const result = await gw.getLocalUser()
+      if (result[0] == false) {
+        codaToast({ message: result[1] as string, type: 'error' })
+      }
+      setUser(result[1] as User)
+    })()
+
     window.onkeydown = (e: any) => {
       if (e.key === 'Escape') {
         setSettingsWindow(false)
@@ -104,7 +122,7 @@ function Settings() {
               target={<AdvancedSettings />}
             />
           </SettingsTabGroup>
-          {window.__TAURI__ && (
+          {user?.permissions.includes('dev.projectcoda.gateway.admin') && (
             <SettingsTabGroup title={null}>
               <SettingsTab
                 id='dev'

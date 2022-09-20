@@ -32,7 +32,7 @@ function LanguageSettings() {
 
   return (
     <div className='w-full space-y-2'>
-      <SettingsSection title={t('Settings.AppSettings.Language')} />
+      <SettingsSection title={t('Settings.AppSettings.Language')} f />
       {Object.keys(languageSettings.languageNames).map((lang, index) => {
         return (
           <div key={index}>
