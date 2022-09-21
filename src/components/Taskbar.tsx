@@ -74,10 +74,12 @@ function Taskbar() {
           nextSong()
         } else if (e.key === 'MediaPlayPause') {
           e.preventDefault()
+          SilentSettings.set('background_music', !isPlaying)
           setIsPlaying(!isPlaying)
         } else if (e.key === 'MediaStop') {
           e.preventDefault()
           setIsPlaying(false)
+          SilentSettings.set('background_music', false)
         }
       }}
       tabIndex={10000}
