@@ -3,14 +3,14 @@ import SettingsSection from '../components/SettingsSection'
 import { codaToast } from '../../../function/Toaster'
 import { invoke } from '@tauri-apps/api/tauri'
 
-// ! Note: This component is *not* internationalized because it is only used for development purposes.n
+// ! Note: This component is *not* internationalized because it is only used for development purposes.
 
 function DeveloperOptions() {
   return (
-    <div className='w-full'>
+    <div className='w-full ml-1 overflow-visible'>
       <SettingsSection title='networking' />
       <SettingsSection title='discord rpc' />
-      <div className='flex items-center justify-center w-full space-x-5 overflow-visible'>
+      <div className='flex items-center justify-center w-3/4 space-x-5 overflow-visible'>
         <input
           type='text'
           id='dev-drpc-state'

@@ -22,35 +22,9 @@ import ReactHowler from 'react-howler'
 import SilentSettings from '../function/SilentSettings'
 import Slider from 'rc-slider'
 import TextTime from './TextTime'
-import downtownNewYork from '../assets/soundtrack/downtown-newyork.mp3'
-import justAnotherBeautiful from '../assets/soundtrack/just-another-beautiful.mp3'
-import ostCoconutBeach from '../assets/soundtrack/coconut-beach.mp3'
-import ostSx from '../assets/soundtrack/sx.mp3'
+import soundtracks from '../function/Soundtrack'
 import { useLinkOpener } from '../function/LinkOpener'
 import { useTranslations } from '../i18n/i18n'
-
-const soundtracks = [
-  {
-    name: 'Six',
-    src: ostSx,
-    artist: 'lazafard',
-  },
-  {
-    name: 'Coconut Beach',
-    src: ostCoconutBeach,
-    artist: 'lazafard',
-  },
-  {
-    name: 'Downtown New York',
-    src: downtownNewYork,
-    artist: 'lazafard',
-  },
-  {
-    name: 'Just another beautiful',
-    src: justAnotherBeautiful,
-    artist: 'lazafard',
-  },
-]
 
 function Taskbar() {
   const t = useTranslations()
@@ -93,7 +67,21 @@ function Taskbar() {
   }, [])
 
   return (
-    <div>
+    <div
+      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'MediaTrackNext') {
+          e.preventDefault()
+          nextSong()
+        } else if (e.key === 'MediaPlayPause') {
+          e.preventDefault()
+          setIsPlaying(!isPlaying)
+        } else if (e.key === 'MediaStop') {
+          e.preventDefault()
+          setIsPlaying(false)
+        }
+      }}
+      tabIndex={10000}
+    >
       <ReactHowler
         src={currentSoundtrack.src}
         playing={isPlaying}
