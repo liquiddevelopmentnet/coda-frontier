@@ -19,7 +19,7 @@ import Dashboard from './Dashboard'
 import HintWithLinkAfter from '../components/HintWithLinkAfter'
 import SignUp from './SignUp'
 import SilentSettings from '../function/SilentSettings'
-import logo from '../assets/images/blk_logo.png'
+import logo from '../assets/images/logo.svg'
 import { useDiscordRpc } from '../function/DiscordRpc'
 import { useGateway } from '../function/Gateway'
 import { useTranslations } from '../i18n/i18n'
@@ -61,7 +61,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   return (
     <div className='w-full h-full flex select-none font-mono'>
       <ClassicPanel error={error}>
-        <img src={logo} className='w-12 mb-4 my-auto' alt='logo' />
+        <img src={logo} className='w-24 mb-4 my-auto' alt='logo' />
         <div className='text-center'>
           <p className='text-black text-3xl font-bold mb-1'>
             {t('LogIn.Title')}
