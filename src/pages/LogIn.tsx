@@ -61,7 +61,7 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
   return (
     <div className='w-full h-full flex select-none font-mono'>
       <ClassicPanel error={error}>
-        <img src={logo} className='w-24 mb-4 my-auto' alt='logo' />
+        <img src={logo} className='w-12 mb-6 my-4' alt='logo' />
         <div className='text-center'>
           <p className='text-black text-3xl font-bold mb-1'>
             {t('LogIn.Title')}

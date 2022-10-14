@@ -39,7 +39,7 @@ function Taskbar() {
     name: string
     src: string | string[]
     artist: string
-  }>(soundtracks[Math.floor(Math.random() * soundtracks.length)])
+  }>(soundtracks[0])
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(0.3)

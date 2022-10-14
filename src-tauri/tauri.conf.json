@@ -19,9 +19,7 @@
       "category": "DeveloperTool",
       "copyright": "",
       "deb": {
-        "depends": [
-          "discord-rpc-client"
-        ]
+        "depends": ["discord-rpc-client"]
       },
       "externalBin": [],
       "icon": [
@@ -66,7 +64,8 @@
         "width": 1100,
         "height": 650,
         "minWidth": 700,
-        "minHeight": 500
+        "minHeight": 500,
+        "maximized": true
       }
     ]
   }
