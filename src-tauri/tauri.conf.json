@@ -61,10 +61,10 @@
         "center": true,
         "focus": true,
         "decorations": false,
-        "width": 1100,
-        "height": 650,
-        "minWidth": 700,
-        "minHeight": 500,
+        "width": 1440,
+        "height": 823,
+        "minWidth": 1000,
+        "minHeight": 650,
         "maximized": true
       }
     ]
