@@ -6820,6 +6820,13 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+licenses-list-generator@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/licenses-list-generator/-/licenses-list-generator-0.7.2.tgz#b201dac32b18750e60a7d5cc9acbbafa50e2badc"
+  integrity sha512-q1kWVCjDIwU0DYSDg7njFABVCLyEOgW6iiVK5yVBORR3LNYQiCdHMTovR5bXZQMgEbgoWtS0sKenw+TXD98bww==
+  dependencies:
+    chalk "^2.4.1"
+
 lilconfig@^2.0.3, lilconfig@^2.0.5, lilconfig@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.6.tgz#32a384558bd58af3d4c6e077dd1ad1d397bc69d4"

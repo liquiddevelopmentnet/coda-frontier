@@ -17,6 +17,7 @@ import { FaDiscord } from 'react-icons/fa'
 import FriendRequestsSettings from './settings/tabs/userSettings/FriendRequestsSettings'
 import { IoLogOut } from 'react-icons/io5'
 import LanguageSettings from './settings/tabs/appSettings/LanguageSettings'
+import Licenses from './settings/tabs/Licenses'
 import LogIn from './LogIn'
 import ProfileSettings from './settings/tabs/userSettings/ProfileSettings'
 import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
@@ -165,9 +166,18 @@ function Settings() {
             />
           </div>
           <p className='text-xxs text-gray-500 mt-3'>{`coda (${version.stage}) ${version.id} (${version.rev})`}</p>
+          <p
+            onClick={() => {
+              setActiveTab({ id: 'osl', node: <Licenses /> })
+            }}
+            className='text-xxs text-gray-500 hover:text-gray-600 mt-1 cursor-pointer select-none underline'
+          >{`open source licenses`}</p>
         </div>
-        <div className='w-full h-full bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar select-none'>
-          <div className='mr-24'>{activeTab.node}</div>
+        <div className='w-full h-full'>
+          <div className='w-full h-[94%] bg-[#1e293be2] p-6 pb-24 overflow-y-auto custom-scrollbar select-none'>
+            <div className='mr-24'>{activeTab.node}</div>
+          </div>
+          <div className='w-full h-[6%] bg-[#1e293be2] flex justify-end items-center' />
         </div>
         <div className='w-16 bg-[#1e293be2] p-4'>
           <CgClose
