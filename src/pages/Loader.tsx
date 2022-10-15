@@ -88,7 +88,7 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
             </div>
           ) : (
             <>
-              <IoIosWarning className='text-5xl text-red-500 mx-auto opacity-90' />
+              <IoIosWarning className='text-5xl text-red-500 mx-auto opacity-90 mb-2' />
               <p className='text-red-500 opacity-90 text-sm'>{error}</p>
             </>
           )}
