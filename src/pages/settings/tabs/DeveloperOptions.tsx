@@ -1,11 +1,15 @@
 import CommonButton from '../../../components/CommonButton'
+import DefaultPopup from '../../../components/DefaultPopup'
+import { IoIosWarning } from 'react-icons/io'
 import SettingsSection from '../components/SettingsSection'
 import { codaToast } from '../../../function/Toaster'
 import { invoke } from '@tauri-apps/api/tauri'
+import { usePopups } from '../../../components/Popuper'
 
 // ! Note: This component is *not* internationalized because it is only used for development purposes.
 
 function DeveloperOptions() {
+  const popup = usePopups()
   return (
     <div className='w-full ml-1 overflow-visible'>
       <SettingsSection title='networking' />
@@ -76,6 +80,36 @@ function DeveloperOptions() {
               message: 'This is a example info toast',
               type: 'info',
             })
+          }}
+        />
+      </div>
+      <div className='flex space-x-3 mt-3'>
+        <CommonButton
+          label='Show Test Popup'
+          type='secondary'
+          onClick={() => {
+            popup.dispatch(
+              <DefaultPopup
+                buttons='yesno'
+                icon={
+                  <IoIosWarning className='text-2xl text-white opacity-90' />
+                }
+                title='Test Popup'
+                description='This is a test popup'
+                onYes={() => {
+                  codaToast({
+                    type: 'success',
+                    message: 'You clicked yes!',
+                  })
+                }}
+                onNo={() => {
+                  codaToast({
+                    type: 'error',
+                    message: 'You clicked no!',
+                  })
+                }}
+              />
+            )
           }}
         />
       </div>
