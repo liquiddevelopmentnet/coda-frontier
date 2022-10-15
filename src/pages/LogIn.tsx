@@ -95,8 +95,6 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
           loading={loggingIn}
           onClick={async () => {
             if (loggingIn) return
-            setLoggingIn(true)
-            setError('')
             var exec = true
             if (username.current?.value.trim() === '') {
               setUsernameError(t('General.FormFieldEmptyError'))
@@ -112,6 +110,9 @@ function LogIn({ signUpReferred = false }: { signUpReferred?: boolean }) {
               password.current == undefined
             )
               return
+
+            setLoggingIn(true)
+            setError('')
 
             const loginResult = await gateway.login({
               username: username.current.value,
