@@ -1,13 +1,20 @@
-import { rootViewState, taskbarState, tokenState } from '../recoil/atoms'
+import {
+  hostState,
+  rootViewState,
+  taskbarState,
+  tokenState,
+} from '../recoil/atoms'
 import { useEffect, useState } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import Dashboard from './Dashboard'
+import DefaultPopup from '../components/DefaultPopup'
 import { IoIosWarning } from 'react-icons/io'
 import SilentSettings from '../function/SilentSettings'
 import { sleep } from '../function/AsyncUtils'
 import { useDiscordRpc } from '../function/DiscordRpc'
 import { useGateway } from '../function/Gateway'
-import { useSetRecoilState } from 'recoil'
+import { usePopups } from '../components/Popuper'
 
 declare const window: any
 
@@ -18,11 +25,30 @@ function Loader({ setLoaded }: { setLoaded: (loaded: boolean) => void }) {
   const setRootView = useSetRecoilState(rootViewState)
   const setToken = useSetRecoilState(tokenState)
   const setTaskbar = useSetRecoilState(taskbarState)
+  const host = useRecoilValue(hostState)
   const drpc = useDiscordRpc()
+  const popup = usePopups()
 
   const steps = [
     async () => {
       drpc('Loading', '')
+      await new Promise(resolve => {
+        if (!host.secure) {
+          popup.dispatch(
+            <DefaultPopup
+              buttons='gotit'
+              icon={<IoIosWarning className='text-2xl text-white opacity-90' />}
+              title='Unsecure connection!'
+              description='The connection to the server is not secure. This means that your data can be stolen by a third party by intercepting the connection. This is a fatal error, please contact the developer of this application if you are using it in a public release. You can ignore this warning if you are using this application in a development environment or as tester.'
+              closeOnDocumentClick={false}
+              closeOnEscape={false}
+              onOk={() => {
+                resolve(true)
+              }}
+            />
+          )
+        }
+      })
       await sleep(1123)
     },
     async () => {
