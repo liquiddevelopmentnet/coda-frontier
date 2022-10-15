@@ -23,7 +23,7 @@ export const hostState = atom<ProvidedHostState>({
   key: 'hostState',
   default: {
     secure: false,
-    host: '42.60.221.133',
+    host: '115.66.168.228',
     suffix: '',
     port: 20560,
   },
