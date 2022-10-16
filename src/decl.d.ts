@@ -22,3 +22,9 @@ type ProvidedHostState = {
   suffix: string
   port: number | null
 }
+
+type DiscordMeta = {
+  username: string
+  discriminator: string
+  id: number
+}

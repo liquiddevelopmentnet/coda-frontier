@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { User, useGateway } from '../function/Gateway'
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 import {
   rootViewState,
   settingsWindowState,
@@ -24,6 +24,7 @@ import SecuritySettings from './settings/tabs/userSettings/SecuritySettings'
 import SilentSettings from '../function/SilentSettings'
 import SoundSettings from './settings/tabs/appSettings/SoundSettings'
 import { codaToast } from '../function/Toaster'
+import { invoke } from '@tauri-apps/api/tauri'
 import { useLinkOpener } from '../function/LinkOpener'
 import { useTranslations } from '../i18n/i18n'
 import version from '../data/version.json'
@@ -51,6 +52,7 @@ function Settings() {
   const [activeTab, setActiveTab] = useRecoilState(activeTabState)
   const setRootView = useSetRecoilState(rootViewState)
   const [token, setToken] = useRecoilState(tokenState)
+  const [discord, setDiscord] = useState<DiscordMeta | undefined>(undefined)
 
   const gw = useGateway()
 
@@ -62,6 +64,12 @@ function Settings() {
       }
       setUser(result[1] as User)
     })()
+
+    invoke('get_discord_user').then(result => {
+      if (result != 'null') {
+        setDiscord(JSON.parse(result as string))
+      }
+    })
 
     window.onkeydown = (e: any) => {
       if (e.key === 'Escape') {
@@ -166,6 +174,7 @@ function Settings() {
             />
           </div>
           <p className='text-xxs text-gray-500 mt-3'>{`coda (${version.stage}) ${version.id} (${version.rev})`}</p>
+          <p className='text-xxs text-gray-500 mt-1'>{`discord: ${discord?.username}#${discord?.discriminator}`}</p>
           <p
             onClick={() => {
               setActiveTab({ id: 'osl', node: <Licenses /> })
