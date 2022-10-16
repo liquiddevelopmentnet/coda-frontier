@@ -27,8 +27,8 @@ function DefaultPopup(props: {
     >
       {/* @ts-ignore */}
       {(close: any) => (
-        <div className='bg-slate-800 w-full h-full border border-slate-900 rounded-[4px] p-5 flex flex-col'>
-          <div className='flex flex-col py-4 px-4'>
+        <div className='bg-slate-800 w-full h-full border border-slate-900 rounded-[4px] flex flex-col'>
+          <div className='flex flex-col p-9'>
             {props.icon != undefined ? (
               <div className='flex justify-start items-center gap-2'>
                 {props.icon}
@@ -44,56 +44,32 @@ function DefaultPopup(props: {
             </p>
             {props.children}
           </div>
-          {props.buttons === 'yesno' && (
-            <div className='flex gap-2 mt-5 w-full justify-end'>
-              <CommonButton
-                label='No'
-                type='error'
-                onClick={() => {
-                  if (props.onNo != undefined) {
-                    props.onNo()
-                  }
-                  close()
-                }}
-              />
-              <CommonButton
-                label='Yes'
-                type='success'
-                onClick={() => {
-                  if (props.onYes != undefined) {
-                    props.onYes()
-                  }
-                  close()
-                }}
-              />
-            </div>
-          )}
-          {props.buttons === 'ok' && (
-            <div className='flex gap-2 mt-5 w-full justify-end'>
-              <CommonButton
-                label='Ok'
-                type='secondary'
-                onClick={() => {
-                  if (props.onOk != undefined) {
-                    props.onOk()
-                  }
-                  close()
-                }}
-              />
-            </div>
-          )}
-          {props.buttons === 'okcancel' && (
-            <div className='flex gap-2 mt-5 w-full justify-end'>
-              <CommonButton
-                label='Cancel'
-                type='error'
-                onClick={() => {
-                  if (props.onCancel != undefined) {
-                    props.onCancel()
-                  }
-                  close()
-                }}
-              />
+          <div className='flex gap-2 mt-5 w-full justify-end bg-slate-900 p-5'>
+            {props.buttons === 'yesno' && (
+              <>
+                <CommonButton
+                  label='No'
+                  type='error'
+                  onClick={() => {
+                    if (props.onNo != undefined) {
+                      props.onNo()
+                    }
+                    close()
+                  }}
+                />
+                <CommonButton
+                  label='Yes'
+                  type='success'
+                  onClick={() => {
+                    if (props.onYes != undefined) {
+                      props.onYes()
+                    }
+                    close()
+                  }}
+                />
+              </>
+            )}
+            {props.buttons === 'ok' && (
               <CommonButton
                 label='Ok'
                 type='secondary'
@@ -104,10 +80,32 @@ function DefaultPopup(props: {
                   close()
                 }}
               />
-            </div>
-          )}
-          {props.buttons === 'gotit' && (
-            <div className='flex gap-2 mt-5 w-full justify-end'>
+            )}
+            {props.buttons === 'okcancel' && (
+              <>
+                <CommonButton
+                  label='Cancel'
+                  type='error'
+                  onClick={() => {
+                    if (props.onCancel != undefined) {
+                      props.onCancel()
+                    }
+                    close()
+                  }}
+                />
+                <CommonButton
+                  label='Ok'
+                  type='secondary'
+                  onClick={() => {
+                    if (props.onOk != undefined) {
+                      props.onOk()
+                    }
+                    close()
+                  }}
+                />
+              </>
+            )}
+            {props.buttons === 'gotit' && (
               <CommonButton
                 label='Got it'
                 type='secondary'
@@ -118,8 +116,8 @@ function DefaultPopup(props: {
                   close()
                 }}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </Popup>
