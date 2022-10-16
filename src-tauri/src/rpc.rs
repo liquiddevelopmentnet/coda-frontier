@@ -1,14 +1,19 @@
-extern crate discord_rpc_client;
+use discord_rich_presence::{
+    activity::{self, Activity},
+    DiscordIpc, DiscordIpcClient,
+};
+use std::{
+    time::{SystemTime, UNIX_EPOCH},
+    vec,
+};
 
-use discord_rpc_client::Client;
-use std::time::SystemTime;
-
-static mut CLIENT: Option<Client> = None;
+static mut CLIENT: Option<DiscordIpcClient> = None;
 
 pub fn init() {
     unsafe {
-        CLIENT = Some(Client::new(1017047174686715975).expect("Failed to create client"));
-        CLIENT.as_mut().unwrap().start();
+        CLIENT =
+            Some(DiscordIpcClient::new("1017047174686715975").expect("Failed to create client"));
+        CLIENT.as_mut().unwrap().connect();
 
         set_rpc("Booting", "");
     }
@@ -16,35 +21,42 @@ pub fn init() {
 
 pub fn set_rpc(state: &str, detail: &str) {
     unsafe {
-        if let Err(why) = CLIENT.as_mut().unwrap().set_activity(|a| {
-            if detail != "" {
-                a.state(state)
-                    .details(detail)
-                    .timestamps(|t| {
-                        t.start(
-                            SystemTime::now()
-                                .duration_since(SystemTime::UNIX_EPOCH)
-                                .unwrap()
-                                .as_millis() as u64,
-                        )
-                    })
-                    .assets(|a| a.large_image("lki").large_text("Coda Gaming™️"))
-                    .instance(true)
-            } else {
-                a.state(state)
-                    .timestamps(|t| {
-                        t.start(
-                            SystemTime::now()
-                                .duration_since(SystemTime::UNIX_EPOCH)
-                                .unwrap()
-                                .as_millis() as u64,
-                        )
-                    })
-                    .assets(|a| a.large_image("lki").large_text("Coda Gaming™️"))
-                    .instance(true)
-            }
-        }) {
-            println!("Failed to set presence: {}", why);
+        let mut activity = activity::Activity::new();
+
+        let enable_timer = true;
+
+        if detail != "" {
+            activity = activity.details(&detail);
         }
+
+        if state != "" {
+            activity = activity.state(&state);
+        }
+
+        let mut assets = activity::Assets::new();
+
+        assets = assets.large_image("lki");
+
+        assets = assets.large_text("Coda Gaming™️");
+
+        activity = activity.assets(assets);
+
+        activity = activity.buttons(vec![
+            activity::Button::new("Launch Coda", "https://youtu.be/dQw4w9WgXcQ"),
+            activity::Button::new("Visit Deveden", "https://deveden.co"),
+        ]);
+
+        let time_unix = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_secs() as i64;
+
+        activity = activity.timestamps(activity::Timestamps::new().start(time_unix));
+
+        CLIENT
+            .as_mut()
+            .unwrap()
+            .set_activity(activity)
+            .expect("Failed to set activity");
     }
 }
