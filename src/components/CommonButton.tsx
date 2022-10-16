@@ -52,7 +52,7 @@ function CommonButton({
       className={`${
         dominant
           ? 'w-full h-[40px] px-4 text-base'
-          : 'min-w-fit p-[30px] px-4 text-sm'
+          : 'min-w-fit h-[30px] px-4 text-sm'
       } rounded-[4px] duration-200 shadow-xl flex ${
         loading || disabled
           ? 'cursor-not-allowed'
