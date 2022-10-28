@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import OptionBase from './OptionBase'
 import ReactCommonmark from 'react-commonmark'
 import Slider from 'rc-slider'

@@ -1,6 +1,6 @@
 /*
- * Copyright Project Coda, LLC, 2022.
- * All rights reserved.
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
  */
 
 // DEPRECATED: This may be replaced by a more robust solution soon(tm).

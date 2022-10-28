@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import { useEffect, useRef, useState } from 'react'
 
 import Popup from 'reactjs-popup'

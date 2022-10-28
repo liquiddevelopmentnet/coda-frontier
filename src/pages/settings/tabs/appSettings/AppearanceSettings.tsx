@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import BooleanOption from '../../components/BooleanOption'
 import ListOption from '../../components/ListOption'
 import RangeOption from '../../components/RangeOption'

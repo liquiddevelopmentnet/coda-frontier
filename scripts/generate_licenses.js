@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 const licensesList = require('licenses-list-generator')
 const fs = require('fs')
 

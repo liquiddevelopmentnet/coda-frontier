@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import React from 'react'
 
 function SettingsSection({ title, f = false }: { title: string; f?: boolean }) {

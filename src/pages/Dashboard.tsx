@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import { User, useGateway } from '../function/Gateway'
 import { flashState, taskbarState } from '../recoil/atoms'
 import { useEffect, useState } from 'react'

@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import React, { useEffect, useState } from 'react'
 import { User, useGateway } from '../function/Gateway'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'

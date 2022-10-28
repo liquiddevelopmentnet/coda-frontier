@@ -1,12 +1,12 @@
 /*
- * Copyright Project Coda, LLC, 2022.
- * All rights reserved.
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
  */
 
 import { open } from '@tauri-apps/api/shell'
 import { useState } from 'react'
 
-declare const window: any;
+declare const window: any
 
 export function useLinkOpener() {
   const [functionProvider, setFunctionProvider] = useState<{

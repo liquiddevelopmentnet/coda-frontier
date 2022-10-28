@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import { atom, useRecoilState } from 'recoil'
 
 import Flags from 'country-flag-icons/react/3x2'

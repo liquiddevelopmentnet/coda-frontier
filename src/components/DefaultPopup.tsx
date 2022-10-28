@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import CommonButton from './CommonButton'
 import Popup from 'reactjs-popup'
 import { PopupPosition } from 'reactjs-popup/dist/types'

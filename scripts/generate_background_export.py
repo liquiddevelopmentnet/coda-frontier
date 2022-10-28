@@ -1,3 +1,8 @@
+#
+# Copyright github.com/liquiddevelopmentnet, 2022.
+# All rights reserved. Do not distribute without permission.
+#
+
 import os
 from datetime import datetime
 
@@ -7,7 +12,8 @@ with open("src/function/BackgroundImages.ts", "w") as f:
     exports = []
     for file in os.listdir("src/assets/includedBackgrounds"):
         exports.append(file.split(".")[0])
-        f.write(f"""import {file.split(".")[0]} from \"../assets/includedBackgrounds/{file}\"\n""")
+        f.write(
+            f"""import {file.split(".")[0]} from \"../assets/includedBackgrounds/{file}\"\n""")
 
     f.write("\n")
     f.write(f"export default [{', '.join(exports)}]")

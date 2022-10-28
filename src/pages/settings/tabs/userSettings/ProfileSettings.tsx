@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import { useRecoilState, useRecoilValue } from 'recoil'
 
 import ActivityIndicator from '../../../../components/ActivityIndicator'

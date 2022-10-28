@@ -1,8 +1,11 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import OptionBase from './OptionBase'
-import ReactCommonmark from 'react-commonmark'
 import Toggle from 'react-toggle'
 import { settingsState } from '../../../recoil/atoms'
-import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useSettings } from '../Settings'
 

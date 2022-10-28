@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 pub use discord_sdk as ds;
 use ds::activity::Secrets;
 use std::{num::NonZeroU32, time::SystemTime};

@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import SettingsNotice from '../../components/SettingsNotice'
 import { useTranslations } from '../../../../i18n/i18n'
 

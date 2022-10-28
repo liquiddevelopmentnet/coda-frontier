@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 export class Cachable<T> {
   private call: () => Promise<T>
   private cache: T | undefined

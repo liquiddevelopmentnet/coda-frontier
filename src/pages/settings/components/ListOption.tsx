@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import { IoMdAdd, IoMdRemove } from 'react-icons/io'
 import { atom, useRecoilState, useRecoilValue } from 'recoil'
 import { useEffect, useState } from 'react'

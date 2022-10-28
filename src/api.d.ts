@@ -1,7 +1,7 @@
 /*
-* Copyright Project Coda, LLC, 2022.
-* All rights reserved.
-*/
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
 
 // Automatically generated from src/data/api.json.
 

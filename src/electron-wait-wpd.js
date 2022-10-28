@@ -1,6 +1,6 @@
 /*
- * Copyright Project Coda, LLC, 2022.
- * All rights reserved.
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
  */
 
 const net = require('net')
@@ -17,10 +17,16 @@ const tryConnection = () =>
     client.end()
     if (!startedElectron) {
       console.log('starting electron')
-      console.log(`running: ${(process.platform == 'win32') ? 'set ' : ''}ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`)
+      console.log(
+        `running: ${
+          process.platform == 'win32' ? 'set ' : ''
+        }ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`
+      )
       startedElectron = true
       child_process.execSync(
-        `${(process.platform == 'win32') ? 'set ' : ''}ELECTRON_START_URL=${process.env.ELECTRON_START_URL} && yarn start`,
+        `${process.platform == 'win32' ? 'set ' : ''}ELECTRON_START_URL=${
+          process.env.ELECTRON_START_URL
+        } && yarn start`,
         { stdio: 'pipe', cwd: './app' }
       )
     }

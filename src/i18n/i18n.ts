@@ -1,6 +1,6 @@
 /*
- * Copyright Project Coda, LLC, 2022.
- * All rights reserved.
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
  */
 
 import React, { useEffect } from 'react'

@@ -1,3 +1,8 @@
+/*
+ * Copyright github.com/liquiddevelopmentnet, 2022.
+ * All rights reserved. Do not distribute without permission.
+ */
+
 import a from '../assets/soundtrack/tranquil;randomproducing.mp3'
 import b from '../assets/soundtrack/citrine;randomproducing.mp3'
 import c from '../assets/soundtrack/begin;randomproducing.mp3'
