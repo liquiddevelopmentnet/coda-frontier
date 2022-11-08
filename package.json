@@ -59,7 +59,7 @@
     "@babel/eslint-parser": "^7.19.1",
     "@tauri-apps/cli": "^1.1.1",
     "@types/axios": "^0.14.0",
-    "@types/babel__core": "^7.1.19",
+    "@types/babel__core": "^7.1.20",
     "@types/rc-slider": "^9.3.1",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-howler": "^5.2.0",
