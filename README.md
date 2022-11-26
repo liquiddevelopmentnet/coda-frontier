@@ -1,6 +1,6 @@
 ![banner](banner.png?raw=true)
 
-<br>
+## The end of coda
 
 Hi there, first of all: this repository may contain unfinished and probably not working code.
 
@@ -12,7 +12,7 @@ You are welcome to use parts of this product in yours, but you have to respect t
 
 **Any uses of this code in sense of a coding game and or under the name "Coda" or "Project Coda" is forbidden**
 
-Thanks for the great time.
+Thanks for the great time. ❤
 
 ## Showcase
 
