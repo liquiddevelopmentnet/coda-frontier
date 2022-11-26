@@ -1,47 +1,19 @@
 ![banner](banner.png?raw=true)
 
-### ❗ NOTE: Do **not** push code in here unless otherwise specified by [liquiddevelopmentnet](https://github.com/liquiddevelopmentnet).
-
 <br>
 
-This is the main repository for the coda web/desktop app.
+Hi there, first of all: this repository may contain unfinished and probably not working code.
 
-## Issues
+"Project Coda" was a project maintained by me and [@gsayson](//github.com/gsayson), due to private reasons this project sadly had to end, but since I put a lot of work in especially the frontier (desktop & web app) I thought I will just open source it, so people may get inspiration.
 
-If you want to submit a bug or feature please use our [issue tracker](//coda-game/issue-tracker) or if you are a NPT[^npt] of project coda, please use the deveden test suite.
+> Project Coda is a speed programming game where you solve a seemingly infinite set of problems until your opponents cannot keep up the pace.
 
-## Setting up a development environment
-**Yarn is required to perform development actions on this codespace!**
-```
-$ git clone git@github.com:coda-game/frontier.git coda-frontier && cd coda-frontier && yarn
-```
+You are welcome to use parts of this product in yours, but you have to respect the [license](LICENSE.md) and provide attribution.
 
+**Any uses of this code in sense of a coding game and or under the name "Coda" or "Project Coda" is forbidden**
 
-This command will set-up a working development directory in `./coda-frontier`.
+Thanks for the great time.
 
-<br>
+## Showcase
 
-To run the app in development mode:
-```
-$ yarn tauri dev
-```
-
-## List of scripts
-
-`translate.exe` / `scripts/translation_tool.py`: Start the *i18n* wizard.
-
-`scripts/generate_api_typings.py`: Generates typings for the [api.json](src/data/api.json) file.
-
-`scripts/generate_background_export.py` Generates exports for the background provided in [this folder](src/assets/includedBackgrounds).
-
-## Building
-
-❗ NOTE: Do **not** build for non-dev stages as this automatically done by our artifact server.
-
-```
-$ yarn tauri build --target <target>
-```
-
-Valid targets: Run `rustup target list`
-
-[^npt]: Non- Public Tester
+_I will upload some screenshots of the app later_
