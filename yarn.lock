@@ -8259,10 +8259,10 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-rc-slider@*, rc-slider@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-10.0.1.tgz#7058c68ff1e1aa4e7c3536e5e10128bdbccb87f9"
-  integrity sha512-igTKF3zBet7oS/3yNiIlmU8KnZ45npmrmHlUUio8PNbIhzMcsh+oE/r2UD42Y6YD2D/s+kzCQkzQrPD6RY435Q==
+rc-slider@*, rc-slider@^10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-10.1.0.tgz#11e401d8412ae20f9c2ee478bdbaddd042158753"
+  integrity sha512-nhC8V0+lNj4gGKZix2QAfcj/EP3NvCtFhNJPFMvXUdn7pe8bSa2vXNSxQVN5b9veVSic4Xeqgd/7KamX3gqznA==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "^2.2.5"
